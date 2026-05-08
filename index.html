@@ -185,13 +185,24 @@ section.line-top{border-top:1px solid var(--line)}
   border:1px solid var(--line);padding:.22rem .7rem;
   font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);
 }
-.contact-row{display:flex;flex-direction:column;gap:.6rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.contact-section{position:relative;overflow:hidden;min-height:520px;padding-bottom:0}
+.contact-panel{position:relative;z-index:2;text-align:center;padding-bottom:1rem}
+.contact-title{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);
+  font-weight:400;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.1rem;
+}
+.contact-row{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem 1.6rem;
+  margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line);
+}
 .contact-item{font-size:.9rem;color:var(--ink-mid);letter-spacing:.04em}
 .contact-item a{color:var(--ink-mid);text-decoration:none}
 .contact-item a:hover{color:var(--ink)}
+.ball-pit{position:relative;z-index:1;height:310px;margin-top:1.8rem}
+#ball-canvas{width:100%;height:100%;display:block;touch-action:none}
 
 footer{
-  padding:2.5rem 2.5rem;border-top:1px solid var(--line);
+  padding:2rem 2.5rem;border-top:1px solid var(--line);
   display:flex;justify-content:space-between;align-items:center;gap:1rem;
 }
 .foot-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--ink-mid)}
@@ -342,11 +353,6 @@ footer{
           <span class="tag">Product Design</span>
           <span class="tag">Digital Drawing</span>
         </div>
-        <div class="contact-row">
-          <span class="contact-item">Email: <a href="mailto:yux089@ucsd.edu">yux089@ucsd.edu</a></span>
-          <span class="contact-item">Location: La Jolla, CA</span>
-          <span class="contact-item">Phone: <a href="tel:+16199537173">+1 619 953 7173</a></span>
-        </div>
       </div>
     </div>
   </div>
@@ -484,6 +490,21 @@ footer{
       </div>
       <div class="w-arr">→</div>
     </a>
+  </div>
+</section>
+
+<section id="contact" class="contact-section line-top">
+  <div class="section-inner contact-panel">
+    <p class="sec-label">Contact</p>
+    <h2 class="contact-title">Get In Touch</h2>
+    <div class="contact-row">
+      <span class="contact-item">Email: <a href="mailto:yux089@ucsd.edu">yux089@ucsd.edu</a></span>
+      <span class="contact-item">Location: La Jolla, CA</span>
+      <span class="contact-item">Phone: <a href="tel:+16199537173">+1 619 953 7173</a></span>
+    </div>
+  </div>
+  <div class="ball-pit" aria-hidden="true">
+    <canvas id="ball-canvas"></canvas>
   </div>
 </section>
 
@@ -640,6 +661,145 @@ if(nameWrap&&nameCanvas){
   window.addEventListener('resize',()=>{
     clearTimeout(window.nameParticleResizeTimer);
     window.nameParticleResizeTimer=setTimeout(buildNameParticles,180);
+  });
+}
+
+const ballCanvas=document.getElementById('ball-canvas');
+let ballCtx;
+let balls=[];
+const ballPointer={x:-9999,y:-9999,active:false};
+const ballColors=[
+  'rgba(114,172,198,.72)',
+  'rgba(143,194,211,.62)',
+  'rgba(231,246,250,.88)',
+  'rgba(255,255,255,.92)'
+];
+
+function resizeBallPit(){
+  if(!ballCanvas)return;
+  const rect=ballCanvas.getBoundingClientRect();
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  ballCanvas.width=Math.max(1,Math.floor(rect.width*dpr));
+  ballCanvas.height=Math.max(1,Math.floor(rect.height*dpr));
+  ballCtx=ballCanvas.getContext('2d');
+  ballCtx.setTransform(dpr,0,0,dpr,0,0);
+  const targetCount=window.innerWidth<700?24:38;
+  while(balls.length<targetCount){
+    const r=Math.random()*20+(window.innerWidth<700?18:24);
+    balls.push({
+      x:Math.random()*rect.width,
+      y:rect.height-r-Math.random()*90,
+      vx:(Math.random()-.5)*2,
+      vy:(Math.random()-.5)*2,
+      r,
+      color:ballColors[Math.floor(Math.random()*ballColors.length)]
+    });
+  }
+  balls=balls.slice(0,targetCount).map(b=>({
+    ...b,
+    x:Math.min(Math.max(b.x,b.r),rect.width-b.r),
+    y:Math.min(Math.max(b.y,b.r),rect.height-b.r)
+  }));
+}
+
+function drawGlassBall(b){
+  const grad=ballCtx.createRadialGradient(b.x-b.r*.35,b.y-b.r*.42,b.r*.12,b.x,b.y,b.r);
+  grad.addColorStop(0,'rgba(255,255,255,.95)');
+  grad.addColorStop(.25,b.color);
+  grad.addColorStop(1,'rgba(70,121,159,.28)');
+  ballCtx.fillStyle=grad;
+  ballCtx.beginPath();
+  ballCtx.arc(b.x,b.y,b.r,0,Math.PI*2);
+  ballCtx.fill();
+  ballCtx.strokeStyle='rgba(255,255,255,.55)';
+  ballCtx.lineWidth=1.2;
+  ballCtx.stroke();
+  ballCtx.fillStyle='rgba(255,255,255,.48)';
+  ballCtx.beginPath();
+  ballCtx.arc(b.x-b.r*.34,b.y-b.r*.34,b.r*.22,0,Math.PI*2);
+  ballCtx.fill();
+}
+
+function animateBallPit(){
+  if(ballCtx&&ballCanvas){
+    const rect=ballCanvas.getBoundingClientRect();
+    ballCtx.clearRect(0,0,rect.width,rect.height);
+    balls.forEach((b,i)=>{
+      b.vy+=.18;
+      const dx=b.x-ballPointer.x;
+      const dy=b.y-ballPointer.y;
+      const dist=Math.hypot(dx,dy);
+      if(ballPointer.active&&dist<b.r+95){
+        const force=(b.r+95-dist)/(b.r+95);
+        const angle=Math.atan2(dy,dx);
+        b.vx+=Math.cos(angle)*force*3.4;
+        b.vy+=Math.sin(angle)*force*3.4;
+      }
+      for(let j=i+1;j<balls.length;j++){
+        const o=balls[j];
+        const ox=o.x-b.x;
+        const oy=o.y-b.y;
+        const od=Math.hypot(ox,oy)||1;
+        const min=b.r+o.r;
+        if(od<min){
+          const push=(min-od)*.5;
+          const nx=ox/od;
+          const ny=oy/od;
+          b.x-=nx*push;
+          b.y-=ny*push;
+          o.x+=nx*push;
+          o.y+=ny*push;
+          const rel=(b.vx-o.vx)*nx+(b.vy-o.vy)*ny;
+          if(rel>0){
+            b.vx-=rel*nx*.55;
+            b.vy-=rel*ny*.55;
+            o.vx+=rel*nx*.55;
+            o.vy+=rel*ny*.55;
+          }
+        }
+      }
+      b.x+=b.vx;
+      b.y+=b.vy;
+      b.vx*=.985;
+      b.vy*=.985;
+      if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)*.72;}
+      if(b.x>rect.width-b.r){b.x=rect.width-b.r;b.vx=-Math.abs(b.vx)*.72;}
+      if(b.y<b.r){b.y=b.r;b.vy=Math.abs(b.vy)*.72;}
+      if(b.y>rect.height-b.r){b.y=rect.height-b.r;b.vy=-Math.abs(b.vy)*.62;b.vx*=.94;}
+      drawGlassBall(b);
+    });
+  }
+  requestAnimationFrame(animateBallPit);
+}
+
+if(ballCanvas){
+  resizeBallPit();
+  animateBallPit();
+  ballCanvas.addEventListener('pointermove',e=>{
+    const rect=ballCanvas.getBoundingClientRect();
+    ballPointer.x=e.clientX-rect.left;
+    ballPointer.y=e.clientY-rect.top;
+    ballPointer.active=true;
+  });
+  ballCanvas.addEventListener('pointerleave',()=>{
+    ballPointer.active=false;
+    ballPointer.x=-9999;
+    ballPointer.y=-9999;
+  });
+  ballCanvas.addEventListener('pointerdown',e=>{
+    const rect=ballCanvas.getBoundingClientRect();
+    balls.push({
+      x:e.clientX-rect.left,
+      y:e.clientY-rect.top,
+      vx:(Math.random()-.5)*6,
+      vy:-7,
+      r:Math.random()*15+18,
+      color:ballColors[Math.floor(Math.random()*ballColors.length)]
+    });
+  });
+  window.addEventListener('resize',()=>{
+    clearTimeout(window.ballPitResizeTimer);
+    window.ballPitResizeTimer=setTimeout(resizeBallPit,160);
   });
 }
 
