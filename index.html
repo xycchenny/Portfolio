@@ -519,6 +519,13 @@ const nameFallback=nameWrap?.querySelector('.hero-name');
 let nameParticles=[];
 let nameMouse={x:-9999,y:-9999,active:false};
 let nameCtx;
+const nameParticlePalette=[
+  'rgba(92,144,160,.55)',
+  'rgba(111,172,146,.50)',
+  'rgba(142,179,196,.48)',
+  'rgba(166,151,194,.38)',
+  'rgba(189,178,117,.32)'
+];
 
 function buildNameParticles(){
   if(!nameWrap||!nameCanvas||!nameFallback)return;
@@ -566,7 +573,8 @@ function buildNameParticles(){
       y:old?old.y:Math.random()*rect.height,
       tx:p.x,ty:p.y,
       vx:0,vy:0,
-      r:Math.random()*.65+1.1
+      r:Math.random()*.75+1.25,
+      color:old?.color||nameParticlePalette[Math.floor(Math.random()*nameParticlePalette.length)]
     };
   });
   nameWrap.classList.add('particle-ready');
@@ -576,7 +584,7 @@ function animateNameParticles(){
   if(nameCtx&&nameCanvas){
     const rect=nameCanvas.getBoundingClientRect();
     nameCtx.clearRect(0,0,rect.width,rect.height);
-    nameCtx.fillStyle='#1E1B17';
+    nameCtx.globalCompositeOperation='multiply';
     nameParticles.forEach(p=>{
       let dx=p.x-nameMouse.x;
       let dy=p.y-nameMouse.y;
@@ -593,12 +601,14 @@ function animateNameParticles(){
       p.vy*=.86;
       p.x+=p.vx;
       p.y+=p.vy;
-      nameCtx.globalAlpha=.82;
+      nameCtx.globalAlpha=.88;
+      nameCtx.fillStyle=p.color;
       nameCtx.beginPath();
       nameCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
       nameCtx.fill();
     });
     nameCtx.globalAlpha=1;
+    nameCtx.globalCompositeOperation='source-over';
   }
   requestAnimationFrame(animateNameParticles);
 }
