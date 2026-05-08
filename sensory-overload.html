@@ -43,14 +43,6 @@ nav{
 .case-meta div{background:var(--bg);padding:1.2rem 1rem}
 .case-meta span{display:block;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:.45rem}
 .case-meta strong{font-size:.78rem;font-weight:300;color:rgba(245,243,239,.84)}
-.case-layout{display:grid;grid-template-columns:180px 1fr;gap:2.5rem;align-items:start}
-.case-nav{position:sticky;top:92px;display:flex;flex-direction:column;gap:.65rem}
-.case-nav a{
-  color:rgba(245,243,239,.48);text-decoration:none;
-  font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
-  border-bottom:1px solid var(--line);padding-bottom:.55rem;
-}
-.case-nav a:hover{color:var(--ink)}
 .case-gallery{display:flex;flex-direction:column;gap:2.5rem}
 .case-panel{scroll-margin-top:92px}
 .case-panel-label{
@@ -72,10 +64,8 @@ footer{
   nav{padding:1rem 1.2rem}
   .nav-links{gap:1rem}
   .case-inner{padding:7rem 1.2rem 4rem}
-  .case-head,.case-layout{grid-template-columns:1fr;gap:2rem}
+  .case-head{grid-template-columns:1fr;gap:2rem}
   .case-meta{grid-template-columns:1fr}
-  .case-nav{position:static;display:grid;grid-template-columns:repeat(3,1fr)}
-  .case-nav a{font-size:.52rem}
   footer{flex-direction:column}
 }
 @media (max-width:520px){
@@ -108,17 +98,7 @@ footer{
     <div><span>Output</span><strong>Research Board · Booking Flow · Recovery Station Concept</strong></div>
   </div>
 
-  <div class="case-layout">
-    <nav class="case-nav" aria-label="Sensory case sections">
-      <a href="#sensory-01">01 Background</a>
-      <a href="#sensory-02">02 Research</a>
-      <a href="#sensory-03">03 Concept</a>
-      <a href="#sensory-04">04 Flow</a>
-      <a href="#sensory-05">05 Prototype</a>
-      <a href="#sensory-06">06 Final</a>
-    </nav>
-
-    <div class="case-gallery">
+  <div class="case-gallery">
       <figure class="case-panel" id="sensory-01">
         <figcaption class="case-panel-label"><span>01</span><h2>Background and Existing Methods</h2></figcaption>
         <img class="case-shot" src="assets/sensory-overload-01.jpg" alt="Sensory overload background research board" loading="lazy">
@@ -143,7 +123,6 @@ footer{
         <figcaption class="case-panel-label"><span>06</span><h2>Final Experience Overview</h2></figcaption>
         <img class="case-shot" src="assets/sensory-overload-06.jpg" alt="Final sensory recovery station experience overview" loading="lazy">
       </figure>
-    </div>
   </div>
 </main>
 
