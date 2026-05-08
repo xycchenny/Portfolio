@@ -143,64 +143,145 @@ section.line-top{border-top:1px solid var(--line)}
 .w-desc{font-size:.93rem;line-height:1.85;color:var(--ink-mid)}
 .w-arr{font-size:1.15rem;color:var(--ink-light);margin-top:1.5rem}
 
-#gallery{overflow:hidden}
-.gallery-shell{position:relative;min-height:680px;padding:2.5rem;background:#DCDAD5}
-.gallery-top{
-  display:grid;grid-template-columns:120px 1fr 150px;gap:2rem;
-  align-items:start;margin-bottom:2rem;
+#gallery{overflow:hidden;background:#D1C9BC}
+.gallery-shell{
+  position:relative;min-height:720px;padding:0;
+  background:
+    radial-gradient(circle at 24% 18%,rgba(255,255,255,.32),transparent 0 24%),
+    linear-gradient(135deg,#D8D0C1,#C4BAAA);
 }
-.gallery-mark{
-  font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:500;
-  line-height:.8;letter-spacing:-.04em;
+.gallery-stage{
+  position:relative;min-height:720px;
+  display:flex;align-items:center;justify-content:center;
+  padding:5.5rem 2rem 9rem;
 }
-.gallery-mark span{display:block;font-family:'Jost',sans-serif;font-size:.48rem;letter-spacing:.35em;text-transform:uppercase;margin-top:.6rem;color:var(--ink-mid)}
-.gallery-intro{font-size:.94rem;line-height:1.75;color:var(--ink-mid);max-width:330px}
-.gallery-meta{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid)}
-.gallery-meta div{display:flex;justify-content:space-between;border-bottom:1px solid rgba(30,27,23,.16);padding:.22rem 0}
-.gallery-stage{position:relative;min-height:430px;perspective:900px}
-.gallery-reel{
-  display:flex;gap:1.2rem;align-items:center;
-  overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
-  padding:2.4rem max(2rem,8vw) 3rem;
-  scrollbar-width:none;
+.gallery-stage::after{
+  content:'';position:absolute;left:50%;bottom:6.5rem;width:min(760px,78vw);height:110px;
+  background:rgba(30,27,23,.22);filter:blur(28px);
+  transform:translateX(-50%) skewX(-18deg);
+  pointer-events:none;
 }
-.gallery-reel::-webkit-scrollbar{display:none}
-.gallery-card{
-  position:relative;flex:0 0 clamp(190px,22vw,280px);
-  aspect-ratio:4/5;overflow:hidden;background:#ECEAE4;
-  border:1px solid rgba(30,27,23,.18);
-  box-shadow:0 18px 36px rgba(30,27,23,.12);
-  scroll-snap-align:center;cursor:none;
-  transform:rotate(var(--rot)) translateY(var(--lift));
-  transition:transform .35s ease,box-shadow .35s ease;
+.polaroid-camera{
+  position:relative;z-index:2;width:min(680px,88vw);aspect-ratio:1.18/1;
+  display:flex;align-items:flex-start;justify-content:center;
 }
-.gallery-card:hover{transform:rotate(0deg) translateY(-14px) scale(1.03);box-shadow:0 26px 52px rgba(30,27,23,.18)}
-.gallery-card img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.95) contrast(1.02)}
-.gallery-card::before{
-  content:'';position:absolute;inset:.7rem;border:1px solid rgba(255,255,255,.5);
-  pointer-events:none;z-index:2;
+.camera-back{
+  position:absolute;top:0;right:11%;width:25%;height:23%;
+  border-radius:32px 32px 8px 8px;background:#2B2A27;
+  box-shadow:inset 14px 0 18px rgba(255,255,255,.08),inset -16px 0 22px rgba(0,0,0,.22);
 }
-.gallery-card::after{
-  content:attr(data-label);position:absolute;left:.9rem;bottom:.85rem;z-index:3;
-  font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;
-  text-shadow:0 1px 6px rgba(0,0,0,.42);
+.camera-back::after{
+  content:'';position:absolute;left:18%;right:18%;bottom:0;height:68%;
+  border-radius:18px 18px 2px 2px;background:linear-gradient(90deg,#A9A49C,#E4DED4,#B9B4AB);
 }
-.gallery-card.is-empty{display:flex;align-items:center;justify-content:center;background:
-  linear-gradient(135deg,rgba(120,166,184,.18),rgba(255,255,255,.42)),
-  repeating-linear-gradient(90deg,rgba(30,27,23,.08) 0 1px,transparent 1px 18px);
+.camera-body{
+  position:absolute;left:4%;right:4%;top:10%;height:58%;
+  border-radius:18px 18px 9px 9px;
+  background:linear-gradient(#E9E5DC 0 12%,#D6D0C7 12% 70%,#F4F1EA 70% 100%);
+  box-shadow:inset 0 1px rgba(255,255,255,.8),0 24px 48px rgba(30,27,23,.18);
 }
-.gallery-card.is-empty::after{content:'Add ' attr(data-src);color:var(--ink-mid);text-shadow:none;text-align:center;left:1rem;right:1rem}
-.gallery-card.is-empty::before{border-color:rgba(30,27,23,.14)}
-.gallery-bottom{
-  position:absolute;left:1.2rem;right:1.2rem;bottom:1rem;
-  display:grid;grid-template-columns:1fr minmax(180px,42vw) 1fr;align-items:end;gap:1.5rem;
+.camera-body::before{
+  content:'';position:absolute;left:32%;top:-6%;width:28%;height:11%;
+  background:linear-gradient(#565656,#252525);
+  clip-path:polygon(8% 0,92% 0,100% 100%,0 100%);
+  box-shadow:inset 0 9px 0 rgba(255,255,255,.08),inset 0 -6px 0 rgba(0,0,0,.36);
 }
-.gallery-word{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:300;letter-spacing:-.04em;line-height:.9}
-.gallery-word:last-child{text-align:right}
-.gallery-progress{height:6px;border-bottom:5px solid var(--ink);margin-bottom:.45rem}
-.gallery-note{
-  position:absolute;right:2.4rem;bottom:6.1rem;
-  font-size:.68rem;color:var(--ink-mid);
+.camera-body::after{
+  content:'';position:absolute;left:47%;top:58%;width:23%;height:42%;
+  background:linear-gradient(90deg,#ED4E83 0 16%,#F05A24 16% 32%,#F5A400 32% 48%,#F6E442 48% 64%,#6BBE45 64% 80%,#21A9B7 80% 100%);
+  mix-blend-mode:multiply;opacity:.88;
+}
+.polaroid-shutter{
+  position:absolute;left:10%;top:42%;z-index:4;width:11%;aspect-ratio:1;
+  border:clamp(7px,1.1vw,10px) solid #F5F0E4;border-radius:50%;
+  background:#E30000;box-shadow:inset -5px -7px 0 rgba(0,0,0,.16),0 3px 12px rgba(30,27,23,.18);
+  cursor:none;transition:transform .16s ease,filter .16s ease;
+}
+.polaroid-shutter:hover{filter:brightness(1.05)}
+.polaroid-shutter:active,.polaroid-camera.is-printing .polaroid-shutter{transform:translateY(3px) scale(.96)}
+.camera-lens{
+  position:absolute;left:50%;top:30%;z-index:4;width:28%;aspect-ratio:1;
+  transform:translateX(-50%);border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%,#020202 0 20%,#171717 21% 35%,#050505 36% 54%,transparent 55%),
+    radial-gradient(circle at 42% 35%,rgba(255,255,255,.28),transparent 0 18%,transparent 34%),
+    radial-gradient(circle,#1A1A1A 0 58%,#555 59% 67%,#101010 68% 100%);
+  box-shadow:inset 14px 9px 18px rgba(255,255,255,.18),inset -18px -14px 24px rgba(0,0,0,.45),0 8px 16px rgba(30,27,23,.22);
+}
+.camera-viewfinder{
+  position:absolute;right:10%;top:32%;z-index:4;width:20%;height:22%;
+  border:5px solid #F7F5EF;border-radius:7px;background:#151515;overflow:hidden;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.04);
+}
+.camera-viewfinder::before{
+  content:'';position:absolute;inset:14%;border-radius:50%;
+  background:radial-gradient(circle at 35% 24%,rgba(255,255,255,.85) 0 10%,transparent 12%),radial-gradient(circle,#050505 0 44%,#2B2B2B 45% 64%,transparent 65%);
+  box-shadow:0 0 0 10px rgba(255,255,255,.08);
+}
+.camera-knob{
+  position:absolute;right:18%;top:61%;z-index:4;width:10%;aspect-ratio:.86/1;
+  border-radius:50%;background:linear-gradient(#302E2D,#101010);
+  box-shadow:inset 0 10px 0 rgba(255,255,255,.08),0 -10px 0 #111,0 0 0 4px rgba(255,255,255,.08);
+}
+.camera-base{
+  position:absolute;left:2%;right:2%;top:64%;height:25%;z-index:5;
+  border-radius:0 0 16px 16px;background:linear-gradient(#252524,#111);
+  box-shadow:inset 0 1px rgba(255,255,255,.08);
+}
+.camera-slot{
+  position:absolute;left:8%;right:8%;top:14%;height:28%;
+  background:#242423;border:2px solid rgba(255,255,255,.08);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.6);
+}
+.camera-slot::after{
+  content:'';position:absolute;left:5%;right:5%;bottom:-35%;height:7px;border-radius:999px;
+  background:#060606;box-shadow:0 0 0 10px rgba(255,255,255,.04);
+}
+.instant-photo{
+  position:absolute;left:50%;top:72%;z-index:3;width:min(330px,46vw);aspect-ratio:.78/1;
+  transform:translate(-50%,-18%) rotate(-1.2deg);
+  padding:3.1% 3.1% 15.5%;
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.7),transparent 0 26%),
+    #F6F0E3;
+  border:1px solid rgba(89,70,48,.16);
+  box-shadow:0 18px 36px rgba(30,27,23,.2),inset 0 0 0 1px rgba(255,255,255,.58);
+  opacity:0;pointer-events:none;transition:filter .25s ease;
+}
+.instant-photo.is-ready{pointer-events:auto;cursor:none}
+.instant-photo img{
+  width:100%;height:100%;display:block;object-fit:cover;background:#151515;
+  filter:saturate(.82) contrast(1.08) sepia(.12);
+}
+.instant-photo:not(.gallery-photo-missing)::before{
+  content:'';position:absolute;left:3.1%;right:3.1%;top:3.1%;bottom:15.5%;z-index:2;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 15%,rgba(255,255,255,.28),transparent 0 26%),
+    linear-gradient(90deg,rgba(255,255,255,.12),transparent 35%,rgba(30,27,23,.08)),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 4px);
+  mix-blend-mode:screen;
+}
+.instant-photo::after{
+  content:'Yuchen Xu';position:absolute;left:8%;right:8%;bottom:5.2%;
+  height:auto;background:transparent;color:rgba(64,55,45,.58);
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;text-align:center;
+}
+.instant-photo.is-ready:hover{filter:brightness(1.03)}
+.instant-photo.is-printing{animation:printPhoto 1.1s cubic-bezier(.22,.8,.28,1) forwards}
+.instant-photo.is-ready:not(.is-printing){opacity:1;transform:translate(-50%,31%) rotate(-1.2deg)}
+@keyframes printPhoto{
+  0%{opacity:0;transform:translate(-50%,-21%) rotate(.2deg)}
+  12%{opacity:1}
+  100%{opacity:1;transform:translate(-50%,31%) rotate(-1.2deg)}
+}
+.gallery-photo-missing .instant-photo img{display:none}
+.gallery-photo-missing .instant-photo{
+  background:linear-gradient(#F6F0E3 0 100%);
+}
+.gallery-photo-missing .instant-photo::before{
+  content:'';position:absolute;left:3.1%;right:3.1%;top:3.1%;height:75%;
+  background:radial-gradient(circle at 50% 52%,rgba(255,255,255,.08),transparent 0 42%),#151515;
 }
 .gallery-lightbox{
   position:fixed;inset:0;background:rgba(30,27,23,.82);z-index:500;
@@ -295,14 +376,12 @@ footer{
   .work-count{display:inline-block;margin-top:.4rem}
   .work-grid{grid-template-columns:1fr}
   .w-card{min-height:260px}
-  .gallery-shell{min-height:620px;padding:1.2rem}
-  .gallery-top{grid-template-columns:1fr;gap:1rem}
-  .gallery-meta{max-width:220px}
-  .gallery-reel{padding:1.4rem 1rem 4rem}
-  .gallery-card{flex-basis:68vw}
-  .gallery-bottom{grid-template-columns:1fr;gap:.8rem}
-  .gallery-word:last-child{text-align:left}
-  .gallery-note{display:none}
+  .gallery-shell,.gallery-stage{min-height:600px}
+  .gallery-stage{padding:4.5rem 1rem 8.2rem}
+  .gallery-stage::after{bottom:4.7rem;width:82vw;height:90px}
+  .polaroid-camera{width:min(560px,94vw)}
+  .instant-photo{width:min(292px,58vw)}
+  .camera-back{border-radius:22px 22px 6px 6px}
   .resume-cols,.about-grid,.skills-grid{grid-template-columns:1fr;gap:2.5rem}
   .portrait-box{max-width:360px}
   footer{align-items:flex-start;flex-direction:column}
@@ -316,6 +395,12 @@ footer{
   .piano{height:112px}
   .wkey{height:96px}
   .bkey{height:60px}
+  .gallery-shell,.gallery-stage{min-height:520px}
+  .gallery-stage{padding:3.6rem .6rem 7rem}
+  .polaroid-camera{width:104vw}
+  .instant-photo{width:60vw}
+  .camera-viewfinder{border-width:3px}
+  .camera-knob{box-shadow:inset 0 7px 0 rgba(255,255,255,.08),0 -7px 0 #111,0 0 0 3px rgba(255,255,255,.08)}
 }
 </style>
 </head>
@@ -575,42 +660,21 @@ footer{
 
 <section id="gallery" class="line-top">
   <div class="gallery-shell">
-    <div class="gallery-top">
-      <div class="gallery-mark">YX<span>Photo Space</span></div>
-      <p class="gallery-intro">A rotating visual archive for photography work, built like a loose film reel. Replace the placeholder files with your own shots to turn this into a personal photo wall.</p>
-      <div class="gallery-meta" aria-hidden="true">
-        <div><span>Shots</span><span>000006</span></div>
-        <div><span>Mode</span><span>Reel</span></div>
-        <div><span>Open</span><span>Click</span></div>
-      </div>
-    </div>
     <div class="gallery-stage">
-      <div class="gallery-reel" aria-label="Photography gallery">
-        <figure class="gallery-card" style="--rot:-8deg;--lift:34px" data-label="Frame 01" data-src="gallery-01.jpg">
-          <img src="assets/gallery-01.jpg" alt="Photography work 01" loading="lazy">
-        </figure>
-        <figure class="gallery-card" style="--rot:5deg;--lift:-8px" data-label="Frame 02" data-src="gallery-02.jpg">
-          <img src="assets/gallery-02.jpg" alt="Photography work 02" loading="lazy">
-        </figure>
-        <figure class="gallery-card" style="--rot:-3deg;--lift:18px" data-label="Frame 03" data-src="gallery-03.jpg">
-          <img src="assets/gallery-03.jpg" alt="Photography work 03" loading="lazy">
-        </figure>
-        <figure class="gallery-card" style="--rot:8deg;--lift:-18px" data-label="Frame 04" data-src="gallery-04.jpg">
-          <img src="assets/gallery-04.jpg" alt="Photography work 04" loading="lazy">
-        </figure>
-        <figure class="gallery-card" style="--rot:-6deg;--lift:28px" data-label="Frame 05" data-src="gallery-05.jpg">
-          <img src="assets/gallery-05.jpg" alt="Photography work 05" loading="lazy">
-        </figure>
-        <figure class="gallery-card" style="--rot:4deg;--lift:2px" data-label="Frame 06" data-src="gallery-06.jpg">
-          <img src="assets/gallery-06.jpg" alt="Photography work 06" loading="lazy">
+      <div class="polaroid-camera" aria-label="Instant camera gallery">
+        <div class="camera-back" aria-hidden="true"></div>
+        <div class="camera-body" aria-hidden="true"></div>
+        <button class="polaroid-shutter" type="button" aria-label="Print a photo"></button>
+        <div class="camera-lens" aria-hidden="true"></div>
+        <div class="camera-viewfinder" aria-hidden="true"></div>
+        <div class="camera-knob" aria-hidden="true"></div>
+        <div class="camera-base" aria-hidden="true">
+          <div class="camera-slot"></div>
+        </div>
+        <figure class="instant-photo" aria-label="Printed photo" tabindex="0">
+          <img src="assets/gallery-01.jpg" alt="Ocean view through a window" loading="lazy">
         </figure>
       </div>
-    </div>
-    <div class="gallery-note">drag sideways / click a frame</div>
-    <div class="gallery-bottom" aria-hidden="true">
-      <div class="gallery-word">PHOTO</div>
-      <div class="gallery-progress"></div>
-      <div class="gallery-word">LENS</div>
     </div>
   </div>
 </section>
@@ -655,7 +719,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
     ring.style.left=rx+'px';ring.style.top=ry+'px';
     requestAnimationFrame(loop);
   })();
-  document.querySelectorAll('a,.w-card,.wkey,.bkey,.gallery-card,.gallery-close').forEach(el=>{
+  document.querySelectorAll('a,.w-card,.wkey,.bkey,.polaroid-shutter,.instant-photo,.gallery-close').forEach(el=>{
     el.addEventListener('mouseenter',()=>ring.classList.add('h'));
     el.addEventListener('mouseleave',()=>ring.classList.remove('h'));
   });
@@ -793,23 +857,53 @@ if(nameWrap&&nameCanvas){
 
 const galleryLightbox=document.getElementById('gallery-lightbox');
 const galleryLightboxImg=galleryLightbox?.querySelector('img');
-function markGalleryImageMissing(img){
-  img.closest('.gallery-card')?.classList.add('is-empty');
-  img.remove();
+const polaroidCamera=document.querySelector('.polaroid-camera');
+const polaroidButton=document.querySelector('.polaroid-shutter');
+const instantPhoto=document.querySelector('.instant-photo');
+const instantPhotoImg=instantPhoto?.querySelector('img');
+const galleryPhotos=[
+  {src:'assets/gallery-01.jpg',alt:'Ocean view through a window'},
+  {src:'assets/gallery-02.jpg',alt:'Photography work 02'},
+  {src:'assets/gallery-03.jpg',alt:'Photography work 03'},
+  {src:'assets/gallery-04.jpg',alt:'Photography work 04'},
+  {src:'assets/gallery-05.jpg',alt:'Photography work 05'},
+  {src:'assets/gallery-06.jpg',alt:'Photography work 06'}
+];
+let galleryPhotoIndex=-1;
+function markInstantPhotoMissing(){
+  polaroidCamera?.classList.add('gallery-photo-missing');
 }
-document.querySelectorAll('.gallery-card img').forEach(img=>{
-  img.addEventListener('error',()=>markGalleryImageMissing(img));
-  if(img.complete&&img.naturalWidth===0)markGalleryImageMissing(img);
+instantPhotoImg?.addEventListener('error',markInstantPhotoMissing);
+function printInstantPhoto(){
+  if(!polaroidCamera||!instantPhoto||!instantPhotoImg)return;
+  galleryPhotoIndex=(galleryPhotoIndex+1)%galleryPhotos.length;
+  const photo=galleryPhotos[galleryPhotoIndex];
+  polaroidCamera.classList.remove('gallery-photo-missing');
+  instantPhoto.classList.remove('is-ready','is-printing');
+  instantPhotoImg.src=photo.src;
+  instantPhotoImg.alt=photo.alt;
+  void instantPhoto.offsetWidth;
+  polaroidCamera.classList.add('is-printing');
+  instantPhoto.classList.add('is-printing');
+  window.setTimeout(()=>{
+    instantPhoto.classList.remove('is-printing');
+    instantPhoto.classList.add('is-ready');
+    polaroidCamera.classList.remove('is-printing');
+  },1120);
+}
+polaroidButton?.addEventListener('click',printInstantPhoto);
+instantPhoto?.addEventListener('click',()=>{
+  if(!instantPhoto.classList.contains('is-ready')||!instantPhotoImg||!galleryLightbox||!galleryLightboxImg)return;
+  galleryLightboxImg.src=instantPhotoImg.src;
+  galleryLightboxImg.alt=instantPhotoImg.alt;
+  galleryLightbox.classList.add('on');
+  galleryLightbox.setAttribute('aria-hidden','false');
 });
-document.querySelectorAll('.gallery-card').forEach(card=>{
-  card.addEventListener('click',()=>{
-    const img=card.querySelector('img');
-    if(!img||!galleryLightbox||!galleryLightboxImg)return;
-    galleryLightboxImg.src=img.src;
-    galleryLightboxImg.alt=img.alt;
-    galleryLightbox.classList.add('on');
-    galleryLightbox.setAttribute('aria-hidden','false');
-  });
+instantPhoto?.addEventListener('keydown',e=>{
+  if(e.key==='Enter'||e.key===' '){
+    e.preventDefault();
+    instantPhoto.click();
+  }
 });
 galleryLightbox?.addEventListener('click',e=>{
   if(e.target===galleryLightbox||e.target.classList.contains('gallery-close')){
