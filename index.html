@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuchen Xu - Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#EDEAE3;
+  --bg2:#E4E0D8;
+  --bg3:#D8D3CA;
+  --ink:#1E1B17;
+  --ink-mid:#6A6560;
+  --ink-light:#9A9590;
+  --line:rgba(30,27,23,0.14);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;cursor:none;overflow-x:hidden}
+
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:300;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E")
+}
+
+#cur{position:fixed;width:6px;height:6px;background:var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-ring{position:fixed;width:28px;height:28px;border:1px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.3;transition:width .25s,height .25s,opacity .25s}
+#cur-ring.h{width:44px;height:44px;opacity:.12}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:1.4rem 2.5rem;
+  border-bottom:1px solid var(--line);
+  background:rgba(237,234,227,.92);
+  backdrop-filter:blur(14px);
+}
+.nav-site{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--ink-mid)}
+.nav-links{display:flex;gap:2.2rem}
+.nav-links a{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;
+  color:var(--ink-mid);text-decoration:none;transition:color .25s
+}
+.nav-links a:hover{color:var(--ink)}
+
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 2.5rem 3rem;
+  position:relative;overflow:hidden;
+}
+.hero-top{
+  position:absolute;top:0;left:0;right:0;
+  padding:5.5rem 2.5rem 0;
+}
+.hero-label{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.4rem}
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4rem,11vw,8.5rem);
+  font-weight:400;line-height:.95;letter-spacing:-.02em;
+  margin-bottom:.8rem;
+}
+.hero-name em{font-style:italic;font-weight:300}
+.hero-role{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mid);margin-top:1.4rem}
+.hero-location{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-light);margin-top:.5rem}
+
+.cats-crawl{display:flex;align-items:center;gap:3.5rem;padding:2rem 0 1.5rem}
+
+.piano-hero{width:100%;max-width:700px}
+.piano-wrap{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:3px;padding:1.1rem 1rem .9rem;
+  display:flex;flex-direction:column;align-items:center;
+}
+.piano{display:flex;position:relative;height:130px;width:min(660px,100%)}
+.wkey{
+  width:calc(100% / 10);height:112px;
+  background:#F5F3EF;
+  border:1px solid rgba(30,27,23,.28);
+  border-radius:0 0 3px 3px;
+  position:absolute;top:0;cursor:none;
+  transition:background .07s;z-index:1;
+}
+.wkey.on{background:#DDD9D2}
+.bkey{
+  width:4.1%;height:72px;background:#1E1B17;
+  position:absolute;top:0;border-radius:0 0 2px 2px;
+  z-index:2;cursor:none;transition:background .07s;
+}
+.bkey.on{background:#3D3830}
+.piano-hint{font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-light);margin-top:.7rem;text-align:center;line-height:1.5}
+
+.scroll-cue{display:flex;align-items:center;gap:1rem;margin-top:1.4rem}
+.scroll-cue span{font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-light)}
+.scroll-bar{width:32px;height:1px;background:var(--ink-light);position:relative;overflow:hidden}
+.scroll-bar::after{
+  content:'';position:absolute;top:0;left:-100%;
+  width:100%;height:100%;background:var(--ink);
+  animation:slide 2s ease-in-out infinite;
+}
+@keyframes slide{0%{left:-100%}50%{left:0}100%{left:100%}}
+
+section.line-top{border-top:1px solid var(--line)}
+.section-inner{padding:7rem 2.5rem}
+.sec-label{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.2rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;line-height:1.15;margin-bottom:2rem}
+.sec-title em{font-style:italic}
+
+#work{padding-top:0}
+.work-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3rem}
+.work-count{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-light)}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:0}
+.w-card{
+  background:var(--bg);padding:2.2rem 1.8rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+  cursor:none;transition:background .3s;min-height:320px;
+}
+.w-card:hover{background:var(--bg2)}
+.w-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(30,27,23,.1);line-height:1;margin-bottom:1.5rem}
+.w-tag{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.5rem}
+.w-title{font-size:.85rem;font-weight:400;margin-bottom:.6rem;line-height:1.5}
+.w-desc{font-size:.8rem;line-height:1.9;color:var(--ink-mid)}
+.w-arr{font-size:1rem;color:var(--ink-light);margin-top:1.5rem}
+
+.resume-cols{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;margin-top:3rem}
+.r-block{margin-bottom:3rem}
+.r-label{
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-light);padding-bottom:.7rem;
+  border-bottom:1px solid var(--line);margin-bottom:1.4rem;
+}
+.r-item{padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.r-item:last-child{border-bottom:none}
+.r-year{font-size:.62rem;letter-spacing:.1em;color:var(--ink-light);margin-bottom:.2rem}
+.r-title{font-size:.88rem;font-weight:400;margin-bottom:.18rem;line-height:1.4}
+.r-sub{font-size:.78rem;color:var(--ink-mid);margin-bottom:.2rem}
+.r-detail{font-size:.76rem;color:var(--ink-light);line-height:1.7;margin-top:.35rem}
+.skill-row{margin:.85rem 0}
+.skill-name{
+  font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-mid);margin-bottom:.35rem;
+  display:flex;justify-content:space-between;gap:1rem;
+}
+.bar-bg{height:1px;background:var(--line);position:relative}
+.bar-fg{height:1px;background:var(--ink);position:absolute;top:0;left:0}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 3rem}
+.lang-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
+.lang-name{font-size:.75rem;font-weight:400}
+.lang-level{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);text-align:right}
+
+.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:6rem;align-items:start}
+.portrait-box{
+  aspect-ratio:3/4;background:var(--bg2);
+  border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+}
+.body-text{font-size:.87rem;line-height:2.2;color:var(--ink-mid);margin-bottom:1rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.8rem}
+.tag{
+  border:1px solid var(--line);padding:.22rem .7rem;
+  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);
+}
+.contact-row{display:flex;flex-direction:column;gap:.6rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.contact-item{font-size:.75rem;color:var(--ink-mid);letter-spacing:.04em}
+.contact-item a{color:var(--ink-mid);text-decoration:none}
+.contact-item a:hover{color:var(--ink)}
+
+footer{
+  padding:2.5rem 2.5rem;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+.foot-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--ink-mid)}
+.foot-r{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);text-align:right}
+
+@media (max-width: 860px){
+  body{cursor:auto}
+  #cur,#cur-ring{display:none}
+  nav{padding:1rem 1.2rem;align-items:center}
+  .nav-links{gap:1rem}
+  .nav-links a{font-size:.82rem}
+  #hero{min-height:780px;padding:0 1.2rem 2rem}
+  .hero-top{padding:5rem 1.2rem 0}
+  .hero-name{font-size:clamp(4.2rem,22vw,7rem)}
+  .cats-crawl{gap:1rem;overflow:hidden;padding-top:1rem}
+  .cats-crawl svg{width:84px;flex:0 0 auto}
+  .section-inner{padding:5rem 1.2rem}
+  .work-header{display:block}
+  .work-count{display:inline-block;margin-top:.4rem}
+  .work-grid{grid-template-columns:1fr}
+  .w-card{min-height:260px}
+  .resume-cols,.about-grid,.skills-grid{grid-template-columns:1fr;gap:2.5rem}
+  .portrait-box{max-width:360px}
+  footer{align-items:flex-start;flex-direction:column}
+  .foot-r{text-align:left}
+}
+
+@media (max-width: 520px){
+  nav{display:block}
+  .nav-links{margin-top:.5rem;justify-content:space-between}
+  .hero-role,.hero-location{line-height:1.8}
+  .piano{height:112px}
+  .wkey{height:96px}
+  .bkey{height:60px}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <span class="nav-site">yuchenxu.design</span>
+  <div class="nav-links">
+    <a href="#work">My Work</a>
+    <a href="#resume">My Resume</a>
+    <a href="#about">About Me</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-top">
+    <p class="hero-label">Portfolio - MMXXVI</p>
+    <h1 class="hero-name">Yuchen<br><em>Xu</em></h1>
+    <p class="hero-role">Product Designer - UI/UX &amp; Interaction</p>
+    <p class="hero-location">La Jolla, CA &nbsp;·&nbsp; UC San Diego</p>
+  </div>
+
+  <div class="cats-crawl">
+    <svg width="100" height="56" viewBox="0 0 100 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="56" cy="28" rx="22" ry="12" stroke="#1E1B17" stroke-width="1.4"/>
+      <ellipse cx="28" cy="24" rx="11" ry="10" stroke="#1E1B17" stroke-width="1.4"/>
+      <path d="M20 15 L15 7 L23 14" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M36 14 L40 6 L33 13" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
+      <line x1="20" y1="24" x2="9" y2="22" stroke="#1E1B17" stroke-width="1"/>
+      <line x1="20" y1="27" x2="9" y2="28" stroke="#1E1B17" stroke-width="1"/>
+      <circle cx="24" cy="23" r="1.2" fill="#1E1B17"/>
+      <circle cx="31" cy="23" r="1.2" fill="#1E1B17"/>
+      <path d="M26 26 Q28 28 30 26" stroke="#1E1B17" stroke-width=".9"/>
+      <line x1="37" y1="17" x2="37" y2="33" stroke="#1E1B17" stroke-width="1.3"/>
+      <line x1="40" y1="36" x2="36" y2="50" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="50" y1="37" x2="48" y2="51" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="66" y1="37" x2="64" y2="51" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="74" y1="35" x2="78" y2="49" stroke="#1E1B17" stroke-width="1.4"/>
+      <path d="M78 28 Q88 24 92 30 Q94 37 86 39" stroke="#1E1B17" stroke-width="1.3"/>
+    </svg>
+
+    <svg width="100" height="56" viewBox="0 0 100 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="44" cy="28" rx="22" ry="12" stroke="#1E1B17" stroke-width="1.4"/>
+      <ellipse cx="72" cy="24" rx="11" ry="10" stroke="#1E1B17" stroke-width="1.4"/>
+      <path d="M80 15 L85 7 L77 14" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M64 14 L60 6 L67 13" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
+      <line x1="80" y1="24" x2="91" y2="22" stroke="#1E1B17" stroke-width="1"/>
+      <line x1="80" y1="27" x2="91" y2="28" stroke="#1E1B17" stroke-width="1"/>
+      <circle cx="68" cy="23" r="1.2" fill="#1E1B17"/>
+      <circle cx="75" cy="23" r="1.2" fill="#1E1B17"/>
+      <path d="M69 26 Q72 28 74 26" stroke="#1E1B17" stroke-width=".9"/>
+      <line x1="63" y1="17" x2="63" y2="33" stroke="#1E1B17" stroke-width="1.3"/>
+      <line x1="60" y1="36" x2="64" y2="50" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="50" y1="37" x2="52" y2="51" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="34" y1="37" x2="36" y2="51" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="26" y1="35" x2="22" y2="49" stroke="#1E1B17" stroke-width="1.4"/>
+      <path d="M22 28 Q12 24 8 30 Q6 37 14 39" stroke="#1E1B17" stroke-width="1.3"/>
+    </svg>
+
+    <svg width="100" height="60" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="50" cy="32" rx="24" ry="12" stroke="#1E1B17" stroke-width="1.4"/>
+      <ellipse cx="24" cy="42" rx="10" ry="9" stroke="#1E1B17" stroke-width="1.4"/>
+      <path d="M16 35 L11 28 L19 34" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M32 34 L35 27 L28 33" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
+      <line x1="17" y1="42" x2="7" y2="41" stroke="#1E1B17" stroke-width="1"/>
+      <line x1="17" y1="45" x2="7" y2="47" stroke="#1E1B17" stroke-width="1"/>
+      <circle cx="20" cy="41" r="1.2" fill="#1E1B17"/>
+      <circle cx="27" cy="41" r="1.2" fill="#1E1B17"/>
+      <circle cx="24" cy="51" r="2" fill="#1E1B17" opacity=".2"/>
+      <line x1="33" y1="33" x2="33" y2="43" stroke="#1E1B17" stroke-width="1.3"/>
+      <line x1="36" y1="40" x2="32" y2="54" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="46" y1="41" x2="44" y2="55" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="64" y1="41" x2="62" y2="55" stroke="#1E1B17" stroke-width="1.4"/>
+      <line x1="72" y1="39" x2="76" y2="53" stroke="#1E1B17" stroke-width="1.4"/>
+      <path d="M76 31 Q86 26 90 31 Q92 38 84 41" stroke="#1E1B17" stroke-width="1.3"/>
+    </svg>
+  </div>
+
+  <div class="piano-hero">
+    <div class="piano-wrap">
+      <div class="piano" id="piano"></div>
+      <p class="piano-hint">Touch to resonate - A S D F G H J K L</p>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-bar"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<section id="work" class="line-top">
+  <div class="section-inner">
+    <div class="work-header">
+      <div>
+        <p class="sec-label">My Work</p>
+        <h2 class="sec-title">Selected<br><em>Works</em></h2>
+      </div>
+      <span class="work-count">03 Projects</span>
+    </div>
+  </div>
+  <div class="work-grid">
+    <article class="w-card">
+      <div class="w-num">01</div>
+      <div>
+        <div class="w-tag">Mobile App · UX Research</div>
+        <h3 class="w-title">Children's Stuttering Training App</h3>
+        <p class="w-desc">A child-parent mobile app supporting at-home stuttering practice and progress tracking. High-fidelity Figma prototypes for parent dashboard and kid-friendly training flows.</p>
+      </div>
+      <div class="w-arr">→</div>
+    </article>
+    <article class="w-card">
+      <div class="w-num">02</div>
+      <div>
+        <div class="w-tag">Service Design · Accessibility</div>
+        <h3 class="w-title">Sensory Recovery Station &amp; Booking App</h3>
+        <p class="w-desc">A care-centered booking and recovery system for sensory overload in community settings. Low-stimulation interfaces emphasizing clarity, accessibility, and emotional comfort.</p>
+      </div>
+      <div class="w-arr">→</div>
+    </article>
+    <article class="w-card">
+      <div class="w-num">03</div>
+      <div>
+        <div class="w-tag">AI Product · Interface Design</div>
+        <h3 class="w-title">AI Companion MVP - Qkinteq</h3>
+        <p class="w-desc">Led high-fidelity interface design for an AI companion product, crafting a warm and supportive visual language to strengthen emotional engagement across long-term AI interactions.</p>
+      </div>
+      <div class="w-arr">→</div>
+    </article>
+  </div>
+</section>
+
+<section id="resume" class="line-top">
+  <div class="section-inner">
+    <p class="sec-label">My Resume</p>
+    <h2 class="sec-title">Experience<br><em>&amp; Skills</em></h2>
+    <div class="resume-cols">
+      <div>
+        <div class="r-block">
+          <div class="r-label">Experience</div>
+          <div class="r-item">
+            <div class="r-year">Apr 2026 - Present</div>
+            <div class="r-title">Product Design Intern (UI/UX)</div>
+            <div class="r-sub">Qkinteq · La Jolla, CA</div>
+            <div class="r-detail">Led high-fidelity interface design for an AI companion MVP. Crafted a warm visual language to strengthen emotional engagement.</div>
+          </div>
+          <div class="r-item">
+            <div class="r-year">Mar 2026</div>
+            <div class="r-title">Design Research Assistant</div>
+            <div class="r-sub">Ayers Lab - UCSD Psychiatry · La Jolla, CA</div>
+            <div class="r-detail">Redesigned the CREST manual for Hoarding Disorder into an interactive, user-centered format to reduce cognitive load.</div>
+          </div>
+          <div class="r-item">
+            <div class="r-year">Dec 2025 - Jan 2026</div>
+            <div class="r-title">Product Operations Intern</div>
+            <div class="r-sub">Caterpillar (CAT) · Xuzhou, China</div>
+            <div class="r-detail">Classified complex product issues to extract actionable user insights for data-driven technical optimizations.</div>
+          </div>
+        </div>
+
+        <div class="r-block">
+          <div class="r-label">Education</div>
+          <div class="r-item">
+            <div class="r-year">2024 - Jun 2028</div>
+            <div class="r-title">B.S. Cognitive Science - Design &amp; Interaction</div>
+            <div class="r-sub">University of California, San Diego</div>
+            <div class="r-detail">GPA 3.96 · Provost's Honors 2024-2026<br>Double major: Psychology - Business Psychology</div>
+          </div>
+        </div>
+
+        <div class="r-block">
+          <div class="r-label">Involvement</div>
+          <div class="r-item">
+            <div class="r-year">Oct 2024 - Present</div>
+            <div class="r-title">Member - Design Co @ UCSD</div>
+          </div>
+          <div class="r-item">
+            <div class="r-year">Jan 2026 - Present</div>
+            <div class="r-title">Member - ACM Design @ UCSD</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="r-block">
+          <div class="r-label">Design &amp; Software</div>
+          <div class="skills-grid">
+            <div>
+              <div class="skill-row"><div class="skill-name"><span>Figma</span><span>95%</span></div><div class="bar-bg"><div class="bar-fg" style="width:95%"></div></div></div>
+              <div class="skill-row"><div class="skill-name"><span>Adobe Suite</span><span>85%</span></div><div class="bar-bg"><div class="bar-fg" style="width:85%"></div></div></div>
+              <div class="skill-row"><div class="skill-name"><span>Photoshop</span><span>82%</span></div><div class="bar-bg"><div class="bar-fg" style="width:82%"></div></div></div>
+              <div class="skill-row"><div class="skill-name"><span>Canva</span><span>90%</span></div><div class="bar-bg"><div class="bar-fg" style="width:90%"></div></div></div>
+            </div>
+            <div>
+              <div class="skill-row"><div class="skill-name"><span>UI/UX Design</span><span>92%</span></div><div class="bar-bg"><div class="bar-fg" style="width:92%"></div></div></div>
+              <div class="skill-row"><div class="skill-name"><span>Graphic Design</span><span>85%</span></div><div class="bar-bg"><div class="bar-fg" style="width:85%"></div></div></div>
+              <div class="skill-row"><div class="skill-name"><span>UX Research</span><span>88%</span></div><div class="bar-bg"><div class="bar-fg" style="width:88%"></div></div></div>
+              <div class="skill-row"><div class="skill-name"><span>Prototyping</span><span>90%</span></div><div class="bar-bg"><div class="bar-fg" style="width:90%"></div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="r-block">
+          <div class="r-label">Programming</div>
+          <div class="skills-grid">
+            <div>
+              <div class="skill-row"><div class="skill-name"><span>Python</span><span>75%</span></div><div class="bar-bg"><div class="bar-fg" style="width:75%"></div></div></div>
+              <div class="skill-row"><div class="skill-name"><span>JavaScript</span><span>70%</span></div><div class="bar-bg"><div class="bar-fg" style="width:70%"></div></div></div>
+            </div>
+            <div>
+              <div class="skill-row"><div class="skill-name"><span>Java</span><span>68%</span></div><div class="bar-bg"><div class="bar-fg" style="width:68%"></div></div></div>
+              <div class="skill-row"><div class="skill-name"><span>C++</span><span>65%</span></div><div class="bar-bg"><div class="bar-fg" style="width:65%"></div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="r-block">
+          <div class="r-label">Languages</div>
+          <div class="lang-row"><span class="lang-name">English</span><span class="lang-level">Full Professional</span></div>
+          <div class="lang-row"><span class="lang-name">Mandarin</span><span class="lang-level">Native</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="line-top">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="portrait-box">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" opacity=".18" aria-hidden="true">
+          <ellipse cx="32" cy="22" rx="11" ry="10" stroke="#1E1B17" stroke-width="1.5"/>
+          <path d="M23 14 L19 7 L26 13" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M41 14 L45 7 L38 13" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M10 60 C10 44 54 44 54 60" stroke="#1E1B17" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div>
+        <p class="sec-label">About Me</p>
+        <h2 class="sec-title">Yuchen<br><em>Xu</em></h2>
+        <p class="body-text">Insight-driven designer with strong visual judgment, creative thinking, and a user-centered mindset. I turn complex needs into clear, actionable design solutions by combining research, aesthetics, interaction design, and business understanding.</p>
+        <p class="body-text">Currently studying Cognitive Science (Design &amp; Interaction) and Psychology (Business Psychology) at UC San Diego, expected graduation June 2028.</p>
+        <div class="tags">
+          <span class="tag">UI / UX</span>
+          <span class="tag">Interaction Design</span>
+          <span class="tag">UX Research</span>
+          <span class="tag">Graphic Design</span>
+          <span class="tag">Product Design</span>
+          <span class="tag">Digital Drawing</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-item">Email: <a href="mailto:yux089@ucsd.edu">yux089@ucsd.edu</a></span>
+          <span class="contact-item">Location: La Jolla, CA</span>
+          <span class="contact-item">Phone: <a href="tel:+16199537173">+1 619 953 7173</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-name">Yuchen Xu</div>
+  <div class="foot-r">Available for collaboration - © 2026</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur');
+const ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+
+if (window.matchMedia('(pointer: fine)').matches) {
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+  (function loop(){
+    rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,.w-card,.wkey,.bkey').forEach(el=>{
+    el.addEventListener('mouseenter',()=>ring.classList.add('h'));
+    el.addEventListener('mouseleave',()=>ring.classList.remove('h'));
+  });
+}
+
+const noteData=[
+  {n:'C4',f:261.63,t:'w'},{n:'Cs4',f:277.18,t:'b',o:32},
+  {n:'D4',f:293.66,t:'w'},{n:'Ds4',f:311.13,t:'b',o:76},
+  {n:'E4',f:329.63,t:'w'},
+  {n:'F4',f:349.23,t:'w'},{n:'Fs4',f:369.99,t:'b',o:164},
+  {n:'G4',f:392.00,t:'w'},{n:'Gs4',f:415.30,t:'b',o:208},
+  {n:'A4',f:440.00,t:'w'},{n:'As4',f:466.16,t:'b',o:252},
+  {n:'B4',f:493.88,t:'w'},
+  {n:'C5',f:523.25,t:'w'},{n:'Cs5',f:554.37,t:'b',o:340},
+  {n:'D5',f:587.33,t:'w'}
+];
+const km={a:'C4',w:'Cs4',s:'D4',e:'Ds4',d:'E4',f:'F4',t:'Fs4',g:'G4',y:'Gs4',h:'A4',u:'As4',j:'B4',k:'C5',o:'Cs5',l:'D5'};
+const piano=document.getElementById('piano');
+let wi=0;
+noteData.forEach(n=>{
+  const el=document.createElement('div');
+  if(n.t==='w'){
+    el.className='wkey';
+    el.style.left=`${wi*10}%`;
+    wi++;
+  } else {
+    el.className='bkey';
+    el.style.left=`${(n.o/660)*100}%`;
+  }
+  el.dataset.note=n.n;
+  el.dataset.freq=n.f;
+  piano.appendChild(el);
+});
+
+let ac;
+function play(f){
+  if(!ac) ac=new(window.AudioContext||window.webkitAudioContext)();
+  const o=ac.createOscillator();
+  const g=ac.createGain();
+  o.connect(g);g.connect(ac.destination);
+  o.type='triangle';
+  o.frequency.value=f;
+  g.gain.setValueAtTime(0.32,ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+1.6);
+  o.start();o.stop(ac.currentTime+1.6);
+}
+function activate(el){
+  play(+el.dataset.freq);
+  el.classList.add('on');
+}
+document.querySelectorAll('.wkey,.bkey').forEach(el=>{
+  el.addEventListener('pointerdown',()=>activate(el));
+  el.addEventListener('pointerup',()=>el.classList.remove('on'));
+  el.addEventListener('pointercancel',()=>el.classList.remove('on'));
+  el.addEventListener('mouseleave',()=>el.classList.remove('on'));
+});
+document.addEventListener('keydown',e=>{
+  if(e.repeat)return;
+  const n=km[e.key.toLowerCase()];
+  if(!n)return;
+  const el=document.querySelector(`[data-note="${n}"]`);
+  if(el)activate(el);
+});
+document.addEventListener('keyup',e=>{
+  const n=km[e.key.toLowerCase()];
+  if(!n)return;
+  const el=document.querySelector(`[data-note="${n}"]`);
+  if(el)el.classList.remove('on');
+});
+</script>
+</body>
+</html>
