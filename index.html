@@ -66,7 +66,12 @@ nav{
 .hero-role{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mid);margin-top:1.4rem}
 .hero-location{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-light);margin-top:.5rem}
 
-.cats-crawl{display:flex;align-items:center;gap:3.5rem;padding:2rem 0 1.5rem}
+.cats-crawl{
+  position:absolute;right:2.5rem;top:46%;
+  width:min(48vw,520px);
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  pointer-events:none;
+}
 
 .piano-hero{width:100%;max-width:700px}
 .piano-wrap{
@@ -74,9 +79,9 @@ nav{
   border-radius:3px;padding:1.1rem 1rem .9rem;
   display:flex;flex-direction:column;align-items:center;
 }
-.piano{display:flex;position:relative;height:130px;width:min(660px,100%)}
+.piano{display:flex;position:relative;height:130px;width:min(760px,100%)}
 .wkey{
-  width:calc(100% / 10);height:112px;
+  width:calc(100% / 14);height:112px;
   background:#F5F3EF;
   border:1px solid rgba(30,27,23,.28);
   border-radius:0 0 3px 3px;
@@ -85,7 +90,7 @@ nav{
 }
 .wkey.on{background:#DDD9D2}
 .bkey{
-  width:4.1%;height:72px;background:#1E1B17;
+  width:4%;height:72px;background:#1E1B17;
   position:absolute;top:0;border-radius:0 0 2px 2px;
   z-index:2;cursor:none;transition:background .07s;
 }
@@ -183,7 +188,7 @@ footer{
   #hero{min-height:780px;padding:0 1.2rem 2rem}
   .hero-top{padding:5rem 1.2rem 0}
   .hero-name{font-size:clamp(4.2rem,22vw,7rem)}
-  .cats-crawl{gap:1rem;overflow:hidden;padding-top:1rem}
+  .cats-crawl{position:static;width:100%;justify-content:flex-start;gap:1rem;overflow:hidden;padding:1rem 0}
   .cats-crawl svg{width:84px;flex:0 0 auto}
   .section-inner{padding:5rem 1.2rem}
   .work-header{display:block}
@@ -222,7 +227,7 @@ footer{
 
 <section id="hero">
   <div class="hero-top">
-    <p class="hero-label">Portfolio - MMXXVI</p>
+    <p class="hero-label">Portfolio - Yuchen</p>
     <h1 class="hero-name">Yuchen<br><em>Xu</em></h1>
     <p class="hero-role">Product Designer - UI/UX &amp; Interaction</p>
     <p class="hero-location">La Jolla, CA &nbsp;·&nbsp; UC San Diego</p>
@@ -493,15 +498,20 @@ if (window.matchMedia('(pointer: fine)').matches) {
 }
 
 const noteData=[
-  {n:'C4',f:261.63,t:'w'},{n:'Cs4',f:277.18,t:'b',o:32},
-  {n:'D4',f:293.66,t:'w'},{n:'Ds4',f:311.13,t:'b',o:76},
+  {n:'C4',f:261.63,t:'w'},{n:'Cs4',f:277.18,t:'b',after:0},
+  {n:'D4',f:293.66,t:'w'},{n:'Ds4',f:311.13,t:'b',after:1},
   {n:'E4',f:329.63,t:'w'},
-  {n:'F4',f:349.23,t:'w'},{n:'Fs4',f:369.99,t:'b',o:164},
-  {n:'G4',f:392.00,t:'w'},{n:'Gs4',f:415.30,t:'b',o:208},
-  {n:'A4',f:440.00,t:'w'},{n:'As4',f:466.16,t:'b',o:252},
+  {n:'F4',f:349.23,t:'w'},{n:'Fs4',f:369.99,t:'b',after:3},
+  {n:'G4',f:392.00,t:'w'},{n:'Gs4',f:415.30,t:'b',after:4},
+  {n:'A4',f:440.00,t:'w'},{n:'As4',f:466.16,t:'b',after:5},
   {n:'B4',f:493.88,t:'w'},
-  {n:'C5',f:523.25,t:'w'},{n:'Cs5',f:554.37,t:'b',o:340},
-  {n:'D5',f:587.33,t:'w'}
+  {n:'C5',f:523.25,t:'w'},{n:'Cs5',f:554.37,t:'b',after:7},
+  {n:'D5',f:587.33,t:'w'},{n:'Ds5',f:622.25,t:'b',after:8},
+  {n:'E5',f:659.25,t:'w'},
+  {n:'F5',f:698.46,t:'w'},{n:'Fs5',f:739.99,t:'b',after:10},
+  {n:'G5',f:783.99,t:'w'},{n:'Gs5',f:830.61,t:'b',after:11},
+  {n:'A5',f:880.00,t:'w'},{n:'As5',f:932.33,t:'b',after:12},
+  {n:'B5',f:987.77,t:'w'}
 ];
 const km={a:'C4',w:'Cs4',s:'D4',e:'Ds4',d:'E4',f:'F4',t:'Fs4',g:'G4',y:'Gs4',h:'A4',u:'As4',j:'B4',k:'C5',o:'Cs5',l:'D5'};
 const piano=document.getElementById('piano');
@@ -510,11 +520,11 @@ noteData.forEach(n=>{
   const el=document.createElement('div');
   if(n.t==='w'){
     el.className='wkey';
-    el.style.left=`${wi*10}%`;
+    el.style.left=`${wi*(100/14)}%`;
     wi++;
   } else {
     el.className='bkey';
-    el.style.left=`${(n.o/660)*100}%`;
+    el.style.left=`${((n.after+1)*(100/14))-2}%`;
   }
   el.dataset.note=n.n;
   el.dataset.freq=n.f;
