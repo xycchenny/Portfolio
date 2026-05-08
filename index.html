@@ -543,18 +543,20 @@ function buildNameParticles(){
   const style=getComputedStyle(nameFallback);
   const fontSize=parseFloat(style.fontSize);
   const lineHeight=fontSize*.95;
-  offCtx.font=`400 ${fontSize}px "Cormorant Garamond", serif`;
+  offCtx.font=`500 ${fontSize}px "Cormorant Garamond", serif`;
   offCtx.fillText('Yuchen',0,fontSize*.78);
-  offCtx.font=`300 italic ${fontSize}px "Cormorant Garamond", serif`;
+  offCtx.font=`400 italic ${fontSize}px "Cormorant Garamond", serif`;
   offCtx.fillText('Xu',0,fontSize*.78+lineHeight);
 
   const image=offCtx.getImageData(0,0,off.width,off.height).data;
-  const gap=window.innerWidth<700?5:4;
+  const gap=window.innerWidth<700?4:3;
   const targets=[];
   for(let y=0;y<off.height;y+=gap*dpr){
     for(let x=0;x<off.width;x+=gap*dpr){
-      const i=(y*off.width+x)*4+3;
-      if(image[i]>80)targets.push({x:x/dpr,y:y/dpr});
+      const px=Math.floor(x);
+      const py=Math.floor(y);
+      const i=(py*off.width+px)*4+3;
+      if(image[i]>45)targets.push({x:px/dpr,y:py/dpr});
     }
   }
   nameParticles=targets.map((p,i)=>{
@@ -564,7 +566,7 @@ function buildNameParticles(){
       y:old?old.y:Math.random()*rect.height,
       tx:p.x,ty:p.y,
       vx:0,vy:0,
-      r:Math.random()*1.1+.7
+      r:Math.random()*.65+1.1
     };
   });
   nameWrap.classList.add('particle-ready');
@@ -591,7 +593,7 @@ function animateNameParticles(){
       p.vy*=.86;
       p.x+=p.vx;
       p.y+=p.vy;
-      nameCtx.globalAlpha=.42+Math.random()*.32;
+      nameCtx.globalAlpha=.82;
       nameCtx.beginPath();
       nameCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
       nameCtx.fill();
