@@ -130,44 +130,6 @@ section.line-top{border-top:1px solid var(--line)}
 .w-desc{font-size:.8rem;line-height:1.9;color:var(--ink-mid)}
 .w-arr{font-size:1rem;color:var(--ink-light);margin-top:1.5rem}
 
-/* CASE DETAIL */
-#sensory-overload{
-  background:#10100F;color:#F5F3EF;
-  border-top:1px solid rgba(245,243,239,.16);
-  scroll-margin-top:72px;
-}
-.case-inner{padding:7rem 2.5rem}
-.case-kicker{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,243,239,.48);margin-bottom:1.2rem}
-.case-head{display:grid;grid-template-columns:1.1fr 1.4fr;gap:5rem;align-items:end;margin-bottom:3.5rem}
-.case-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7vw,7rem);font-weight:300;line-height:.95}
-.case-title em{font-style:italic}
-.case-summary{font-size:.92rem;line-height:2;color:rgba(245,243,239,.68);max-width:650px}
-.case-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(245,243,239,.16);margin-bottom:4rem}
-.case-meta div{background:#10100F;padding:1.2rem 1rem}
-.case-meta span{display:block;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,243,239,.42);margin-bottom:.45rem}
-.case-meta strong{font-size:.78rem;font-weight:300;color:rgba(245,243,239,.82)}
-.case-layout{display:grid;grid-template-columns:180px 1fr;gap:2.5rem;align-items:start}
-.case-nav{position:sticky;top:92px;display:flex;flex-direction:column;gap:.65rem}
-.case-nav a{
-  color:rgba(245,243,239,.46);text-decoration:none;
-  font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
-  border-bottom:1px solid rgba(245,243,239,.14);padding-bottom:.55rem;
-}
-.case-nav a:hover{color:#F5F3EF}
-.case-gallery{display:flex;flex-direction:column;gap:2.5rem}
-.case-panel{scroll-margin-top:92px}
-.case-panel-label{
-  display:flex;justify-content:space-between;gap:1rem;align-items:baseline;
-  margin-bottom:.8rem;color:rgba(245,243,239,.68);
-}
-.case-panel-label span{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,243,239,.42)}
-.case-panel-label h3{font-size:.82rem;font-weight:300;letter-spacing:.04em}
-.case-shot{
-  display:block;width:100%;height:auto;
-  border:1px solid rgba(245,243,239,.18);
-  background:#EDEAE3;
-}
-
 .resume-cols{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;margin-top:3rem}
 .r-block{margin-bottom:3rem}
 .r-label{
@@ -234,11 +196,6 @@ footer{
   .work-count{display:inline-block;margin-top:.4rem}
   .work-grid{grid-template-columns:1fr}
   .w-card{min-height:260px}
-  .case-inner{padding:5rem 1.2rem}
-  .case-head,.case-layout{grid-template-columns:1fr;gap:2rem}
-  .case-meta{grid-template-columns:1fr}
-  .case-nav{position:static;display:grid;grid-template-columns:repeat(3,1fr)}
-  .case-nav a{font-size:.52rem}
   .resume-cols,.about-grid,.skills-grid{grid-template-columns:1fr;gap:2.5rem}
   .portrait-box{max-width:360px}
   footer{align-items:flex-start;flex-direction:column}
@@ -366,7 +323,7 @@ footer{
       </div>
       <div class="w-arr">→</div>
     </article>
-    <a class="w-card" href="#sensory-overload" aria-label="View Sensory Recovery Station case study">
+    <a class="w-card" href="sensory-overload.html" aria-label="View Sensory Recovery Station case study">
       <div class="w-num">02</div>
       <div>
         <div class="w-tag">Service Design · Accessibility</div>
@@ -384,60 +341,6 @@ footer{
       </div>
       <div class="w-arr">→</div>
     </article>
-  </div>
-</section>
-
-<section id="sensory-overload">
-  <div class="case-inner">
-    <p class="case-kicker">Case Study · Sensory Overload</p>
-    <div class="case-head">
-      <h2 class="case-title">Sensory<br><em>Recovery</em></h2>
-      <p class="case-summary">A service and interface concept for people experiencing sensory overload in public or community settings. The project breaks down background research, user needs, intervention methods, service flow, prototype screens, and the final recovery experience.</p>
-    </div>
-
-    <div class="case-meta">
-      <div><span>Role</span><strong>UX Research · Service Design · Interface Design</strong></div>
-      <div><span>Focus</span><strong>Accessibility · Emotional Comfort · Low-Stimulation Flows</strong></div>
-      <div><span>Output</span><strong>Research Board · Booking Flow · Recovery Station Concept</strong></div>
-    </div>
-
-    <div class="case-layout">
-      <nav class="case-nav" aria-label="Sensory case sections">
-        <a href="#sensory-01">01 Background</a>
-        <a href="#sensory-02">02 Research</a>
-        <a href="#sensory-03">03 Concept</a>
-        <a href="#sensory-04">04 Flow</a>
-        <a href="#sensory-05">05 Prototype</a>
-        <a href="#sensory-06">06 Final</a>
-      </nav>
-
-      <div class="case-gallery">
-        <figure class="case-panel" id="sensory-01">
-          <figcaption class="case-panel-label"><span>01</span><h3>Background and Existing Methods</h3></figcaption>
-          <img class="case-shot" src="assets/sensory-overload-01.jpg" alt="Sensory overload background research board" loading="lazy">
-        </figure>
-        <figure class="case-panel" id="sensory-02">
-          <figcaption class="case-panel-label"><span>02</span><h3>User Scenario and Design Opportunity</h3></figcaption>
-          <img class="case-shot" src="assets/sensory-overload-02.jpg" alt="Sensory overload user scenario and opportunity board" loading="lazy">
-        </figure>
-        <figure class="case-panel" id="sensory-03">
-          <figcaption class="case-panel-label"><span>03</span><h3>Recovery Station Concept</h3></figcaption>
-          <img class="case-shot" src="assets/sensory-overload-03.jpg" alt="Sensory recovery station concept board" loading="lazy">
-        </figure>
-        <figure class="case-panel" id="sensory-04">
-          <figcaption class="case-panel-label"><span>04</span><h3>Booking and Support Flow</h3></figcaption>
-          <img class="case-shot" src="assets/sensory-overload-04.jpg" alt="Sensory recovery booking and support flow board" loading="lazy">
-        </figure>
-        <figure class="case-panel" id="sensory-05">
-          <figcaption class="case-panel-label"><span>05</span><h3>Interface Prototype Screens</h3></figcaption>
-          <img class="case-shot" src="assets/sensory-overload-05.jpg" alt="Sensory recovery app prototype screens" loading="lazy">
-        </figure>
-        <figure class="case-panel" id="sensory-06">
-          <figcaption class="case-panel-label"><span>06</span><h3>Final Experience Overview</h3></figcaption>
-          <img class="case-shot" src="assets/sensory-overload-06.jpg" alt="Final sensory recovery station experience overview" loading="lazy">
-        </figure>
-      </div>
-    </div>
   </div>
 </section>
 
