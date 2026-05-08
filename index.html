@@ -56,13 +56,26 @@ nav{
   padding:5.5rem 2.5rem 0;
 }
 .hero-label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.4rem}
+.hero-name-wrap{
+  position:relative;display:inline-block;
+  margin-bottom:.8rem;isolation:isolate;
+}
 .hero-name{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(4rem,11vw,8.5rem);
   font-weight:400;line-height:.95;letter-spacing:-.02em;
-  margin-bottom:.8rem;
+  margin-bottom:0;
+  transition:opacity .3s ease;
 }
 .hero-name em{font-style:italic;font-weight:300}
+.hero-name-wrap.particle-ready .hero-name{opacity:0}
+#name-particles{
+  position:absolute;inset:0;z-index:2;
+  width:100%;height:100%;
+  opacity:0;transition:opacity .35s ease;
+  pointer-events:auto;
+}
+.hero-name-wrap.particle-ready #name-particles{opacity:1}
 .hero-role{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mid);margin-top:1.4rem}
 .hero-location{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-light);margin-top:.5rem}
 
@@ -229,7 +242,10 @@ footer{
 <section id="hero">
   <div class="hero-top">
     <p class="hero-label">Portfolio - Yuchen</p>
-    <h1 class="hero-name">Yuchen<br><em>Xu</em></h1>
+    <div class="hero-name-wrap" id="hero-name-wrap">
+      <h1 class="hero-name">Yuchen<br><em>Xu</em></h1>
+      <canvas id="name-particles" aria-hidden="true"></canvas>
+    </div>
     <p class="hero-role">Product Designer - UI/UX &amp; Interaction</p>
     <p class="hero-location">La Jolla, CA &nbsp;·&nbsp; UC San Diego</p>
   </div>
@@ -495,6 +511,118 @@ if (window.matchMedia('(pointer: fine)').matches) {
   document.querySelectorAll('a,.w-card,.wkey,.bkey').forEach(el=>{
     el.addEventListener('mouseenter',()=>ring.classList.add('h'));
     el.addEventListener('mouseleave',()=>ring.classList.remove('h'));
+  });
+}
+
+const nameWrap=document.getElementById('hero-name-wrap');
+const nameCanvas=document.getElementById('name-particles');
+const nameFallback=nameWrap?.querySelector('.hero-name');
+let nameParticles=[];
+let nameMouse={x:-9999,y:-9999,active:false};
+let nameCtx;
+
+function buildNameParticles(){
+  if(!nameWrap||!nameCanvas||!nameFallback)return;
+  const rect=nameFallback.getBoundingClientRect();
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  nameCanvas.width=Math.max(1,Math.floor(rect.width*dpr));
+  nameCanvas.height=Math.max(1,Math.floor(rect.height*dpr));
+  nameCanvas.style.width=rect.width+'px';
+  nameCanvas.style.height=rect.height+'px';
+  nameCtx=nameCanvas.getContext('2d');
+  nameCtx.setTransform(dpr,0,0,dpr,0,0);
+
+  const off=document.createElement('canvas');
+  off.width=nameCanvas.width;
+  off.height=nameCanvas.height;
+  const offCtx=off.getContext('2d');
+  offCtx.setTransform(dpr,0,0,dpr,0,0);
+  offCtx.clearRect(0,0,rect.width,rect.height);
+  offCtx.fillStyle='#1E1B17';
+  offCtx.textBaseline='alphabetic';
+
+  const style=getComputedStyle(nameFallback);
+  const fontSize=parseFloat(style.fontSize);
+  const lineHeight=fontSize*.95;
+  offCtx.font=`400 ${fontSize}px "Cormorant Garamond", serif`;
+  offCtx.fillText('Yuchen',0,fontSize*.78);
+  offCtx.font=`300 italic ${fontSize}px "Cormorant Garamond", serif`;
+  offCtx.fillText('Xu',0,fontSize*.78+lineHeight);
+
+  const image=offCtx.getImageData(0,0,off.width,off.height).data;
+  const gap=window.innerWidth<700?5:4;
+  const targets=[];
+  for(let y=0;y<off.height;y+=gap*dpr){
+    for(let x=0;x<off.width;x+=gap*dpr){
+      const i=(y*off.width+x)*4+3;
+      if(image[i]>80)targets.push({x:x/dpr,y:y/dpr});
+    }
+  }
+  nameParticles=targets.map((p,i)=>{
+    const old=nameParticles[i];
+    return {
+      x:old?old.x:Math.random()*rect.width,
+      y:old?old.y:Math.random()*rect.height,
+      tx:p.x,ty:p.y,
+      vx:0,vy:0,
+      r:Math.random()*1.1+.7
+    };
+  });
+  nameWrap.classList.add('particle-ready');
+}
+
+function animateNameParticles(){
+  if(nameCtx&&nameCanvas){
+    const rect=nameCanvas.getBoundingClientRect();
+    nameCtx.clearRect(0,0,rect.width,rect.height);
+    nameCtx.fillStyle='#1E1B17';
+    nameParticles.forEach(p=>{
+      let dx=p.x-nameMouse.x;
+      let dy=p.y-nameMouse.y;
+      const dist=Math.hypot(dx,dy);
+      if(nameMouse.active&&dist<115){
+        const force=(115-dist)/115;
+        const angle=Math.atan2(dy,dx);
+        p.vx+=Math.cos(angle)*force*5.5;
+        p.vy+=Math.sin(angle)*force*5.5;
+      }
+      p.vx+=(p.tx-p.x)*.035;
+      p.vy+=(p.ty-p.y)*.035;
+      p.vx*=.86;
+      p.vy*=.86;
+      p.x+=p.vx;
+      p.y+=p.vy;
+      nameCtx.globalAlpha=.42+Math.random()*.32;
+      nameCtx.beginPath();
+      nameCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      nameCtx.fill();
+    });
+    nameCtx.globalAlpha=1;
+  }
+  requestAnimationFrame(animateNameParticles);
+}
+
+if(nameWrap&&nameCanvas){
+  nameCanvas.addEventListener('pointermove',e=>{
+    const rect=nameCanvas.getBoundingClientRect();
+    nameMouse.x=e.clientX-rect.left;
+    nameMouse.y=e.clientY-rect.top;
+    nameMouse.active=true;
+  });
+  nameCanvas.addEventListener('pointerleave',()=>{
+    nameMouse.active=false;
+    nameMouse.x=-9999;
+    nameMouse.y=-9999;
+  });
+  if(document.fonts){
+    document.fonts.ready.then(()=>{buildNameParticles();animateNameParticles();});
+  }else{
+    buildNameParticles();
+    animateNameParticles();
+  }
+  window.addEventListener('resize',()=>{
+    clearTimeout(window.nameParticleResizeTimer);
+    window.nameParticleResizeTimer=setTimeout(buildNameParticles,180);
   });
 }
 
