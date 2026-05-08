@@ -667,12 +667,13 @@ if(nameWrap&&nameCanvas){
 const ballCanvas=document.getElementById('ball-canvas');
 let ballCtx;
 let balls=[];
+let bubblePops=[];
 const ballPointer={x:-9999,y:-9999,active:false};
 const ballColors=[
-  'rgba(114,172,198,.72)',
-  'rgba(143,194,211,.62)',
-  'rgba(231,246,250,.88)',
-  'rgba(255,255,255,.92)'
+  'rgba(128,194,218,.30)',
+  'rgba(178,221,233,.24)',
+  'rgba(255,255,255,.34)',
+  'rgba(214,205,244,.20)'
 ];
 
 function resizeBallPit(){
@@ -702,22 +703,81 @@ function resizeBallPit(){
   }));
 }
 
-function drawGlassBall(b){
-  const grad=ballCtx.createRadialGradient(b.x-b.r*.35,b.y-b.r*.42,b.r*.12,b.x,b.y,b.r);
-  grad.addColorStop(0,'rgba(255,255,255,.95)');
-  grad.addColorStop(.25,b.color);
-  grad.addColorStop(1,'rgba(70,121,159,.28)');
+function drawBubble(b){
+  ballCtx.save();
+  ballCtx.globalCompositeOperation='source-over';
+  const grad=ballCtx.createRadialGradient(b.x-b.r*.28,b.y-b.r*.36,b.r*.1,b.x,b.y,b.r);
+  grad.addColorStop(0,'rgba(255,255,255,.42)');
+  grad.addColorStop(.35,b.color);
+  grad.addColorStop(.68,'rgba(177,226,239,.16)');
+  grad.addColorStop(1,'rgba(255,255,255,.06)');
   ballCtx.fillStyle=grad;
   ballCtx.beginPath();
   ballCtx.arc(b.x,b.y,b.r,0,Math.PI*2);
   ballCtx.fill();
-  ballCtx.strokeStyle='rgba(255,255,255,.55)';
-  ballCtx.lineWidth=1.2;
-  ballCtx.stroke();
-  ballCtx.fillStyle='rgba(255,255,255,.48)';
+
+  const rim=ballCtx.createLinearGradient(b.x-b.r,b.y-b.r,b.x+b.r,b.y+b.r);
+  rim.addColorStop(0,'rgba(255,255,255,.72)');
+  rim.addColorStop(.22,'rgba(120,205,224,.62)');
+  rim.addColorStop(.45,'rgba(244,227,139,.38)');
+  rim.addColorStop(.68,'rgba(207,160,224,.44)');
+  rim.addColorStop(1,'rgba(89,133,157,.45)');
+  ballCtx.strokeStyle=rim;
+  ballCtx.lineWidth=Math.max(1.4,b.r*.045);
   ballCtx.beginPath();
-  ballCtx.arc(b.x-b.r*.34,b.y-b.r*.34,b.r*.22,0,Math.PI*2);
+  ballCtx.arc(b.x,b.y,b.r*.96,0,Math.PI*2);
+  ballCtx.stroke();
+
+  ballCtx.strokeStyle='rgba(255,255,255,.58)';
+  ballCtx.lineWidth=Math.max(1,b.r*.025);
+  ballCtx.beginPath();
+  ballCtx.arc(b.x-b.r*.08,b.y-b.r*.03,b.r*.72,Math.PI*.18,Math.PI*.62);
+  ballCtx.stroke();
+
+  ballCtx.fillStyle='rgba(255,255,255,.55)';
+  ballCtx.beginPath();
+  ballCtx.ellipse(b.x-b.r*.32,b.y-b.r*.38,b.r*.23,b.r*.1,-.55,0,Math.PI*2);
   ballCtx.fill();
+  ballCtx.fillStyle='rgba(195,239,247,.22)';
+  ballCtx.beginPath();
+  ballCtx.ellipse(b.x+b.r*.28,b.y+b.r*.18,b.r*.28,b.r*.12,.85,0,Math.PI*2);
+  ballCtx.fill();
+  ballCtx.restore();
+}
+
+function popBubble(index){
+  const b=balls[index];
+  if(!b)return;
+  balls.splice(index,1);
+  for(let i=0;i<18;i++){
+    const angle=(Math.PI*2*i)/18+Math.random()*.25;
+    const speed=Math.random()*2.4+1.8;
+    bubblePops.push({
+      x:b.x+Math.cos(angle)*b.r*.45,
+      y:b.y+Math.sin(angle)*b.r*.45,
+      vx:Math.cos(angle)*speed,
+      vy:Math.sin(angle)*speed,
+      life:1,
+      r:Math.random()*2.4+1.2,
+      color:i%3===0?'rgba(255,255,255,.86)':i%3===1?'rgba(146,213,232,.70)':'rgba(214,205,244,.60)'
+    });
+  }
+}
+
+function drawPopParticles(){
+  bubblePops=bubblePops.filter(p=>p.life>.02);
+  bubblePops.forEach(p=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+    p.vy+=.03;
+    p.life*=.92;
+    ballCtx.globalAlpha=p.life;
+    ballCtx.fillStyle=p.color;
+    ballCtx.beginPath();
+    ballCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ballCtx.fill();
+  });
+  ballCtx.globalAlpha=1;
 }
 
 function animateBallPit(){
@@ -766,8 +826,9 @@ function animateBallPit(){
       if(b.x>rect.width-b.r){b.x=rect.width-b.r;b.vx=-Math.abs(b.vx)*.72;}
       if(b.y<b.r){b.y=b.r;b.vy=Math.abs(b.vy)*.72;}
       if(b.y>rect.height-b.r){b.y=rect.height-b.r;b.vy=-Math.abs(b.vy)*.62;b.vx*=.94;}
-      drawGlassBall(b);
+      drawBubble(b);
     });
+    drawPopParticles();
   }
   requestAnimationFrame(animateBallPit);
 }
@@ -788,14 +849,18 @@ if(ballCanvas){
   });
   ballCanvas.addEventListener('pointerdown',e=>{
     const rect=ballCanvas.getBoundingClientRect();
-    balls.push({
-      x:e.clientX-rect.left,
-      y:e.clientY-rect.top,
-      vx:(Math.random()-.5)*6,
-      vy:-7,
-      r:Math.random()*15+18,
-      color:ballColors[Math.floor(Math.random()*ballColors.length)]
-    });
+    const x=e.clientX-rect.left;
+    const y=e.clientY-rect.top;
+    let hit=-1;
+    for(let i=balls.length-1;i>=0;i--){
+      if(Math.hypot(balls[i].x-x,balls[i].y-y)<balls[i].r){
+        hit=i;
+        break;
+      }
+    }
+    if(hit>-1){
+      popBubble(hit);
+    }
   });
   window.addEventListener('resize',()=>{
     clearTimeout(window.ballPitResizeTimer);
