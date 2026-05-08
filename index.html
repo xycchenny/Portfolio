@@ -143,6 +143,77 @@ section.line-top{border-top:1px solid var(--line)}
 .w-desc{font-size:.93rem;line-height:1.85;color:var(--ink-mid)}
 .w-arr{font-size:1.15rem;color:var(--ink-light);margin-top:1.5rem}
 
+#gallery{overflow:hidden}
+.gallery-shell{position:relative;min-height:680px;padding:2.5rem;background:#DCDAD5}
+.gallery-top{
+  display:grid;grid-template-columns:120px 1fr 150px;gap:2rem;
+  align-items:start;margin-bottom:2rem;
+}
+.gallery-mark{
+  font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:500;
+  line-height:.8;letter-spacing:-.04em;
+}
+.gallery-mark span{display:block;font-family:'Jost',sans-serif;font-size:.48rem;letter-spacing:.35em;text-transform:uppercase;margin-top:.6rem;color:var(--ink-mid)}
+.gallery-intro{font-size:.94rem;line-height:1.75;color:var(--ink-mid);max-width:330px}
+.gallery-meta{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid)}
+.gallery-meta div{display:flex;justify-content:space-between;border-bottom:1px solid rgba(30,27,23,.16);padding:.22rem 0}
+.gallery-stage{position:relative;min-height:430px;perspective:900px}
+.gallery-reel{
+  display:flex;gap:1.2rem;align-items:center;
+  overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+  padding:2.4rem max(2rem,8vw) 3rem;
+  scrollbar-width:none;
+}
+.gallery-reel::-webkit-scrollbar{display:none}
+.gallery-card{
+  position:relative;flex:0 0 clamp(190px,22vw,280px);
+  aspect-ratio:4/5;overflow:hidden;background:#ECEAE4;
+  border:1px solid rgba(30,27,23,.18);
+  box-shadow:0 18px 36px rgba(30,27,23,.12);
+  scroll-snap-align:center;cursor:none;
+  transform:rotate(var(--rot)) translateY(var(--lift));
+  transition:transform .35s ease,box-shadow .35s ease;
+}
+.gallery-card:hover{transform:rotate(0deg) translateY(-14px) scale(1.03);box-shadow:0 26px 52px rgba(30,27,23,.18)}
+.gallery-card img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.95) contrast(1.02)}
+.gallery-card::before{
+  content:'';position:absolute;inset:.7rem;border:1px solid rgba(255,255,255,.5);
+  pointer-events:none;z-index:2;
+}
+.gallery-card::after{
+  content:attr(data-label);position:absolute;left:.9rem;bottom:.85rem;z-index:3;
+  font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;
+  text-shadow:0 1px 6px rgba(0,0,0,.42);
+}
+.gallery-card.is-empty{display:flex;align-items:center;justify-content:center;background:
+  linear-gradient(135deg,rgba(120,166,184,.18),rgba(255,255,255,.42)),
+  repeating-linear-gradient(90deg,rgba(30,27,23,.08) 0 1px,transparent 1px 18px);
+}
+.gallery-card.is-empty::after{content:'Add ' attr(data-src);color:var(--ink-mid);text-shadow:none;text-align:center;left:1rem;right:1rem}
+.gallery-card.is-empty::before{border-color:rgba(30,27,23,.14)}
+.gallery-bottom{
+  position:absolute;left:1.2rem;right:1.2rem;bottom:1rem;
+  display:grid;grid-template-columns:1fr minmax(180px,42vw) 1fr;align-items:end;gap:1.5rem;
+}
+.gallery-word{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:300;letter-spacing:-.04em;line-height:.9}
+.gallery-word:last-child{text-align:right}
+.gallery-progress{height:6px;border-bottom:5px solid var(--ink);margin-bottom:.45rem}
+.gallery-note{
+  position:absolute;right:2.4rem;bottom:6.1rem;
+  font-size:.68rem;color:var(--ink-mid);
+}
+.gallery-lightbox{
+  position:fixed;inset:0;background:rgba(30,27,23,.82);z-index:500;
+  display:none;align-items:center;justify-content:center;padding:2rem;
+}
+.gallery-lightbox.on{display:flex}
+.gallery-lightbox img{max-width:min(92vw,1100px);max-height:86vh;object-fit:contain;box-shadow:0 28px 80px rgba(0,0,0,.36)}
+.gallery-close{
+  position:absolute;top:1.2rem;right:1.4rem;border:1px solid rgba(255,255,255,.5);
+  background:transparent;color:#fff;border-radius:999px;width:38px;height:38px;
+  font-size:1.4rem;line-height:1;cursor:none;
+}
+
 .resume-cols{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;margin-top:3rem}
 .r-block{margin-bottom:3rem}
 .r-label{
@@ -224,6 +295,14 @@ footer{
   .work-count{display:inline-block;margin-top:.4rem}
   .work-grid{grid-template-columns:1fr}
   .w-card{min-height:260px}
+  .gallery-shell{min-height:620px;padding:1.2rem}
+  .gallery-top{grid-template-columns:1fr;gap:1rem}
+  .gallery-meta{max-width:220px}
+  .gallery-reel{padding:1.4rem 1rem 4rem}
+  .gallery-card{flex-basis:68vw}
+  .gallery-bottom{grid-template-columns:1fr;gap:.8rem}
+  .gallery-word:last-child{text-align:left}
+  .gallery-note{display:none}
   .resume-cols,.about-grid,.skills-grid{grid-template-columns:1fr;gap:2.5rem}
   .portrait-box{max-width:360px}
   footer{align-items:flex-start;flex-direction:column}
@@ -251,6 +330,7 @@ footer{
     <a href="#about">About Me</a>
     <a href="#resume">My Resume</a>
     <a href="#work">My Work</a>
+    <a href="#gallery">Gallery</a>
   </div>
 </nav>
 
@@ -493,6 +573,48 @@ footer{
   </div>
 </section>
 
+<section id="gallery" class="line-top">
+  <div class="gallery-shell">
+    <div class="gallery-top">
+      <div class="gallery-mark">YX<span>Photo Space</span></div>
+      <p class="gallery-intro">A rotating visual archive for photography work, built like a loose film reel. Replace the placeholder files with your own shots to turn this into a personal photo wall.</p>
+      <div class="gallery-meta" aria-hidden="true">
+        <div><span>Shots</span><span>000006</span></div>
+        <div><span>Mode</span><span>Reel</span></div>
+        <div><span>Open</span><span>Click</span></div>
+      </div>
+    </div>
+    <div class="gallery-stage">
+      <div class="gallery-reel" aria-label="Photography gallery">
+        <figure class="gallery-card" style="--rot:-8deg;--lift:34px" data-label="Frame 01" data-src="gallery-01.jpg">
+          <img src="assets/gallery-01.jpg" alt="Photography work 01" loading="lazy">
+        </figure>
+        <figure class="gallery-card" style="--rot:5deg;--lift:-8px" data-label="Frame 02" data-src="gallery-02.jpg">
+          <img src="assets/gallery-02.jpg" alt="Photography work 02" loading="lazy">
+        </figure>
+        <figure class="gallery-card" style="--rot:-3deg;--lift:18px" data-label="Frame 03" data-src="gallery-03.jpg">
+          <img src="assets/gallery-03.jpg" alt="Photography work 03" loading="lazy">
+        </figure>
+        <figure class="gallery-card" style="--rot:8deg;--lift:-18px" data-label="Frame 04" data-src="gallery-04.jpg">
+          <img src="assets/gallery-04.jpg" alt="Photography work 04" loading="lazy">
+        </figure>
+        <figure class="gallery-card" style="--rot:-6deg;--lift:28px" data-label="Frame 05" data-src="gallery-05.jpg">
+          <img src="assets/gallery-05.jpg" alt="Photography work 05" loading="lazy">
+        </figure>
+        <figure class="gallery-card" style="--rot:4deg;--lift:2px" data-label="Frame 06" data-src="gallery-06.jpg">
+          <img src="assets/gallery-06.jpg" alt="Photography work 06" loading="lazy">
+        </figure>
+      </div>
+    </div>
+    <div class="gallery-note">drag sideways / click a frame</div>
+    <div class="gallery-bottom" aria-hidden="true">
+      <div class="gallery-word">PHOTO</div>
+      <div class="gallery-progress"></div>
+      <div class="gallery-word">LENS</div>
+    </div>
+  </div>
+</section>
+
 <section id="contact" class="contact-section line-top">
   <div class="section-inner contact-panel">
     <p class="sec-label">Contact</p>
@@ -507,6 +629,11 @@ footer{
     <canvas id="ball-canvas"></canvas>
   </div>
 </section>
+
+<div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
+  <button class="gallery-close" type="button" aria-label="Close gallery image">×</button>
+  <img src="" alt="">
+</div>
 
 <footer>
   <div class="foot-name">Yuchen Xu</div>
@@ -528,7 +655,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
     ring.style.left=rx+'px';ring.style.top=ry+'px';
     requestAnimationFrame(loop);
   })();
-  document.querySelectorAll('a,.w-card,.wkey,.bkey').forEach(el=>{
+  document.querySelectorAll('a,.w-card,.wkey,.bkey,.gallery-card,.gallery-close').forEach(el=>{
     el.addEventListener('mouseenter',()=>ring.classList.add('h'));
     el.addEventListener('mouseleave',()=>ring.classList.remove('h'));
   });
@@ -663,6 +790,34 @@ if(nameWrap&&nameCanvas){
     window.nameParticleResizeTimer=setTimeout(buildNameParticles,180);
   });
 }
+
+const galleryLightbox=document.getElementById('gallery-lightbox');
+const galleryLightboxImg=galleryLightbox?.querySelector('img');
+function markGalleryImageMissing(img){
+  img.closest('.gallery-card')?.classList.add('is-empty');
+  img.remove();
+}
+document.querySelectorAll('.gallery-card img').forEach(img=>{
+  img.addEventListener('error',()=>markGalleryImageMissing(img));
+  if(img.complete&&img.naturalWidth===0)markGalleryImageMissing(img);
+});
+document.querySelectorAll('.gallery-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const img=card.querySelector('img');
+    if(!img||!galleryLightbox||!galleryLightboxImg)return;
+    galleryLightboxImg.src=img.src;
+    galleryLightboxImg.alt=img.alt;
+    galleryLightbox.classList.add('on');
+    galleryLightbox.setAttribute('aria-hidden','false');
+  });
+});
+galleryLightbox?.addEventListener('click',e=>{
+  if(e.target===galleryLightbox||e.target.classList.contains('gallery-close')){
+    galleryLightbox.classList.remove('on');
+    galleryLightbox.setAttribute('aria-hidden','true');
+    if(galleryLightboxImg)galleryLightboxImg.src='';
+  }
+});
 
 const ballCanvas=document.getElementById('ball-canvas');
 let ballCtx;
