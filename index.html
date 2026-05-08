@@ -520,21 +520,27 @@ let nameParticles=[];
 let nameMouse={x:-9999,y:-9999,active:false};
 let nameCtx;
 const nameParticlePalette=[
-  'rgba(92,144,160,.55)',
-  'rgba(111,172,146,.50)',
-  'rgba(142,179,196,.48)',
-  'rgba(166,151,194,.38)',
-  'rgba(189,178,117,.32)'
+  'rgba(67,122,143,.68)',
+  'rgba(82,147,124,.62)',
+  'rgba(101,151,173,.60)',
+  'rgba(139,123,176,.48)',
+  'rgba(160,151,90,.42)'
 ];
 
 function buildNameParticles(){
   if(!nameWrap||!nameCanvas||!nameFallback)return;
   const rect=nameFallback.getBoundingClientRect();
   const dpr=Math.min(window.devicePixelRatio||1,2);
-  nameCanvas.width=Math.max(1,Math.floor(rect.width*dpr));
-  nameCanvas.height=Math.max(1,Math.floor(rect.height*dpr));
-  nameCanvas.style.width=rect.width+'px';
-  nameCanvas.style.height=rect.height+'px';
+  const padX=18;
+  const padY=6;
+  const canvasWidth=rect.width+padX*2;
+  const canvasHeight=rect.height+padY*2;
+  nameCanvas.width=Math.max(1,Math.floor(canvasWidth*dpr));
+  nameCanvas.height=Math.max(1,Math.floor(canvasHeight*dpr));
+  nameCanvas.style.left=-padX+'px';
+  nameCanvas.style.top=-padY+'px';
+  nameCanvas.style.width=canvasWidth+'px';
+  nameCanvas.style.height=canvasHeight+'px';
   nameCtx=nameCanvas.getContext('2d');
   nameCtx.setTransform(dpr,0,0,dpr,0,0);
 
@@ -543,7 +549,7 @@ function buildNameParticles(){
   off.height=nameCanvas.height;
   const offCtx=off.getContext('2d');
   offCtx.setTransform(dpr,0,0,dpr,0,0);
-  offCtx.clearRect(0,0,rect.width,rect.height);
+  offCtx.clearRect(0,0,canvasWidth,canvasHeight);
   offCtx.fillStyle='#1E1B17';
   offCtx.textBaseline='alphabetic';
 
@@ -551,9 +557,9 @@ function buildNameParticles(){
   const fontSize=parseFloat(style.fontSize);
   const lineHeight=fontSize*.95;
   offCtx.font=`500 ${fontSize}px "Cormorant Garamond", serif`;
-  offCtx.fillText('Yuchen',0,fontSize*.78);
+  offCtx.fillText('Yuchen',padX,fontSize*.78+padY);
   offCtx.font=`400 italic ${fontSize}px "Cormorant Garamond", serif`;
-  offCtx.fillText('Xu',0,fontSize*.78+lineHeight);
+  offCtx.fillText('Xu',padX,fontSize*.78+lineHeight+padY);
 
   const image=offCtx.getImageData(0,0,off.width,off.height).data;
   const gap=window.innerWidth<700?4:3;
@@ -569,11 +575,11 @@ function buildNameParticles(){
   nameParticles=targets.map((p,i)=>{
     const old=nameParticles[i];
     return {
-      x:old?old.x:Math.random()*rect.width,
-      y:old?old.y:Math.random()*rect.height,
+      x:old?old.x:Math.random()*canvasWidth,
+      y:old?old.y:Math.random()*canvasHeight,
       tx:p.x,ty:p.y,
       vx:0,vy:0,
-      r:Math.random()*.75+1.25,
+      r:Math.random()*.7+1.35,
       color:old?.color||nameParticlePalette[Math.floor(Math.random()*nameParticlePalette.length)]
     };
   });
@@ -601,7 +607,7 @@ function animateNameParticles(){
       p.vy*=.86;
       p.x+=p.vx;
       p.y+=p.vy;
-      nameCtx.globalAlpha=.88;
+      nameCtx.globalAlpha=.92;
       nameCtx.fillStyle=p.color;
       nameCtx.beginPath();
       nameCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
