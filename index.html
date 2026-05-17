@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yuchen Xu - Product Designer</title>
+<!-- [修改2] 补充 SEO / OG meta 标签 -->
+<meta name="description" content="Yuchen Xu is a Product Designer studying at UC San Diego.">
+<meta property="og:title" content="Yuchen Xu - Product Designer">
+<meta property="og:description" content="Yuchen Xu is a Product Designer studying at UC San Diego.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
@@ -15,20 +21,31 @@
   --bg3:#D8D3CA;
   --ink:#1E1B17;
   --ink-mid:#6A6560;
-  --ink-light:#9A9590;
+  --ink-light:#8F8A84;
   --line:rgba(30,27,23,0.14);
+  --accent:#B8845C;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Jost',sans-serif;font-size:17px;font-weight:300;cursor:none;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:'Jost',sans-serif;font-size:17px;font-weight:300;line-height:1.7;cursor:none;overflow-x:hidden}
 
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:300;opacity:.5;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E")
 }
 
-#cur{position:fixed;width:6px;height:6px;background:var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-#cur-ring{position:fixed;width:28px;height:28px;border:1px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.3;transition:width .25s,height .25s,opacity .25s}
-#cur-ring.h{width:44px;height:44px;opacity:.12}
+#cur{
+  position:fixed;width:18px;height:18px;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  background:
+    radial-gradient(circle at 34% 28%,rgba(255,255,255,.95) 0 12%,transparent 13%),
+    radial-gradient(circle at 62% 68%,rgba(255,255,255,.28),transparent 0 38%),
+    rgba(178,221,233,.22);
+  border:1px solid rgba(30,27,23,.34);border-radius:50%;
+  box-shadow:inset -4px -5px 9px rgba(128,194,218,.18),inset 3px 3px 7px rgba(255,255,255,.78),0 2px 7px rgba(30,27,23,.08);
+}
+#cur::before,#cur::after,#cur .bow{display:none}
+#cur-ring{position:fixed;width:34px;height:34px;border:1px solid rgba(30,27,23,.26);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.26;transition:width .25s,height .25s,opacity .25s,background .25s}
+#cur-ring.h{width:52px;height:52px;opacity:.16;background:rgba(178,221,233,.12)}
 
 nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
@@ -42,9 +59,15 @@ nav{
 .nav-links{display:flex;gap:2.2rem}
 .nav-links a{
   font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;
-  color:var(--ink-mid);text-decoration:none;transition:color .25s
+  color:var(--ink-mid);text-decoration:none;transition:color .25s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:-2px;width:0;height:1px;
+  background:var(--ink);transition:width .3s ease;
 }
 .nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
 
 #hero{
   min-height:100vh;display:flex;flex-direction:column;
@@ -76,15 +99,9 @@ nav{
   pointer-events:auto;
 }
 .hero-name-wrap.particle-ready #name-particles{opacity:1}
-.hero-role{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mid);margin-top:1.4rem}
-.hero-location{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-light);margin-top:.5rem}
-
-.cats-crawl{
-  position:absolute;right:2.5rem;top:46%;
-  width:min(48vw,520px);
-  display:flex;align-items:center;justify-content:space-between;gap:2rem;
-  pointer-events:none;
-}
+/* [修改1] 加大关键字号 */
+.hero-role{font-size:.88rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mid);margin-top:1.8rem}
+.hero-location{font-size:.80rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-light);margin-top:.7rem}
 
 .piano-hero{width:100%;max-width:700px}
 .piano-wrap{
@@ -110,53 +127,55 @@ nav{
 .bkey.on{background:#3D3830}
 .piano-hint{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-light);margin-top:.7rem;text-align:center;line-height:1.5}
 
-.scroll-cue{display:flex;align-items:center;gap:1rem;margin-top:1.4rem}
-.scroll-cue span{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-light)}
-.scroll-bar{width:32px;height:1px;background:var(--ink-light);position:relative;overflow:hidden}
-.scroll-bar::after{
-  content:'';position:absolute;top:0;left:-100%;
-  width:100%;height:100%;background:var(--ink);
-  animation:slide 2s ease-in-out infinite;
-}
-@keyframes slide{0%{left:-100%}50%{left:0}100%{left:100%}}
-
 section.line-top{border-top:1px solid var(--line)}
-.section-inner{padding:7rem 2.5rem}
-.sec-label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.2rem}
+.section-inner{padding:8rem 2.5rem}
+/* [修改1] 加大关键字号 */
+.sec-label{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.2rem}
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4.4vw,3.7rem);font-weight:300;line-height:1.15;margin-bottom:2rem}
 .sec-title em{font-style:italic}
 
 #work{padding-top:0}
 .work-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3rem}
-.work-count{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-light)}
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:0}
+/* [修改1] 加大关键字号 */
+.work-count{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-light)}
+/* [修改5] 作品区自适应布局 */
+.work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--line);margin-top:0}
 .w-card{
   background:var(--bg);padding:2.2rem 1.8rem;
   display:flex;flex-direction:column;justify-content:space-between;
-  cursor:none;transition:background .3s;min-height:320px;
+  cursor:none;transition:background .3s,transform .3s ease,box-shadow .3s ease;min-height:320px;
   color:inherit;text-decoration:none;
+  position:relative;
 }
-.w-card:hover{background:var(--bg2)}
-.w-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(30,27,23,.1);line-height:1;margin-bottom:1.5rem}
-.w-tag{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.5rem}
-.w-title{font-size:1rem;font-weight:400;margin-bottom:.6rem;line-height:1.5}
-.w-desc{font-size:.93rem;line-height:1.85;color:var(--ink-mid)}
-.w-arr{font-size:1.15rem;color:var(--ink-light);margin-top:1.5rem}
+.w-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--accent);transform:scaleY(0);transition:transform .3s ease;
+  transform-origin:bottom;
+}
+.w-card:hover{background:var(--bg2);transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,27,23,.08)}
+.w-card:hover::before{transform:scaleY(1)}
+.w-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(184,132,92,.18);line-height:1;margin-bottom:1.5rem}
+/* [修改1] 加大关键字号 */
+.w-tag{font-size:.74rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.5rem}
+.w-title{font-size:1.08rem;font-weight:400;margin-bottom:.6rem;line-height:1.5}
+.w-desc{font-size:1rem;line-height:1.85;color:var(--ink-mid)}
+.w-arr{font-size:1.15rem;color:var(--ink-light);margin-top:1.5rem;transition:transform .3s ease,color .3s ease}
+.w-card:hover .w-arr{transform:translateX(6px);color:var(--accent)}
 
 #gallery{overflow:hidden;background:#D1C9BC}
 .gallery-shell{
-  position:relative;min-height:720px;padding:0;
+  position:relative;min-height:980px;padding:0;
   background:
     radial-gradient(circle at 24% 18%,rgba(255,255,255,.32),transparent 0 24%),
     linear-gradient(135deg,#D8D0C1,#C4BAAA);
 }
 .gallery-stage{
-  position:relative;min-height:720px;
+  position:relative;min-height:980px;
   display:flex;align-items:center;justify-content:center;
-  padding:5.5rem 2rem 9rem;
+  padding:5.5rem 2rem 20rem;
 }
 .gallery-stage::after{
-  content:'';position:absolute;left:50%;bottom:6.5rem;width:min(760px,78vw);height:110px;
+  content:'';position:absolute;left:50%;bottom:17.5rem;width:min(760px,78vw);height:110px;
   background:rgba(30,27,23,.22);filter:blur(28px);
   transform:translateX(-50%) skewX(-18deg);
   pointer-events:none;
@@ -237,9 +256,101 @@ section.line-top{border-top:1px solid var(--line)}
   content:'';position:absolute;left:5%;right:5%;bottom:-35%;height:7px;border-radius:999px;
   background:#060606;box-shadow:0 0 0 10px rgba(255,255,255,.04);
 }
+.polaroid-camera{
+  width:min(500px,72vw);aspect-ratio:.82/1;
+  filter:drop-shadow(0 18px 28px rgba(30,27,23,.16));
+}
+.polaroid-camera::before{
+  content:'';position:absolute;left:69%;top:7%;z-index:1;width:14%;height:63%;
+  border:1px solid rgba(78,72,62,.24);border-left:0;border-radius:0 6px 4px 0;
+  background:linear-gradient(90deg,#D8D2C2,#BFB7A8);
+  transform:skewY(9deg);
+  box-shadow:inset 8px 0 12px rgba(255,255,255,.24);
+}
+.polaroid-camera::after{
+  content:'';position:absolute;left:21%;right:21%;top:52%;z-index:6;height:10px;
+  border-radius:999px;background:#171716;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.12),0 1px 0 rgba(255,255,255,.35);
+}
+.camera-back{display:none}
+.camera-body{
+  position:absolute;left:14%;right:17%;top:6%;height:67%;z-index:2;
+  border:1px solid rgba(78,72,62,.24);border-radius:4px 4px 10px 10px;
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.55),transparent 0 20%),
+    linear-gradient(#F1EEE2,#DCD6C8);
+  transform:rotate(-.6deg);
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,.78),inset -9px -3px 16px rgba(93,83,68,.14),0 14px 24px rgba(30,27,23,.13);
+}
+.camera-body::before{
+  content:'';position:absolute;left:13%;right:13%;top:9%;height:36%;
+  border:12px solid #D0CCC0;border-radius:15px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 4px),
+    radial-gradient(ellipse at 50% 50%,#17191D 0 55%,#0B0C10 56% 100%);
+  box-shadow:inset 0 0 30px rgba(0,0,0,.5),0 2px 0 rgba(255,255,255,.5);
+}
+.camera-body::after{
+  content:'';
+  display:none;
+}
+.camera-lens{
+  position:absolute;left:50%;top:17%;z-index:5;width:28%;height:18%;
+  transform:translateX(-50%) rotate(-.3deg);border-radius:2px;
+  border:1px solid rgba(255,255,255,.34);
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.12),transparent 0 35%),
+    linear-gradient(#151515,#050505);
+  box-shadow:0 0 0 1px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.16);
+  opacity:.16;
+}
+.polaroid-shutter{
+  position:absolute;left:16%;top:59%;z-index:6;width:9%;aspect-ratio:1;
+  border:0;border-radius:50%;
+  background:#C96522;
+  box-shadow:inset -8px -8px 0 rgba(117,48,18,.2),0 2px 4px rgba(30,27,23,.18);
+}
+.polaroid-shutter::before{
+  content:'';position:absolute;left:52%;top:-28%;width:86%;height:86%;
+  border:0;border-radius:8px;background:#FBFAF4;
+  transform:rotate(14deg);
+  box-shadow:0 2px 5px rgba(30,27,23,.22);
+}
+.polaroid-shutter::after{
+  content:'';position:absolute;left:76%;top:-18%;z-index:2;
+  width:30%;height:30%;border-radius:50%;background:#2C6AA8;
+}
+.camera-viewfinder{
+  position:absolute;left:36%;top:64%;z-index:6;width:15%;height:6%;
+  border:0;border-radius:2px;background:#8F1E16;overflow:hidden;
+  transform:rotate(.3deg);
+  box-shadow:0 1px 2px rgba(30,27,23,.18);
+}
+.camera-viewfinder::before{display:none}
+.camera-knob{
+  position:absolute;left:22%;top:70%;z-index:6;width:5%;height:7%;
+  border:0;border-radius:999px 999px 48% 48%;
+  background:linear-gradient(#668A38 0 23%,#EFB447 23% 43%,#D9524E 43% 63%,#4F83C5 63% 83%,#7BA74D 83% 100%);
+  transform:rotate(-1deg);
+  box-shadow:0 1px 2px rgba(30,27,23,.18);
+}
+.camera-base{
+  position:absolute;left:14%;right:17%;top:76%;height:7%;z-index:7;
+  border:1px solid rgba(78,72,62,.16);border-radius:0 0 8px 8px;
+  background:linear-gradient(#DCD6C8,#CFC7B8);
+  transform:rotate(-.6deg);
+  box-shadow:0 10px 16px rgba(30,27,23,.12),inset 0 1px 0 rgba(255,255,255,.7);
+}
+.camera-base::before,.camera-base::after{display:none}
+.camera-slot{
+  position:absolute;left:21%;right:21%;top:52%;height:10px;z-index:8;
+  border:0;border-radius:999px;background:#171716;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.12),0 1px 0 rgba(255,255,255,.35);
+}
+.camera-slot::after{display:none}
 .instant-photo{
-  position:absolute;left:50%;top:72%;z-index:3;width:min(330px,46vw);aspect-ratio:.78/1;
-  transform:translate(-50%,-18%) rotate(-1.2deg);
+  position:absolute;left:50%;top:55%;z-index:4;width:min(360px,44vw);aspect-ratio:.78/1;
+  transform:translate(-50%,-34%) rotate(-1.2deg);
   padding:3.1% 3.1% 15.5%;
   background:
     linear-gradient(120deg,rgba(255,255,255,.7),transparent 0 26%),
@@ -269,19 +380,18 @@ section.line-top{border-top:1px solid var(--line)}
 }
 .instant-photo.is-ready:hover{filter:brightness(1.03)}
 .instant-photo.is-printing{animation:printPhoto 1.1s cubic-bezier(.22,.8,.28,1) forwards}
-.instant-photo.is-ready:not(.is-printing){opacity:1;transform:translate(-50%,31%) rotate(-1.2deg)}
+.instant-photo.is-ready:not(.is-printing){opacity:1;transform:translate(-50%,18%) rotate(-1.2deg)}
 @keyframes printPhoto{
-  0%{opacity:0;transform:translate(-50%,-21%) rotate(.2deg)}
+  0%{opacity:0;transform:translate(-50%,-34%) rotate(.2deg)}
   12%{opacity:1}
-  100%{opacity:1;transform:translate(-50%,31%) rotate(-1.2deg)}
+  100%{opacity:1;transform:translate(-50%,18%) rotate(-1.2deg)}
 }
 .gallery-photo-missing .instant-photo img{display:none}
 .gallery-photo-missing .instant-photo{
-  background:linear-gradient(#F6F0E3 0 100%);
+  opacity:0;pointer-events:none;
 }
 .gallery-photo-missing .instant-photo::before{
-  content:'';position:absolute;left:3.1%;right:3.1%;top:3.1%;height:75%;
-  background:radial-gradient(circle at 50% 52%,rgba(255,255,255,.08),transparent 0 42%),#151515;
+  display:none;
 }
 .gallery-lightbox{
   position:fixed;inset:0;background:rgba(30,27,23,.82);z-index:500;
@@ -308,57 +418,87 @@ section.line-top{border-top:1px solid var(--line)}
 .r-title{font-size:1.02rem;font-weight:400;margin-bottom:.18rem;line-height:1.4}
 .r-sub{font-size:.92rem;color:var(--ink-mid);margin-bottom:.2rem}
 .r-detail{font-size:.9rem;color:var(--ink-light);line-height:1.7;margin-top:.35rem}
-.skill-row{margin:.7rem 0}
-.skill-name{
-  font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-mid);margin-bottom:0;
-  display:flex;justify-content:space-between;gap:1rem;
-}
-.bar-bg{display:none;height:1px;background:var(--line);position:relative}
-.bar-fg{height:1px;background:var(--ink);position:absolute;top:0;left:0}
 .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 3rem}
+/* [修改4] 技能 bar 改为标签云 */
+.skill-tag{
+  display:inline-block;
+  border:1px solid var(--line);
+  padding:.22rem .7rem;
+  font-size:.72rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink-mid);
+  margin:3px;
+}
 .lang-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
 .lang-name{font-size:.9rem;font-weight:400}
 .lang-level{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);text-align:right}
 
-.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:6rem;align-items:start}
+.about-grid{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(360px,1.25fr) minmax(220px,.75fr);gap:4rem;align-items:start}
 .portrait-box{
+  position:relative;
   aspect-ratio:3/4;background:var(--bg2);
   border:1px solid var(--line);
   overflow:hidden;
 }
-.portrait-box img{
+.portrait-box .portrait-photo{
   width:100%;height:100%;
   display:block;object-fit:cover;object-position:center 42%;
 }
-.body-text{font-size:1rem;line-height:2.1;color:var(--ink-mid);margin-bottom:1rem}
+/* [修改3] About 正文字号加大，行高微调 */
+.body-text{font-size:1.02rem;line-height:2;color:var(--ink-mid);margin-bottom:1.2rem}
 .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.8rem}
 .tag{
   border:1px solid var(--line);padding:.22rem .7rem;
   font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);
 }
+.about-cat{
+  margin:2.2rem 0 0;
+  text-align:center;
+}
+.about-cat img{
+  width:100%;display:block;
+}
+.about-cat figcaption{
+  margin-top:.45rem;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:1.35rem;
+  color:var(--ink-mid);
+}
 .contact-section{position:relative;overflow:hidden;min-height:520px;padding-bottom:0}
 .contact-panel{position:relative;z-index:2;text-align:center;padding-bottom:1rem}
 .contact-title{
   font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);
-  font-weight:400;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.1rem;
+  font-weight:400;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.4rem;
 }
 .contact-row{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem 1.6rem;
-  margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line);
+  display:flex;justify-content:center;flex-wrap:wrap;gap:1rem 2rem;
+  margin-top:1.8rem;padding-top:1.4rem;border-top:1px solid var(--line);
 }
-.contact-item{font-size:.9rem;color:var(--ink-mid);letter-spacing:.04em}
-.contact-item a{color:var(--ink-mid);text-decoration:none}
+.contact-item{font-size:.92rem;color:var(--ink-mid);letter-spacing:.04em}
+.contact-item a{color:var(--ink-mid);text-decoration:none;transition:color .25s}
 .contact-item a:hover{color:var(--ink)}
+.contact-cta{
+  display:inline-block;margin-top:2.2rem;
+  padding:.7rem 2.2rem;
+  border:1px solid var(--ink);
+  font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  transition:background .3s,color .3s,transform .2s;
+}
+.contact-cta:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px)}
 .ball-pit{position:relative;z-index:1;height:310px;margin-top:1.8rem}
 #ball-canvas{width:100%;height:100%;display:block;touch-action:none}
 
 footer{
-  padding:2rem 2.5rem;border-top:1px solid var(--line);
+  padding:2.8rem 2.5rem;border-top:1px solid var(--line);
   display:flex;justify-content:space-between;align-items:center;gap:1rem;
 }
-.foot-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--ink-mid)}
-.foot-r{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);text-align:right}
+/* [修改5] Footer 和 work-count 字号统一加大 */
+.foot-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--ink-mid)}
+.foot-r{font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);text-align:right}
+.foot-tagline{font-size:.78rem;color:var(--ink-light);letter-spacing:.08em;margin-top:.2rem}
 
 @media (max-width: 860px){
   body{cursor:auto}
@@ -369,16 +509,16 @@ footer{
   #hero{min-height:780px;padding:0 1.2rem 2rem}
   .hero-top{padding:5rem 1.2rem 0}
   .hero-name{font-size:clamp(4.2rem,22vw,7rem)}
-  .cats-crawl{position:static;width:100%;justify-content:flex-start;gap:1rem;overflow:hidden;padding:1rem 0}
-  .cats-crawl svg{width:84px;flex:0 0 auto}
+  /* [修改3] 移动端 hero 区精简 */
+  .cats-crawl{display:none}
   .section-inner{padding:5rem 1.2rem}
   .work-header{display:block}
   .work-count{display:inline-block;margin-top:.4rem}
   .work-grid{grid-template-columns:1fr}
   .w-card{min-height:260px}
-  .gallery-shell,.gallery-stage{min-height:600px}
-  .gallery-stage{padding:4.5rem 1rem 8.2rem}
-  .gallery-stage::after{bottom:4.7rem;width:82vw;height:90px}
+  .gallery-shell,.gallery-stage{min-height:760px}
+  .gallery-stage{padding:4.5rem 1rem 15rem}
+  .gallery-stage::after{bottom:12rem;width:82vw;height:90px}
   .polaroid-camera{width:min(560px,94vw)}
   .instant-photo{width:min(292px,58vw)}
   .camera-back{border-radius:22px 22px 6px 6px}
@@ -386,6 +526,7 @@ footer{
   .portrait-box{max-width:360px}
   footer{align-items:flex-start;flex-direction:column}
   .foot-r{text-align:left}
+  .w-card:hover{transform:none;box-shadow:none}
 }
 
 @media (max-width: 520px){
@@ -395,8 +536,8 @@ footer{
   .piano{height:112px}
   .wkey{height:96px}
   .bkey{height:60px}
-  .gallery-shell,.gallery-stage{min-height:520px}
-  .gallery-stage{padding:3.6rem .6rem 7rem}
+  .gallery-shell,.gallery-stage{min-height:680px}
+  .gallery-stage{padding:3.6rem .6rem 13rem}
   .polaroid-camera{width:104vw}
   .instant-photo{width:60vw}
   .camera-viewfinder{border-width:3px}
@@ -429,73 +570,11 @@ footer{
     <p class="hero-role">Product Designer - UI/UX &amp; Interaction</p>
     <p class="hero-location">La Jolla, CA &nbsp;·&nbsp; UC San Diego</p>
   </div>
-
-  <div class="cats-crawl">
-    <svg width="100" height="56" viewBox="0 0 100 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <ellipse cx="56" cy="28" rx="22" ry="12" stroke="#1E1B17" stroke-width="1.4"/>
-      <ellipse cx="28" cy="24" rx="11" ry="10" stroke="#1E1B17" stroke-width="1.4"/>
-      <path d="M20 15 L15 7 L23 14" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
-      <path d="M36 14 L40 6 L33 13" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
-      <line x1="20" y1="24" x2="9" y2="22" stroke="#1E1B17" stroke-width="1"/>
-      <line x1="20" y1="27" x2="9" y2="28" stroke="#1E1B17" stroke-width="1"/>
-      <circle cx="24" cy="23" r="1.2" fill="#1E1B17"/>
-      <circle cx="31" cy="23" r="1.2" fill="#1E1B17"/>
-      <path d="M26 26 Q28 28 30 26" stroke="#1E1B17" stroke-width=".9"/>
-      <line x1="37" y1="17" x2="37" y2="33" stroke="#1E1B17" stroke-width="1.3"/>
-      <line x1="40" y1="36" x2="36" y2="50" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="50" y1="37" x2="48" y2="51" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="66" y1="37" x2="64" y2="51" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="74" y1="35" x2="78" y2="49" stroke="#1E1B17" stroke-width="1.4"/>
-      <path d="M78 28 Q88 24 92 30 Q94 37 86 39" stroke="#1E1B17" stroke-width="1.3"/>
-    </svg>
-
-    <svg width="100" height="56" viewBox="0 0 100 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <ellipse cx="44" cy="28" rx="22" ry="12" stroke="#1E1B17" stroke-width="1.4"/>
-      <ellipse cx="72" cy="24" rx="11" ry="10" stroke="#1E1B17" stroke-width="1.4"/>
-      <path d="M80 15 L85 7 L77 14" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
-      <path d="M64 14 L60 6 L67 13" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
-      <line x1="80" y1="24" x2="91" y2="22" stroke="#1E1B17" stroke-width="1"/>
-      <line x1="80" y1="27" x2="91" y2="28" stroke="#1E1B17" stroke-width="1"/>
-      <circle cx="68" cy="23" r="1.2" fill="#1E1B17"/>
-      <circle cx="75" cy="23" r="1.2" fill="#1E1B17"/>
-      <path d="M69 26 Q72 28 74 26" stroke="#1E1B17" stroke-width=".9"/>
-      <line x1="63" y1="17" x2="63" y2="33" stroke="#1E1B17" stroke-width="1.3"/>
-      <line x1="60" y1="36" x2="64" y2="50" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="50" y1="37" x2="52" y2="51" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="34" y1="37" x2="36" y2="51" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="26" y1="35" x2="22" y2="49" stroke="#1E1B17" stroke-width="1.4"/>
-      <path d="M22 28 Q12 24 8 30 Q6 37 14 39" stroke="#1E1B17" stroke-width="1.3"/>
-    </svg>
-
-    <svg width="100" height="60" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <ellipse cx="50" cy="32" rx="24" ry="12" stroke="#1E1B17" stroke-width="1.4"/>
-      <ellipse cx="24" cy="42" rx="10" ry="9" stroke="#1E1B17" stroke-width="1.4"/>
-      <path d="M16 35 L11 28 L19 34" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
-      <path d="M32 34 L35 27 L28 33" stroke="#1E1B17" stroke-width="1.3" stroke-linejoin="round"/>
-      <line x1="17" y1="42" x2="7" y2="41" stroke="#1E1B17" stroke-width="1"/>
-      <line x1="17" y1="45" x2="7" y2="47" stroke="#1E1B17" stroke-width="1"/>
-      <circle cx="20" cy="41" r="1.2" fill="#1E1B17"/>
-      <circle cx="27" cy="41" r="1.2" fill="#1E1B17"/>
-      <circle cx="24" cy="51" r="2" fill="#1E1B17" opacity=".2"/>
-      <line x1="33" y1="33" x2="33" y2="43" stroke="#1E1B17" stroke-width="1.3"/>
-      <line x1="36" y1="40" x2="32" y2="54" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="46" y1="41" x2="44" y2="55" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="64" y1="41" x2="62" y2="55" stroke="#1E1B17" stroke-width="1.4"/>
-      <line x1="72" y1="39" x2="76" y2="53" stroke="#1E1B17" stroke-width="1.4"/>
-      <path d="M76 31 Q86 26 90 31 Q92 38 84 41" stroke="#1E1B17" stroke-width="1.3"/>
-    </svg>
-  </div>
-
   <div class="piano-hero">
     <div class="piano-wrap">
       <div class="piano" id="piano"></div>
       <p class="piano-hint">Touch to resonate - A S D F G H J K L</p>
     </div>
-  </div>
-
-  <div class="scroll-cue">
-    <div class="scroll-bar"></div>
-    <span>Scroll to explore</span>
   </div>
 </section>
 
@@ -503,7 +582,7 @@ footer{
   <div class="section-inner">
     <div class="about-grid">
       <div class="portrait-box">
-        <img src="assets/about-photo.jpg" alt="Portrait of Yuchen Xu">
+        <img class="portrait-photo" src="assets/about-photo.jpg" alt="Portrait of Yuchen Xu">
       </div>
       <div>
         <p class="sec-label">About Me</p>
@@ -519,6 +598,10 @@ footer{
           <span class="tag">Digital Drawing</span>
         </div>
       </div>
+      <figure class="about-cat">
+        <img src="assets/home-cat-sketch.jpg" alt="Yuchen's cat" loading="lazy">
+        <figcaption>This is my cat</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -577,32 +660,34 @@ footer{
       <div>
         <div class="r-block">
           <div class="r-label">Design &amp; Software</div>
+          <!-- [修改4] 技能 bar 改为标签云 -->
           <div class="skills-grid">
             <div>
-              <div class="skill-row"><div class="skill-name"><span>Figma</span></div><div class="bar-bg"><div class="bar-fg" style="width:95%"></div></div></div>
-              <div class="skill-row"><div class="skill-name"><span>Adobe Suite</span></div><div class="bar-bg"><div class="bar-fg" style="width:85%"></div></div></div>
-              <div class="skill-row"><div class="skill-name"><span>Photoshop</span></div><div class="bar-bg"><div class="bar-fg" style="width:82%"></div></div></div>
-              <div class="skill-row"><div class="skill-name"><span>Canva</span></div><div class="bar-bg"><div class="bar-fg" style="width:90%"></div></div></div>
+              <span class="skill-tag">Figma</span>
+              <span class="skill-tag">Adobe Suite</span>
+              <span class="skill-tag">Photoshop</span>
+              <span class="skill-tag">Canva</span>
             </div>
             <div>
-              <div class="skill-row"><div class="skill-name"><span>UI/UX Design</span></div><div class="bar-bg"><div class="bar-fg" style="width:92%"></div></div></div>
-              <div class="skill-row"><div class="skill-name"><span>Graphic Design</span></div><div class="bar-bg"><div class="bar-fg" style="width:85%"></div></div></div>
-              <div class="skill-row"><div class="skill-name"><span>UX Research</span></div><div class="bar-bg"><div class="bar-fg" style="width:88%"></div></div></div>
-              <div class="skill-row"><div class="skill-name"><span>Prototyping</span></div><div class="bar-bg"><div class="bar-fg" style="width:90%"></div></div></div>
+              <span class="skill-tag">UI/UX Design</span>
+              <span class="skill-tag">Graphic Design</span>
+              <span class="skill-tag">UX Research</span>
+              <span class="skill-tag">Prototyping</span>
             </div>
           </div>
         </div>
 
         <div class="r-block">
           <div class="r-label">Programming</div>
+          <!-- [修改4] 技能 bar 改为标签云 -->
           <div class="skills-grid">
             <div>
-              <div class="skill-row"><div class="skill-name"><span>Python</span></div><div class="bar-bg"><div class="bar-fg" style="width:75%"></div></div></div>
-              <div class="skill-row"><div class="skill-name"><span>JavaScript</span></div><div class="bar-bg"><div class="bar-fg" style="width:70%"></div></div></div>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">JavaScript</span>
             </div>
             <div>
-              <div class="skill-row"><div class="skill-name"><span>Java</span></div><div class="bar-bg"><div class="bar-fg" style="width:68%"></div></div></div>
-              <div class="skill-row"><div class="skill-name"><span>C++</span></div><div class="bar-bg"><div class="bar-fg" style="width:65%"></div></div></div>
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">C++</span>
             </div>
           </div>
         </div>
@@ -683,10 +768,11 @@ footer{
   <div class="section-inner contact-panel">
     <p class="sec-label">Contact</p>
     <h2 class="contact-title">Get In Touch</h2>
+    <a class="contact-cta" href="mailto:yux089@ucsd.edu">Say Hello</a>
     <div class="contact-row">
       <span class="contact-item">Email: <a href="mailto:yux089@ucsd.edu">yux089@ucsd.edu</a></span>
+      <span class="contact-item">LinkedIn: <a href="#">LinkedIn</a></span>
       <span class="contact-item">Location: La Jolla, CA</span>
-      <span class="contact-item">Phone: <a href="tel:+16199537173">+1 619 953 7173</a></span>
     </div>
   </div>
   <div class="ball-pit" aria-hidden="true">
@@ -732,11 +818,11 @@ let nameParticles=[];
 let nameMouse={x:-9999,y:-9999,active:false};
 let nameCtx;
 const nameParticlePalette=[
-  'rgba(67,122,143,.68)',
-  'rgba(82,147,124,.62)',
-  'rgba(101,151,173,.60)',
-  'rgba(139,123,176,.48)',
-  'rgba(160,151,90,.42)'
+  'rgba(30,27,23,.78)',
+  'rgba(30,27,23,.68)',
+  'rgba(48,44,39,.62)',
+  'rgba(82,76,68,.52)',
+  'rgba(30,27,23,.42)'
 ];
 
 function buildNameParticles(){
@@ -866,12 +952,12 @@ const galleryPhotos=[
   {src:'assets/gallery-02.jpg',alt:'Photography work 02'},
   {src:'assets/gallery-03.jpg',alt:'Photography work 03'},
   {src:'assets/gallery-04.jpg',alt:'Photography work 04'},
-  {src:'assets/gallery-05.jpg',alt:'Photography work 05'},
-  {src:'assets/gallery-06.jpg',alt:'Photography work 06'}
+  {src:'assets/gallery-05.jpg',alt:'Photography work 05'}
 ];
 let galleryPhotoIndex=-1;
 function markInstantPhotoMissing(){
   polaroidCamera?.classList.add('gallery-photo-missing');
+  instantPhoto?.classList.remove('is-ready','is-printing');
 }
 instantPhotoImg?.addEventListener('error',markInstantPhotoMissing);
 function printInstantPhoto(){
