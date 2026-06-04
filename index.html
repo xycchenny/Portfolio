@@ -405,35 +405,6 @@ section.line-top{border-top:1px solid var(--line)}
   font-size:1.4rem;line-height:1;cursor:none;
 }
 
-.resume-cols{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;margin-top:3rem}
-.r-block{margin-bottom:3rem}
-.r-label{
-  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--ink-light);padding-bottom:.7rem;
-  border-bottom:1px solid var(--line);margin-bottom:1.4rem;
-}
-.r-item{padding:1.1rem 0;border-bottom:1px solid var(--line)}
-.r-item:last-child{border-bottom:none}
-.r-year{font-size:.72rem;letter-spacing:.1em;color:var(--ink-light);margin-bottom:.2rem}
-.r-title{font-size:1.02rem;font-weight:400;margin-bottom:.18rem;line-height:1.4}
-.r-sub{font-size:.92rem;color:var(--ink-mid);margin-bottom:.2rem}
-.r-detail{font-size:.9rem;color:var(--ink-light);line-height:1.7;margin-top:.35rem}
-.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 3rem}
-/* [修改4] 技能 bar 改为标签云 */
-.skill-tag{
-  display:inline-block;
-  border:1px solid var(--line);
-  padding:.22rem .7rem;
-  font-size:.72rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--ink-mid);
-  margin:3px;
-}
-.lang-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
-.lang-name{font-size:.9rem;font-weight:400}
-.lang-level{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);text-align:right}
-
 .about-grid{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(360px,1.25fr) minmax(220px,.75fr);gap:4rem;align-items:start}
 .portrait-box{
   position:relative;
@@ -522,7 +493,7 @@ footer{
   .polaroid-camera{width:min(560px,94vw)}
   .instant-photo{width:min(292px,58vw)}
   .camera-back{border-radius:22px 22px 6px 6px}
-  .resume-cols,.about-grid,.skills-grid{grid-template-columns:1fr;gap:2.5rem}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
   .portrait-box{max-width:360px}
   footer{align-items:flex-start;flex-direction:column}
   .foot-r{text-align:left}
@@ -554,7 +525,7 @@ footer{
   <span class="nav-site">yuchenxu.design</span>
   <div class="nav-links">
     <a href="#about">About Me</a>
-    <a href="#resume">My Resume</a>
+    <a href="Yuchen-Xu-resume.pdf" target="_blank" rel="noopener">My Resume</a>
     <a href="#work">My Work</a>
     <a href="#gallery">Gallery</a>
   </div>
@@ -602,102 +573,6 @@ footer{
         <img src="assets/home-cat-sketch.jpg" alt="Yuchen's cat" loading="lazy">
         <figcaption>This is my cat</figcaption>
       </figure>
-    </div>
-  </div>
-</section>
-
-<section id="resume" class="line-top">
-  <div class="section-inner">
-    <p class="sec-label">My Resume</p>
-    <h2 class="sec-title">Experience<br><em>&amp; Skills</em></h2>
-    <div class="resume-cols">
-      <div>
-        <div class="r-block">
-          <div class="r-label">Experience</div>
-          <div class="r-item">
-            <div class="r-year">Apr 2026 - Present</div>
-            <div class="r-title">Product Design Intern (UI/UX)</div>
-            <div class="r-sub">Qkinteq · La Jolla, CA</div>
-            <div class="r-detail">Contributed to high-fidelity interface design, product promotion, and internal testing for an AI companion MVP.</div>
-          </div>
-          <div class="r-item">
-            <div class="r-year">Mar 2026</div>
-            <div class="r-title">Design Research Assistant</div>
-            <div class="r-sub">Ayers Lab - UCSD Psychiatry · La Jolla, CA</div>
-            <div class="r-detail">Redesigned the CREST manual for Hoarding Disorder into an interactive, user-centered format to reduce cognitive load.</div>
-          </div>
-          <div class="r-item">
-            <div class="r-year">Dec 2025 - Jan 2026</div>
-            <div class="r-title">Product Operations Intern</div>
-            <div class="r-sub">Caterpillar (CAT) · Xuzhou, China</div>
-            <div class="r-detail">Classified complex product issues to extract actionable user insights for data-driven technical optimizations.</div>
-          </div>
-        </div>
-
-        <div class="r-block">
-          <div class="r-label">Education</div>
-          <div class="r-item">
-            <div class="r-year">2024 - Jun 2028</div>
-            <div class="r-title">B.S. Cognitive Science - Design &amp; Interaction</div>
-            <div class="r-sub">University of California, San Diego</div>
-            <div class="r-detail">GPA 3.96 · Provost's Honors 2024-2026<br>Double major: Psychology - Business Psychology</div>
-          </div>
-        </div>
-
-        <div class="r-block">
-          <div class="r-label">Involvement</div>
-          <div class="r-item">
-            <div class="r-year">Oct 2024 - Present</div>
-            <div class="r-title">Member - Design Co @ UCSD</div>
-          </div>
-          <div class="r-item">
-            <div class="r-year">Jan 2026 - Present</div>
-            <div class="r-title">Member - ACM Design @ UCSD</div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="r-block">
-          <div class="r-label">Design &amp; Software</div>
-          <!-- [修改4] 技能 bar 改为标签云 -->
-          <div class="skills-grid">
-            <div>
-              <span class="skill-tag">Figma</span>
-              <span class="skill-tag">Adobe Suite</span>
-              <span class="skill-tag">Photoshop</span>
-              <span class="skill-tag">Canva</span>
-            </div>
-            <div>
-              <span class="skill-tag">UI/UX Design</span>
-              <span class="skill-tag">Graphic Design</span>
-              <span class="skill-tag">UX Research</span>
-              <span class="skill-tag">Prototyping</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="r-block">
-          <div class="r-label">Programming</div>
-          <!-- [修改4] 技能 bar 改为标签云 -->
-          <div class="skills-grid">
-            <div>
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">JavaScript</span>
-            </div>
-            <div>
-              <span class="skill-tag">Java</span>
-              <span class="skill-tag">C++</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="r-block">
-          <div class="r-label">Languages</div>
-          <div class="lang-row"><span class="lang-name">English</span><span class="lang-level">Full Professional</span></div>
-          <div class="lang-row"><span class="lang-name">Mandarin</span><span class="lang-level">Native</span></div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
