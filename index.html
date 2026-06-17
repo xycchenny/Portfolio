@@ -149,26 +149,30 @@ section.line-top{border-top:1px solid var(--line)}
 .cards li{
   position:absolute;top:0;left:50%;
   width:min(72vw,430px);height:100%;
-  border:1px solid var(--line);background:var(--bg2) center/cover no-repeat;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.42),rgba(216,211,202,.72)),
+    var(--bg2);
   transform:translateX(-50%);
   overflow:hidden;box-shadow:0 22px 60px rgba(30,27,23,.13);
   will-change:transform,opacity;
 }
 .cards li::before{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(30,27,23,.08),rgba(30,27,23,.72));
+  border-left:4px solid rgba(184,132,92,.36);
+  background:linear-gradient(180deg,rgba(237,234,227,.18),rgba(196,186,170,.28));
 }
 .project-card{
   position:relative;z-index:1;height:100%;padding:2rem;
   display:flex;flex-direction:column;justify-content:flex-end;
-  color:#F7F3EA;text-decoration:none;cursor:none;
+  color:var(--ink);text-decoration:none;cursor:none;
 }
-.w-num{position:absolute;top:1.4rem;left:1.5rem;font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:rgba(247,243,234,.42);line-height:1}
-.w-tag{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(247,243,234,.72);margin-bottom:.65rem}
+.w-num{position:absolute;top:1.4rem;left:1.5rem;font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:rgba(184,132,92,.22);line-height:1}
+.w-tag{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.65rem}
 .w-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:.7rem;line-height:1}
-.w-desc{font-size:.94rem;line-height:1.75;color:rgba(247,243,234,.82)}
-.w-arr{font-size:1.3rem;color:rgba(247,243,234,.72);margin-top:1.2rem;transition:transform .3s ease,color .3s ease}
-.project-card:hover .w-arr{transform:translateX(7px);color:#fff}
+.w-desc{font-size:.94rem;line-height:1.75;color:var(--ink-mid)}
+.w-arr{font-size:1.3rem;color:var(--ink-light);margin-top:1.2rem;transition:transform .3s ease,color .3s ease}
+.project-card:hover .w-arr{transform:translateX(7px);color:var(--accent)}
 .actions{
   position:absolute;left:50%;bottom:1.6rem;z-index:4;
   display:flex;gap:.75rem;transform:translateX(-50%);
@@ -592,7 +596,7 @@ footer{
   </div>
   <div class="work-gallery" aria-label="Project carousel">
     <ul class="cards">
-      <li style="background-image:url('assets/stuttering-01.jpg')">
+      <li>
         <a class="project-card" href="stuttering.html" aria-label="View Children's Stuttering Training App case study">
           <div class="w-num">01</div>
           <div class="w-tag">Mobile App · UX Research</div>
@@ -601,7 +605,7 @@ footer{
           <div class="w-arr">→</div>
         </a>
       </li>
-      <li style="background-image:url('assets/sensory-overload-01.jpg')">
+      <li>
         <a class="project-card" href="sensory-overload.html" aria-label="View Sensory Recovery Station case study">
           <div class="w-num">02</div>
           <div class="w-tag">Service Design · Accessibility</div>
@@ -610,7 +614,7 @@ footer{
           <div class="w-arr">→</div>
         </a>
       </li>
-      <li style="background-image:url('assets/urban-bird-background.png')">
+      <li>
         <a class="project-card" href="night-ride.html" aria-label="View Urban Bird Habitat case study">
           <div class="w-num">03</div>
           <div class="w-tag">Urban Wildlife · Research</div>
@@ -619,7 +623,7 @@ footer{
           <div class="w-arr">→</div>
         </a>
       </li>
-      <li style="background-image:url('assets/night-ride-01.jpg')">
+      <li>
         <a class="project-card" href="night-ride-confidence.html" aria-label="View Night Ride Confidence for Uber case study">
           <div class="w-num">04</div>
           <div class="w-tag">Rideshare Safety · UX Research</div>
