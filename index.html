@@ -138,29 +138,49 @@ section.line-top{border-top:1px solid var(--line)}
 .work-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3rem}
 /* [修改1] 加大关键字号 */
 .work-count{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-light)}
-/* [修改5] 作品区自适应布局 */
-.work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--line);margin-top:0}
-.w-card{
-  background:var(--bg);padding:2.2rem 1.8rem;
-  display:flex;flex-direction:column;justify-content:space-between;
-  cursor:none;transition:background .3s,transform .3s ease,box-shadow .3s ease;min-height:320px;
-  color:inherit;text-decoration:none;
-  position:relative;
+.work-gallery{
+  position:relative;overflow:hidden;margin-top:0;padding:1rem 0 5.8rem;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  user-select:none;touch-action:pan-y;
 }
-.w-card::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:var(--accent);transform:scaleY(0);transition:transform .3s ease;
-  transform-origin:bottom;
+.cards{
+  position:relative;height:min(62vw,560px);min-height:420px;list-style:none;
 }
-.w-card:hover{background:var(--bg2);transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,27,23,.08)}
-.w-card:hover::before{transform:scaleY(1)}
-.w-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(184,132,92,.18);line-height:1;margin-bottom:1.5rem}
-/* [修改1] 加大关键字号 */
-.w-tag{font-size:.74rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.5rem}
-.w-title{font-size:1.08rem;font-weight:400;margin-bottom:.6rem;line-height:1.5}
-.w-desc{font-size:1rem;line-height:1.85;color:var(--ink-mid)}
-.w-arr{font-size:1.15rem;color:var(--ink-light);margin-top:1.5rem;transition:transform .3s ease,color .3s ease}
-.w-card:hover .w-arr{transform:translateX(6px);color:var(--accent)}
+.cards li{
+  position:absolute;top:0;left:50%;
+  width:min(72vw,430px);height:100%;
+  border:1px solid var(--line);background:var(--bg2) center/cover no-repeat;
+  transform:translateX(-50%);
+  overflow:hidden;box-shadow:0 22px 60px rgba(30,27,23,.13);
+  will-change:transform,opacity;
+}
+.cards li::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(30,27,23,.08),rgba(30,27,23,.72));
+}
+.project-card{
+  position:relative;z-index:1;height:100%;padding:2rem;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  color:#F7F3EA;text-decoration:none;cursor:none;
+}
+.w-num{position:absolute;top:1.4rem;left:1.5rem;font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:rgba(247,243,234,.42);line-height:1}
+.w-tag{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(247,243,234,.72);margin-bottom:.65rem}
+.w-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:.7rem;line-height:1}
+.w-desc{font-size:.94rem;line-height:1.75;color:rgba(247,243,234,.82)}
+.w-arr{font-size:1.3rem;color:rgba(247,243,234,.72);margin-top:1.2rem;transition:transform .3s ease,color .3s ease}
+.project-card:hover .w-arr{transform:translateX(7px);color:#fff}
+.actions{
+  position:absolute;left:50%;bottom:1.6rem;z-index:4;
+  display:flex;gap:.75rem;transform:translateX(-50%);
+}
+.actions button{
+  border:1px solid var(--line);background:rgba(237,234,227,.86);
+  color:var(--ink);padding:.7rem 1.3rem;font-family:'Jost',sans-serif;
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  cursor:none;transition:background .25s,color .25s,transform .25s;
+}
+.actions button:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px)}
+.drag-proxy{display:none}
 
 #gallery{overflow:hidden;background:#D1C9BC}
 .gallery-shell{
@@ -471,8 +491,9 @@ footer{
   .section-inner{padding:5rem 1.2rem}
   .work-header{display:block}
   .work-count{display:inline-block;margin-top:.4rem}
-  .work-grid{grid-template-columns:1fr}
-  .w-card{min-height:260px}
+  .work-gallery{padding-bottom:5.4rem}
+  .cards{height:560px;min-height:560px}
+  .cards li{width:min(84vw,390px)}
   .gallery-shell,.gallery-stage{min-height:760px}
   .gallery-stage{padding:4.5rem 1rem 15rem}
   .gallery-stage::after{bottom:12rem;width:82vw;height:90px}
@@ -483,7 +504,7 @@ footer{
   .portrait-box{max-width:360px}
   footer{align-items:flex-start;flex-direction:column}
   .foot-r{text-align:left}
-  .w-card:hover{transform:none;box-shadow:none}
+  .actions button{cursor:pointer}
 }
 
 @media (max-width: 520px){
@@ -569,43 +590,50 @@ footer{
       <span class="work-count">04 Projects</span>
     </div>
   </div>
-  <div class="work-grid">
-    <a class="w-card" href="stuttering.html" aria-label="View Children's Stuttering Training App case study">
-      <div class="w-num">01</div>
-      <div>
-        <div class="w-tag">Mobile App · UX Research</div>
-        <h3 class="w-title">Children's Stuttering Training App</h3>
-        <p class="w-desc">A child-parent mobile app supporting at-home stuttering practice and progress tracking. High-fidelity Figma prototypes for parent dashboard and kid-friendly training flows.</p>
-      </div>
-      <div class="w-arr">→</div>
-    </a>
-    <a class="w-card" href="sensory-overload.html" aria-label="View Sensory Recovery Station case study">
-      <div class="w-num">02</div>
-      <div>
-        <div class="w-tag">Service Design · Accessibility</div>
-        <h3 class="w-title">Sensory Recovery Station &amp; Booking App</h3>
-        <p class="w-desc">A care-centered booking and recovery system for sensory overload in community settings. Low-stimulation interfaces emphasizing clarity, accessibility, and emotional comfort.</p>
-      </div>
-      <div class="w-arr">→</div>
-    </a>
-    <a class="w-card" href="night-ride.html" aria-label="View Urban Bird Habitat case study">
-      <div class="w-num">03</div>
-      <div>
-        <div class="w-tag">Urban Wildlife · Research</div>
-        <h3 class="w-title">Urban Bird Habitat</h3>
-        <p class="w-desc">An in-progress research project exploring human-bird shared spaces, habitat loss, building-based nesting conflict, and design strategies for more manageable urban coexistence.</p>
-      </div>
-      <div class="w-arr">→</div>
-    </a>
-    <a class="w-card" href="night-ride-confidence.html" aria-label="View Night Ride Confidence for Uber case study">
-      <div class="w-num">04</div>
-      <div>
-        <div class="w-tag">Rideshare Safety · UX Research</div>
-        <h3 class="w-title">Night Ride Confidence for Uber</h3>
-        <p class="w-desc">A focused Uber extension supporting women who are not fluent in the local language during nighttime rides, improving route clarity, driver communication, and confidence in unfamiliar places.</p>
-      </div>
-      <div class="w-arr">→</div>
-    </a>
+  <div class="work-gallery" aria-label="Project carousel">
+    <ul class="cards">
+      <li style="background-image:url('assets/stuttering-01.jpg')">
+        <a class="project-card" href="stuttering.html" aria-label="View Children's Stuttering Training App case study">
+          <div class="w-num">01</div>
+          <div class="w-tag">Mobile App · UX Research</div>
+          <h3 class="w-title">Children's Stuttering Training App</h3>
+          <p class="w-desc">A child-parent mobile app supporting at-home stuttering practice and progress tracking.</p>
+          <div class="w-arr">→</div>
+        </a>
+      </li>
+      <li style="background-image:url('assets/sensory-overload-01.jpg')">
+        <a class="project-card" href="sensory-overload.html" aria-label="View Sensory Recovery Station case study">
+          <div class="w-num">02</div>
+          <div class="w-tag">Service Design · Accessibility</div>
+          <h3 class="w-title">Sensory Recovery Station &amp; Booking App</h3>
+          <p class="w-desc">A care-centered booking and recovery system for sensory overload in community settings.</p>
+          <div class="w-arr">→</div>
+        </a>
+      </li>
+      <li style="background-image:url('assets/urban-bird-background.png')">
+        <a class="project-card" href="night-ride.html" aria-label="View Urban Bird Habitat case study">
+          <div class="w-num">03</div>
+          <div class="w-tag">Urban Wildlife · Research</div>
+          <h3 class="w-title">Urban Bird Habitat</h3>
+          <p class="w-desc">An in-progress research project exploring human-bird shared spaces and building-based nesting conflict.</p>
+          <div class="w-arr">→</div>
+        </a>
+      </li>
+      <li style="background-image:url('assets/night-ride-01.jpg')">
+        <a class="project-card" href="night-ride-confidence.html" aria-label="View Night Ride Confidence for Uber case study">
+          <div class="w-num">04</div>
+          <div class="w-tag">Rideshare Safety · UX Research</div>
+          <h3 class="w-title">Night Ride Confidence for Uber</h3>
+          <p class="w-desc">A focused Uber extension improving route clarity, driver communication, and confidence at night.</p>
+          <div class="w-arr">→</div>
+        </a>
+      </li>
+    </ul>
+    <div class="actions" aria-label="Project carousel controls">
+      <button class="prev" type="button">Prev</button>
+      <button class="next" type="button">Next</button>
+    </div>
+    <div class="drag-proxy"></div>
   </div>
 </section>
 
@@ -656,7 +684,54 @@ footer{
   <div class="foot-r">Available for collaboration - © 2026</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/Draggable.min.js"></script>
 <script>
+const projectCards=window.gsap?gsap.utils.toArray('.cards li'):[];
+let projectIndex=0;
+
+function renderProjectGallery(activeIndex, immediate=false){
+  if(!projectCards.length)return;
+  projectIndex=(activeIndex+projectCards.length)%projectCards.length;
+  projectCards.forEach((card,i)=>{
+    let offset=i-projectIndex;
+    if(offset>projectCards.length/2)offset-=projectCards.length;
+    if(offset<-projectCards.length/2)offset+=projectCards.length;
+    gsap.to(card,{
+      xPercent:-50+(offset*64),
+      y:Math.abs(offset)*20,
+      scale:offset===0?1:.82,
+      opacity:Math.abs(offset)>1?0:.62,
+      zIndex:20-Math.abs(offset),
+      duration:immediate?0:.62,
+      ease:'power3.out'
+    });
+  });
+}
+
+if(projectCards.length&&window.gsap){
+  renderProjectGallery(0,true);
+  document.querySelector('.next')?.addEventListener('click',()=>renderProjectGallery(projectIndex+1));
+  document.querySelector('.prev')?.addEventListener('click',()=>renderProjectGallery(projectIndex-1));
+
+  if(window.Draggable){
+    gsap.registerPlugin(Draggable);
+    let dragStartIndex=0;
+    Draggable.create('.drag-proxy',{
+      type:'x',
+      trigger:'.work-gallery',
+      onPress(){dragStartIndex=projectIndex;},
+      onDrag(){
+        const step=Math.round(this.x/120);
+        renderProjectGallery(dragStartIndex-step);
+      },
+      onRelease(){
+        gsap.set(this.target,{x:0});
+      }
+    });
+  }
+}
+
 const cur=document.getElementById('cur');
 const ring=document.getElementById('cur-ring');
 let mx=0,my=0,rx=0,ry=0;
@@ -671,7 +746,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
     ring.style.left=rx+'px';ring.style.top=ry+'px';
     requestAnimationFrame(loop);
   })();
-  document.querySelectorAll('a,.w-card,.wkey,.bkey,.polaroid-shutter,.instant-photo,.gallery-close').forEach(el=>{
+  document.querySelectorAll('a,.project-card,.wkey,.bkey,.polaroid-shutter,.instant-photo,.gallery-close').forEach(el=>{
     el.addEventListener('mouseenter',()=>ring.classList.add('h'));
     el.addEventListener('mouseleave',()=>ring.classList.remove('h'));
   });
