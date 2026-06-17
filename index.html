@@ -83,17 +83,44 @@ nav{
 }
 .hero-label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.4rem}
 .hero-name-wrap{
-  position:relative;display:inline-block;
+  position:relative;display:block;
   margin-bottom:.8rem;isolation:isolate;
 }
+.hero-tube{
+  position:relative;
+  width:min(900px,92vw);
+  min-height:clamp(9rem,21vw,16.5rem);
+  perspective:900px;
+}
 .hero-name{
+  position:absolute;left:0;top:0;
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(4rem,11vw,8.5rem);
   font-weight:400;line-height:.95;letter-spacing:-.02em;
   margin-bottom:0;
-  transition:opacity .3s ease;
+  color:var(--ink);
+  transform-origin:left center;
+  will-change:transform,opacity,filter;
 }
 .hero-name em{font-style:italic;font-weight:300}
+.hero-name.main-line{position:relative;z-index:5;text-shadow:0 0 26px rgba(244,240,216,.10)}
+.hero-name.echo-1{
+  z-index:4;color:transparent;-webkit-text-stroke:1px rgba(255,179,244,.44);
+  transform:translate3d(.16em,.08em,-55px) rotateX(7deg);opacity:.48;filter:blur(.1px);
+}
+.hero-name.echo-2{
+  z-index:3;color:transparent;-webkit-text-stroke:1px rgba(80,214,255,.34);
+  transform:translate3d(.31em,.16em,-110px) rotateX(11deg);opacity:.34;filter:blur(.35px);
+}
+.hero-name.echo-3{
+  z-index:2;
+  background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  transform:translate3d(.48em,.25em,-160px) rotateX(15deg);opacity:.18;filter:blur(.7px);
+}
+.hero-tube:hover .echo-1{transform:translate3d(.22em,.04em,-55px) rotateX(4deg)}
+.hero-tube:hover .echo-2{transform:translate3d(.41em,.1em,-110px) rotateX(8deg)}
+.hero-tube:hover .echo-3{transform:translate3d(.6em,.17em,-160px) rotateX(12deg)}
+.hero-tube .hero-name{transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .7s,filter .7s}
 /* [修改1] 加大关键字号 */
 .hero-role{font-size:.88rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mid);margin-top:1.8rem}
 .hero-location{font-size:.80rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-light);margin-top:.7rem}
@@ -303,6 +330,7 @@ footer{
   #hero{min-height:780px;padding:0 1.2rem 2rem}
   .hero-top{padding:5rem 1.2rem 0}
   .hero-name{font-size:clamp(4.2rem,22vw,7rem)}
+  .hero-tube{width:94vw;min-height:clamp(9rem,42vw,14rem)}
   /* [修改3] 移动端 hero 区精简 */
   .cats-crawl{display:none}
   .section-inner{padding:5rem 1.2rem}
@@ -326,6 +354,7 @@ footer{
   nav{display:block}
   .nav-links{margin-top:.5rem;justify-content:space-between}
   .hero-role,.hero-location{line-height:1.8}
+  .hero-tube{min-height:clamp(8.5rem,48vw,12.5rem)}
   .piano{height:112px}
   .wkey{height:96px}
   .bkey{height:60px}
@@ -353,7 +382,12 @@ footer{
   <div class="hero-top">
     <p class="hero-label">Portfolio - Yuchen</p>
     <div class="hero-name-wrap" id="hero-name-wrap">
-      <h1 class="hero-name">Yuchen<br><em>Xu</em></h1>
+      <div class="hero-tube" aria-label="Yuchen Xu">
+        <h1 class="hero-name main-line">Yuchen<br><em>Xu</em></h1>
+        <h1 class="hero-name echo-1" aria-hidden="true">Yuchen<br><em>Xu</em></h1>
+        <h1 class="hero-name echo-2" aria-hidden="true">Yuchen<br><em>Xu</em></h1>
+        <h1 class="hero-name echo-3" aria-hidden="true">Yuchen<br><em>Xu</em></h1>
+      </div>
     </div>
     <p class="hero-role">Product Designer - UI/UX &amp; Interaction</p>
     <p class="hero-location">La Jolla, CA &nbsp;·&nbsp; UC San Diego</p>
