@@ -16,7 +16,10 @@
   --muted:#BDB8A5;
   --faint:#7E7A6D;
   --line:rgba(244,240,216,.14);
-  --accent:#57F06A;
+  --accent:#55D7FF;
+  --accent-a:#FFB3F4;
+  --accent-b:#50D6FF;
+  --accent-grad:linear-gradient(135deg,var(--accent-a),var(--accent-b));
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden}
@@ -38,7 +41,7 @@ nav{
 .case-kicker{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-bottom:1.2rem}
 .case-head{display:grid;grid-template-columns:1.1fr 1.4fr;gap:5rem;align-items:end;margin-bottom:3.5rem}
 .case-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.4rem,8vw,8rem);font-weight:300;line-height:.92}
-.case-title em{font-style:italic}
+.case-title em{font-style:italic;background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .case-summary{font-size:.92rem;line-height:2;color:var(--muted);max-width:680px}
 .case-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-bottom:4rem}
 .case-meta div{background:rgba(23,25,23,.82);padding:1.2rem 1rem}
