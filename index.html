@@ -73,12 +73,12 @@ nav{
 .nav-links a:hover::after{width:100%}
 
 #hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  justify-content:flex-end;padding:0 2.5rem 3rem;
+  min-height:max(780px,100vh);display:flex;flex-direction:column;
+  justify-content:flex-start;padding:0 2.5rem 3rem;
   position:relative;overflow:hidden;
 }
 .hero-top{
-  position:absolute;top:0;left:0;right:0;
+  position:relative;z-index:2;
   padding:5.5rem 2.5rem 0;
 }
 .hero-label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.4rem}
@@ -125,7 +125,7 @@ nav{
 .hero-role{font-size:.88rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mid);margin-top:1.8rem}
 .hero-location{font-size:.80rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-light);margin-top:.7rem}
 
-.piano-hero{width:100%;max-width:700px}
+.piano-hero{width:100%;max-width:700px;margin-top:clamp(4rem,7vh,6rem)}
 .piano-wrap{
   background:var(--bg2);border:1px solid var(--line);
   border-radius:3px;padding:1.1rem 1rem .9rem;
