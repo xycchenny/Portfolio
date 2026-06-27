@@ -272,18 +272,27 @@ a{color:inherit;text-decoration:none}
   border-top:1px solid var(--line);padding:92px clamp(18px,4.4vw,56px) 116px;
   display:grid;grid-template-columns:repeat(12,1fr);gap:18px;
 }
-.about-image{grid-column:1 / span 4;border:1px solid var(--line);overflow:hidden;background:var(--panel)}
+.about-image{
+  grid-column:1 / span 4;position:relative;border:1px solid var(--line);
+  overflow:visible;background:var(--panel);
+}
 .about-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 42%;filter:saturate(.9)}
+.photo-signature{
+  position:absolute;left:-34px;top:-48px;z-index:2;pointer-events:none;
+  font-family:"Brush Script MT","Segoe Script","Snell Roundhand",cursive;
+  font-size:clamp(58px,8vw,132px);font-weight:400;line-height:.82;
+  color:var(--accent);white-space:nowrap;transform:rotate(-9deg);
+  text-shadow:0 0 1px rgba(255,143,180,.7),0 10px 26px rgba(255,143,180,.18);
+}
 .about-text{grid-column:6 / span 7}
-.about-text h2,.contact h2{
+.contact h2{
   font-size:clamp(44px,7vw,112px);line-height:.9;text-transform:uppercase;margin-bottom:28px;
 }
-.about-text h2{font-size:clamp(48px,6.7vw,98px)}
-.about-statement{
-  color:var(--ink);font-size:clamp(24px,3.5vw,52px);line-height:1.08;margin-bottom:24px;
+.about-text .about-statement{
+  color:var(--ink);font-size:clamp(28px,3.9vw,58px);line-height:1.08;margin-bottom:28px;
 }
-.about-statement strong{color:var(--accent);font-weight:700}
-.about-text p{color:var(--ink-2);font-size:clamp(17px,1.9vw,23px);line-height:1.45;margin-bottom:18px}
+.about-text .about-statement strong{color:var(--accent);font-weight:700}
+.about-text p{color:var(--ink-2);font-size:clamp(20px,2.25vw,28px);line-height:1.42;margin-bottom:20px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
 .tag{border:1px solid var(--line);padding:7px 10px;font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--ink-2)}
 .contact{
@@ -339,7 +348,8 @@ a{color:inherit;text-decoration:none}
     min-height:360px;margin-bottom:16px;
   }
   .project-inner{min-height:328px}
-  .about-image{max-width:380px;margin-bottom:34px}
+  .about-image{max-width:380px;margin:34px 0 34px}
+  .photo-signature{left:-10px;top:-30px;font-size:clamp(56px,19vw,96px)}
   .ball-pit{width:calc(100% + 36px);height:260px;margin:54px -18px 0}
   .contact-links,.footer{display:block}
   .contact-links a{display:inline-block;margin:0 8px 8px 0}
@@ -406,7 +416,7 @@ a{color:inherit;text-decoration:none}
               <h3 class="project-title">Children's Stuttering Training App</h3>
               <p class="project-desc">A child-parent training system connecting home speech practice, progress feedback, and a soft physical companion.</p>
             </div>
-            <span class="project-year">2026</span>
+            <span class="project-year">2025</span>
           </div>
         </div>
       </a>
@@ -422,7 +432,7 @@ a{color:inherit;text-decoration:none}
               <h3 class="project-title">Sensory Recovery Station</h3>
               <p class="project-desc">A booking and recovery service for people experiencing sensory overload in public settings.</p>
             </div>
-            <span class="project-year">2025</span>
+            <span class="project-year">2026</span>
           </div>
         </div>
       </a>
@@ -438,7 +448,7 @@ a{color:inherit;text-decoration:none}
               <h3 class="project-title">Urban Bird Habitat</h3>
               <p class="project-desc">A research project on human-bird shared spaces, building conflict, and practical habitat interventions.</p>
             </div>
-            <span class="project-year">2025</span>
+            <span class="project-year">2026</span>
           </div>
         </div>
       </a>
@@ -454,7 +464,7 @@ a{color:inherit;text-decoration:none}
               <h3 class="project-title">Night Ride Confidence</h3>
               <p class="project-desc">An Uber extension for nighttime route clarity, driver communication, and rider confidence.</p>
             </div>
-            <span class="project-year">2025</span>
+            <span class="project-year">2026</span>
           </div>
         </div>
       </a>
@@ -477,10 +487,10 @@ a{color:inherit;text-decoration:none}
 
   <section class="about" id="about">
     <div class="about-image">
+      <span class="photo-signature">ChennyXu</span>
       <img src="assets/about-photo.jpg" alt="Portrait of Chenny(Yuchen)Xu">
     </div>
     <div class="about-text">
-      <h2>About<br>Chenny<br>(Yuchen) Xu</h2>
       <p class="about-statement">I design thoughtful interfaces, service flows, and tangible prototypes for sensitive everyday moments. <strong>My work connects research insight with polished visual execution.</strong></p>
       <p>Product designer studying Cognitive Science (Design &amp; Interaction) and Psychology (Business Psychology) at UC San Diego, expected graduation June 2028.</p>
       <div class="tags">
