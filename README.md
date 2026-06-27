@@ -1,4 +1,4 @@
-# Yuchen Xu Portfolio
+# Chenny(Yuchen)Xu Portfolio
 
 Static portfolio website for GitHub Pages.
 
