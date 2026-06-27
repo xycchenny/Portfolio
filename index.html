@@ -104,8 +104,21 @@ a{color:inherit;text-decoration:none}
   letter-spacing:0;font-variation-settings:"wdth" 120;
   position:relative;z-index:2;
 }
-.hero-title span{display:block}
+.hero-title > span{display:block}
 .hero-title .soft{color:transparent;-webkit-text-stroke:1.2px var(--ink);text-shadow:none}
+.hero-title.split-text{perspective:500px}
+.hero-title.split-text .split-char{
+  display:inline-block;will-change:transform,opacity;
+  opacity:0;transform:translate3d(0,.72em,-120px) rotateX(-72deg);
+  transform-origin:50% 100%;
+}
+.hero-title.split-text.is-visible .split-char{
+  animation:hero-type-rise .86s cubic-bezier(.16,.84,.22,1) forwards;
+  animation-delay:calc(var(--char-index) * 15ms);
+}
+@keyframes hero-type-rise{
+  to{opacity:1;transform:translate3d(0,0,0) rotateX(0deg)}
+}
 .hero-decor{
   position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
 }
@@ -293,6 +306,22 @@ a{color:inherit;text-decoration:none}
 }
 .about-text .about-statement strong{color:var(--accent);font-weight:700}
 .about-text p{color:var(--ink-2);font-size:clamp(20px,2.25vw,28px);line-height:1.42;margin-bottom:20px}
+.split-text{opacity:0}
+.split-text.split-ready{opacity:1}
+.split-text .split-char{
+  display:inline-block;will-change:transform,opacity;
+  opacity:0;transform:translate3d(0,1.05em,0) rotate(2deg);
+}
+.split-text.is-visible .split-char{
+  animation:split-rise .76s cubic-bezier(.18,.8,.2,1) forwards;
+  animation-delay:calc(var(--char-index) * 13ms);
+}
+@keyframes split-rise{
+  to{opacity:1;transform:translate3d(0,0,0) rotate(0deg)}
+}
+@media (prefers-reduced-motion: reduce){
+  .split-text,.split-text .split-char{opacity:1;transform:none;animation:none}
+}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
 .tag{border:1px solid var(--line);padding:7px 10px;font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--ink-2)}
 .contact{
@@ -392,7 +421,7 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="meta-copy">I am Chenny(Yuchen)Xu, a product designer studying Cognitive Science and Psychology at UC San Diego. I shape digital and physical experiences through research, prototyping, and visual systems.</div>
     </div>
-    <h1 class="hero-title">
+    <h1 class="hero-title split-text">
       <span>Human-centered</span>
       <span>design with</span>
       <span class="soft">clarity &amp; care</span>
@@ -491,8 +520,8 @@ a{color:inherit;text-decoration:none}
       <img src="assets/about-photo.jpg" alt="Portrait of Chenny(Yuchen)Xu">
     </div>
     <div class="about-text">
-      <p class="about-statement">I design thoughtful interfaces, service flows, and tangible prototypes for sensitive everyday moments. <strong>My work connects research insight with polished visual execution.</strong></p>
-      <p>Product designer studying Cognitive Science (Design &amp; Interaction) and Psychology (Business Psychology) at UC San Diego, expected graduation June 2028.</p>
+      <p class="about-statement split-text">I design thoughtful interfaces, service flows, and tangible prototypes for sensitive everyday moments. <strong>My work connects research insight with polished visual execution.</strong></p>
+      <p class="split-text">Product designer studying Cognitive Science (Design &amp; Interaction) and Psychology (Business Psychology) at UC San Diego, expected graduation June 2028.</p>
       <div class="tags">
         <span class="tag">UI / UX</span>
         <span class="tag">Interaction Design</span>
@@ -546,6 +575,47 @@ function updateClock(){
 }
 updateClock();
 setInterval(updateClock,30000);
+
+function splitTextForMotion(root){
+  let index=0;
+  const walk=node=>{
+    Array.from(node.childNodes).forEach(child=>{
+      if(child.nodeType===Node.TEXT_NODE){
+        const fragment=document.createDocumentFragment();
+        Array.from(child.textContent).forEach(char=>{
+          if(/\s/.test(char)){
+            fragment.appendChild(document.createTextNode(' '));
+            return;
+          }
+          const span=document.createElement('span');
+          span.className='split-char';
+          span.style.setProperty('--char-index',index++);
+          span.textContent=char;
+          fragment.appendChild(span);
+        });
+        child.replaceWith(fragment);
+      }else if(child.nodeType===Node.ELEMENT_NODE){
+        walk(child);
+      }
+    });
+  };
+  walk(root);
+  root.classList.add('split-ready');
+}
+
+const splitTexts=document.querySelectorAll('.split-text');
+if(splitTexts.length){
+  splitTexts.forEach(splitTextForMotion);
+  const splitObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        splitObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:.28});
+  splitTexts.forEach(text=>splitObserver.observe(text));
+}
 
 const ballCanvas=document.getElementById('ball-canvas');
 let ballCtx;
