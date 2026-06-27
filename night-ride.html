@@ -3,131 +3,244 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Urban Bird Habitat - Chenny(Yuchen)Xu</title>
+<title>Urban Bird Coexistence System - Chenny(Yuchen)Xu</title>
+<meta name="description" content="A work-in-progress editorial portfolio case study for Urban Bird Coexistence System.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#070707;
-  --paper:rgba(255,232,238,.055);
-  --ink:#FFE8EE;
-  --muted:rgba(255,232,238,.72);
-  --faint:rgba(255,232,238,.46);
-  --line:rgba(255,232,238,.16);
-  --accent:#FF8FB4;
-  --accent-a:#FFE8EE;
-  --accent-b:#FF8FB4;
-  --accent-grad:linear-gradient(135deg,var(--accent-a),var(--accent-b));
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.18;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E")
-}
+:root{--black:#000000;--white:#FFFFFF;--pink:#FFE8EE}
+html{scroll-behavior:smooth;background:var(--white)}
+body{background:var(--white);color:var(--black);font-family:'Jost',Arial,sans-serif;line-height:1.45}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:10;
-  display:flex;justify-content:space-between;align-items:baseline;
-  padding:1.4rem 2.5rem;border-bottom:1px solid var(--line);
-  background:rgba(7,7,7,.86);backdrop-filter:blur(14px);
+  position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:flex-end;
+  gap:28px;padding:20px clamp(18px,4vw,56px);background:var(--white);border-bottom:1px solid var(--black);
+  font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;
 }
-.nav-site{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--muted);text-decoration:none}
-.nav-links{display:flex;gap:2rem}
-.nav-links a{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--muted);text-decoration:none}
-.nav-links a:hover{color:var(--ink)}
-.case-inner{padding:8.5rem 2.5rem 5rem}
-.case-kicker{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-bottom:1.2rem}
-.case-head{display:grid;grid-template-columns:1.1fr 1.4fr;gap:5rem;align-items:end;margin-bottom:3.5rem}
-.case-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,7.6vw,7.4rem);font-weight:300;line-height:.94}
-.case-title em{font-style:italic;background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.case-summary{font-size:.92rem;line-height:2;color:var(--muted);max-width:700px}
-.case-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-bottom:4rem}
-.case-meta div{background:rgba(255,232,238,.055);padding:1.2rem 1rem}
-.case-meta span{display:block;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:.45rem}
-.case-meta strong{font-size:.78rem;font-weight:300;color:var(--ink)}
-.case-gallery{display:flex;flex-direction:column;gap:2.5rem}
-.case-panel{scroll-margin-top:92px}
-.case-panel-label{
-  display:flex;justify-content:space-between;gap:1rem;align-items:baseline;
-  margin-bottom:.8rem;color:var(--muted);
-}
-.case-panel-label span{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
-.case-panel-label h2{font-size:.82rem;font-weight:300;letter-spacing:.04em}
-.case-shot{
-  display:block;width:100%;height:auto;
-  border:1px solid var(--line);background:var(--paper);
-}
-.continued{
-  margin:4.5rem 0 1rem;
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.8rem,7vw,6rem);
-  font-style:italic;
-  font-weight:300;
-  text-align:center;
-  color:var(--ink);
-}
+nav a{border-bottom:1px solid var(--white)}
+nav a:hover{border-bottom-color:var(--black)}
+main{padding-top:58px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,38px)}
+.hero{min-height:88svh;display:flex;flex-direction:column;justify-content:center;padding-top:72px;padding-bottom:76px}
+.kicker,.meta,.label,.tag,.caption,.step-num{font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+h1{font-size:clamp(54px,9vw,140px);line-height:.86;text-transform:uppercase;max-width:1120px}
+.tm{font-size:.42em;vertical-align:super}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 18px;align-items:center}
+.status-label,.section-label{display:inline-block;background:var(--pink);padding:8px 10px}
+.divider{height:1px;background:var(--black);width:100%;margin:0 0 34px}
+.hero-copy{max-width:960px;font-size:clamp(24px,3.1vw,42px);line-height:1.1}
+.highlight{background:var(--pink);padding:0 .16em}
+section{border-top:1px solid var(--black);padding:90px 0}
+.section-head{display:grid;grid-template-columns:4fr 7fr;gap:52px;margin-bottom:42px}
+h2{font-size:clamp(38px,6vw,92px);line-height:.9;text-transform:uppercase}
+.section-intro{font-size:clamp(20px,2.2vw,28px);line-height:1.22;max-width:780px}
+.overview-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.overview-item{border-top:1px solid var(--black);padding-top:14px}
+.overview-item h3,.editorial-block h3{font-size:18px;text-transform:uppercase;margin-bottom:10px}
+.overview-item p,.editorial-block p,.editorial-block li{font-size:18px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tag{border:1px solid var(--black);padding:8px 11px;background:var(--white)}
+.tag.pink{background:var(--pink)}
+.longform{display:grid;grid-template-columns:3fr 7fr;gap:52px}
+.longform-copy{font-size:clamp(22px,2.8vw,36px);line-height:1.18}
+.longform-copy p + p{margin-top:22px}
+.pill{display:inline-block;background:var(--pink);padding:0 .22em;white-space:nowrap}
+.visual-board{margin-top:38px}
+.image-frame{border:1px solid var(--black);border-radius:22px;padding:14px;background:var(--white)}
+.image-frame img{width:100%;height:auto;border-radius:14px}
+.caption{margin-top:10px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.editorial-block{border-top:1px solid var(--black);padding-top:18px}
+.editorial-block ul,.direction-list ul,.strategy-list{padding-left:18px}
+.insight-block{background:var(--pink);border:1px solid var(--black);padding:34px}
+.insight-block p{font-size:clamp(30px,4vw,58px);line-height:1.05}
+.insight-row,.strategy-row{display:grid;grid-template-columns:165px 1fr;gap:30px;border-top:1px solid var(--black);padding:28px 0}
+.insight-row h3,.strategy-row h3{font-size:clamp(26px,3.3vw,44px);line-height:1.02;margin-bottom:10px}
+.insight-row p,.strategy-row p,.strategy-row li{font-size:20px}
+.direction-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--black)}
+.direction-list{padding:28px}
+.direction-list + .direction-list{border-left:1px solid var(--black)}
+.direction-list h3{font-size:34px;margin-bottom:16px}
+.direction-list li{font-size:20px;margin:7px 0}
+.strategy-copy{font-size:clamp(24px,3vw,42px);line-height:1.12;max-width:980px;margin-bottom:28px}
 footer{
-  display:flex;justify-content:space-between;gap:1rem;
-  padding:2.5rem;border-top:1px solid var(--line);
-  color:var(--faint);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;
+  border-top:1px solid var(--black);padding:28px clamp(18px,4vw,56px);display:flex;justify-content:space-between;gap:18px;
+  font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;
 }
-@media (max-width:860px){
-  nav{padding:1rem 1.2rem}
-  .nav-links{gap:1rem}
-  .case-inner{padding:7rem 1.2rem 4rem}
-  .case-head{grid-template-columns:1fr;gap:2rem}
-  .case-meta{grid-template-columns:1fr}
-  footer{flex-direction:column}
+@media (max-width:900px){
+  .section-head,.longform,.two-col,.insight-row,.strategy-row,.direction-grid{grid-template-columns:1fr}
+  .direction-list + .direction-list{border-left:0;border-top:1px solid var(--black)}
+  .overview-list{grid-template-columns:1fr 1fr}
 }
-@media (max-width:520px){
-  nav{display:block}
-  .nav-links{margin-top:.5rem;justify-content:space-between}
-  .case-title{font-size:clamp(3rem,17vw,5rem)}
+@media (max-width:620px){
+  nav{justify-content:flex-start;gap:14px;flex-wrap:wrap}
+  main{padding-top:76px}
+  section{padding:70px 0}
+  .hero{min-height:auto;padding-top:54px}
+  .overview-list{grid-template-columns:1fr}
+  footer{display:block}footer span{display:block;margin-bottom:8px}
 }
 </style>
 </head>
 <body>
-<nav>
-  <a class="nav-site" href="index.html">Chenny(Yuchen)Xu</a>
-  <div class="nav-links">
-    <a href="index.html#work">Work</a>
-    <a href="Yuchen-Xu-resume.pdf" target="_blank" rel="noopener">Resume</a>
-    <a href="index.html#about">About</a>
-  </div>
+<nav aria-label="Case navigation">
+  <a href="index.html#work">Work</a>
+  <a href="#content">Content</a>
+  <a href="#timeline">Timeline</a>
 </nav>
 
-<main class="case-inner">
-  <p class="case-kicker">Case Study · Urban Wildlife</p>
-  <div class="case-head">
-    <h1 class="case-title">Urban Bird<br><em>Habitat</em></h1>
-    <p class="case-summary">A new research-led project exploring human-bird shared spaces, urban nesting conflict, habitat loss, and practical design opportunities for managing bird activity around buildings.</p>
-  </div>
+<main>
+  <header class="hero wrap">
+    <p class="kicker">Portfolio Case Study</p>
+    <h1>Urban Bird Coexistence System<span class="tm">TM</span></h1>
+    <div class="meta-row">
+      <span class="meta">Apr2026-Jun 2026</span>
+      <span class="status-label label">Work in Progress</span>
+    </div>
+    <div class="divider"></div>
+    <p class="hero-copy">An ongoing design research project exploring how urban spaces can support <span class="highlight">coexistence</span> between humans and birds by reducing habitat conflict, nesting disruption, droppings issues, and maintenance challenges.</p>
+  </header>
 
-  <div class="case-meta">
-    <div><span>Role</span><strong>Research · Systems Thinking · Environmental Design</strong></div>
-    <div><span>Focus</span><strong>Human-Bird Shared Space · Urban Habitat · Building Conflict</strong></div>
-    <div><span>Status</span><strong>In Progress</strong></div>
-  </div>
+  <section id="content">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Project<br>Overview</h2>
+        <p class="section-intro">This work-in-progress case study translates urban wildlife research into a system-level design direction for human-bird shared spaces.</p>
+      </div>
+      <div class="overview-list">
+        <div class="overview-item"><h3>Role</h3><p>Design Research / Environmental Research / System Design / Urban Interaction Design</p></div>
+        <div class="overview-item"><h3>Tools</h3><p>Visual Research / Habitat Mapping / Species Research / System Analysis</p></div>
+        <div class="overview-item"><h3>Focus</h3><p>Human-Bird Shared Space / Urban Wildlife / Nesting Habitat / Droppings Management / Coexistence Strategy</p></div>
+      </div>
+      <div class="tags">
+        <span class="tag pink">Work in Progress</span>
+        <span class="tag">Design Research</span>
+        <span class="tag">Environmental Research</span>
+        <span class="tag">System Design</span>
+        <span class="tag">Urban Interaction</span>
+      </div>
+    </div>
+  </section>
 
-  <div class="case-gallery">
-    <figure class="case-panel" id="urban-bird-01">
-      <figcaption class="case-panel-label"><span>01</span><h2>Background and Current Solutions</h2></figcaption>
-      <img class="case-shot" src="assets/urban-bird-background.png" alt="Urban bird habitat background research board showing shared-space conflict, bird living problems, and current solutions" loading="lazy">
-    </figure>
-    <figure class="case-panel" id="urban-bird-02">
-      <figcaption class="case-panel-label"><span>02</span><h2>Habitat Research and Droppings Collection Strategy</h2></figcaption>
-      <img class="case-shot" src="assets/urban-bird-research.png" alt="Urban bird habitat research board showing building-based birds, ground-based birds, and droppings collection strategy" loading="lazy">
-    </figure>
-  </div>
+  <section>
+    <div class="wrap">
+      <div class="longform">
+        <h2>Background</h2>
+        <div class="longform-copy">
+          <p>As cities expand, birds lose natural habitat and adapt to human-built spaces such as building edges, vents, roofs, balconies, eaves, chimneys, grass patches, and parking areas.</p>
+          <p>This creates <span class="pill">shared space conflict</span> between everyday human activities and urban wildlife needs. Humans are affected by habitat fragmentation, lack of safe <span class="pill">nesting spaces</span>, droppings, hygiene concerns, noise, and building maintenance issues.</p>
+          <p>Birds are affected by <span class="pill">habitat loss</span>, <span class="pill">urban hazards</span>, reduced food resources, and light and noise disturbance. The project investigates how <span class="pill">droppings management</span> and habitat guidance can reduce conflict without removing birds from the city.</p>
+        </div>
+      </div>
+      <figure class="visual-board image-frame">
+        <img src="assets/urban-bird-background.png" alt="Background research board showing human-bird shared space conflict, birds' living problems, and current solutions">
+        <figcaption class="caption">Background research board: human-bird shared space conflict, bird living problems, and current solutions</figcaption>
+      </figure>
+    </div>
+  </section>
 
-  <p class="continued">To be continued</p>
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Habitat<br>Research</h2>
+        <p class="section-intro">Different birds occupy different urban layers, which means conflict appears in different physical locations.</p>
+      </div>
+      <div class="two-col">
+        <div class="editorial-block">
+          <h3>Research Summary</h3>
+          <ul>
+            <li>Building-based birds use eaves, beams, bridges, sheds, chimneys, vents, and vertical cavities.</li>
+            <li>Ground-based birds use shrubs, low grass, gardens, bare ground, gravel, lawns, and parking edges.</li>
+            <li>Different bird species need different nesting conditions.</li>
+            <li>Human conflict often comes from nesting locations that overlap with maintenance, foot traffic, cars, and building systems.</li>
+          </ul>
+        </div>
+        <div class="insight-block">
+          <p>Different birds need different habitat forms, so one universal nesting solution cannot address every human-bird conflict.</p>
+        </div>
+      </div>
+      <figure class="visual-board image-frame">
+        <img src="assets/urban-bird-research.png" alt="Habitat research board showing building-based birds, ground-based birds, and droppings collection strategy">
+        <figcaption class="caption">Habitat research board: building-based birds, ground-based birds, and droppings collection strategy</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Early<br>Insights</h2>
+        <p class="section-intro">The research points toward guided coexistence rather than simple attraction or removal.</p>
+      </div>
+      <article class="insight-row"><div class="step-num">Insight 01</div><div><h3>Habitat needs are spatially layered.</h3><p>Birds occupy different layers of the city, including ground, trees, building edges, eaves, chimneys, and vertical surfaces.</p></div></article>
+      <article class="insight-row"><div class="step-num">Insight 02</div><div><h3>Human conflict often comes from uncontrolled nesting locations.</h3><p>Droppings, blocked systems, maintenance access, and hygiene concerns usually appear when birds nest in high-conflict zones.</p></div></article>
+      <article class="insight-row"><div class="step-num">Insight 03</div><div><h3>Coexistence requires boundaries.</h3><p>A successful solution should not simply attract birds everywhere. It should guide nesting and droppings into safer, more manageable areas.</p></div></article>
+      <article class="insight-row"><div class="step-num">Insight 04</div><div><h3>Different birds need different habitat forms.</h3><p>Building-based birds and ground-based birds require different structures, materials, heights, and levels of protection.</p></div></article>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Current Design<br>Direction</h2>
+        <p class="section-intro">The project is still in progress and currently focuses on translating research findings into a system-level coexistence strategy.</p>
+      </div>
+      <div class="direction-grid">
+        <div class="direction-list">
+          <span class="section-label label">Bird Support</span>
+          <h3>Guide safer habitat use</h3>
+          <ul>
+            <li>safe nesting zones</li>
+            <li>species-specific habitat forms</li>
+            <li>reduced disturbance</li>
+            <li>protected feeding and resting areas</li>
+          </ul>
+        </div>
+        <div class="direction-list">
+          <span class="section-label label">Human Support</span>
+          <h3>Reduce daily conflict</h3>
+          <ul>
+            <li>droppings management</li>
+            <li>maintenance access</li>
+            <li>reduced hygiene concerns</li>
+            <li>clear boundaries between bird zones and human-use zones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Possible<br>Strategy</h2>
+        <p class="section-intro">The next stage remains exploratory and will test how research can become modular urban infrastructure.</p>
+      </div>
+      <p class="strategy-copy">The next design stage will explore a modular urban habitat system that gives birds safer nesting and resting options while helping humans manage droppings, maintenance, and building conflicts.</p>
+      <article class="strategy-row">
+        <div class="step-num">Next Directions</div>
+        <div>
+          <h3>Exploratory system opportunities</h3>
+          <ul class="strategy-list">
+            <li>high-conflict nesting area management</li>
+            <li>under-eave droppings collection</li>
+            <li>high-altitude nesting support</li>
+            <li>decentralized soil integration</li>
+            <li>modular habitat forms for different species</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
 </main>
 
 <footer>
   <span>Chenny(Yuchen)Xu</span>
-  <span>Urban Bird Habitat</span>
+  <span>Urban Bird Coexistence System</span>
+  <span>Work in Progress / 2026</span>
 </footer>
 </body>
 </html>
