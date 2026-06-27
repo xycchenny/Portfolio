@@ -3,136 +3,296 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Children's Stuttering Training App - Chenny(Yuchen)Xu</title>
+<title>Children Stuttering Training Companion - Chenny(Yuchen)Xu</title>
+<meta name="description" content="A minimalist editorial portfolio case study for Children Stuttering Training Companion.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#070707;
-  --paper:rgba(255,232,238,.055);
-  --ink:#FFE8EE;
-  --muted:rgba(255,232,238,.72);
-  --faint:rgba(255,232,238,.46);
-  --line:rgba(255,232,238,.16);
-  --accent:#FF8FB4;
-  --accent-a:#FFE8EE;
-  --accent-b:#FF8FB4;
-  --accent-grad:linear-gradient(135deg,var(--accent-a),var(--accent-b));
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.2;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E")
-}
+:root{--black:#000000;--white:#FFFFFF;--pink:#FFE8EE}
+html{scroll-behavior:smooth;background:var(--white)}
+body{background:var(--white);color:var(--black);font-family:'Jost',Arial,sans-serif;line-height:1.45}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:10;
-  display:flex;justify-content:space-between;align-items:baseline;
-  padding:1.4rem 2.5rem;border-bottom:1px solid var(--line);
-  background:rgba(7,7,7,.86);backdrop-filter:blur(14px);
+  position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:flex-end;
+  gap:28px;padding:20px clamp(18px,4vw,56px);background:var(--white);border-bottom:1px solid var(--black);
+  font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;
 }
-.nav-site{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--muted);text-decoration:none}
-.nav-links{display:flex;gap:2rem}
-.nav-links a{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--muted);text-decoration:none}
-.nav-links a:hover{color:var(--ink)}
-.case-inner{padding:8.5rem 2.5rem 5rem}
-.case-kicker{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-bottom:1.2rem}
-.case-head{display:grid;grid-template-columns:1.1fr 1.4fr;gap:5rem;align-items:end;margin-bottom:3.5rem}
-.case-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,7.6vw,7.4rem);font-weight:300;line-height:.94;color:var(--ink)}
-.case-title em{font-style:italic;background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.case-summary{font-size:.92rem;line-height:2;color:var(--muted);max-width:680px}
-.case-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-bottom:4rem}
-.case-meta div{background:rgba(255,232,238,.055);padding:1.2rem 1rem}
-.case-meta span{display:block;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:.45rem}
-.case-meta strong{font-size:.78rem;font-weight:300;color:var(--ink)}
-.case-gallery{display:flex;flex-direction:column;gap:2.5rem}
-.case-panel{scroll-margin-top:92px}
-.case-panel-label{
-  display:flex;justify-content:space-between;gap:1rem;align-items:baseline;
-  margin-bottom:.8rem;color:var(--muted);
+nav a{border-bottom:1px solid transparent}
+nav a:hover{border-bottom-color:var(--black)}
+main{padding-top:58px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,38px)}
+.hero{min-height:88svh;display:flex;flex-direction:column;justify-content:center;padding-top:72px;padding-bottom:76px}
+.kicker,.meta,.label,.tag,.caption{
+  font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:12px;
 }
-.case-panel-label span{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
-.case-panel-label h2{font-size:.82rem;font-weight:300;letter-spacing:.04em}
-.case-shot{
-  display:block;width:100%;height:auto;
-  border:1px solid var(--line);background:var(--paper);
-}
+h1{font-size:clamp(58px,10vw,148px);line-height:.84;letter-spacing:0;text-transform:uppercase;max-width:1120px}
+.tm{font-size:.42em;vertical-align:super}
+.meta-row{display:flex;gap:22px;flex-wrap:wrap;margin:30px 0 18px}
+.divider{height:1px;background:var(--black);width:100%;margin:0 0 34px}
+.hero-copy{max-width:860px;font-size:clamp(24px,3.2vw,44px);line-height:1.1}
+.highlight{background:var(--pink);padding:0 .16em}
+section{border-top:1px solid var(--black);padding:90px 0}
+.section-head{display:grid;grid-template-columns:4fr 7fr;gap:52px;margin-bottom:42px}
+h2{font-size:clamp(38px,6vw,92px);line-height:.9;text-transform:uppercase;letter-spacing:0}
+.single-line-title{white-space:nowrap;font-size:clamp(38px,5.4vw,86px)}
+.section-intro{font-size:clamp(20px,2.2vw,28px);line-height:1.22;max-width:760px}
+.overview-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.overview-item{border-top:1px solid var(--black);padding-top:14px}
+.overview-item h3,.editorial-block h3{font-size:18px;text-transform:uppercase;margin-bottom:10px}
+.overview-item p,.editorial-block p,.editorial-block li{font-size:18px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tag{border:1px solid var(--black);padding:8px 11px;background:var(--white)}
+.tag.pink{background:var(--pink)}
+.longform{display:grid;grid-template-columns:3fr 7fr;gap:52px}
+.longform-copy{font-size:clamp(22px,2.8vw,36px);line-height:1.18}
+.longform-copy p + p{margin-top:22px}
+.pill{display:inline-block;background:var(--pink);padding:0 .22em;white-space:nowrap}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.editorial-block{border-top:1px solid var(--black);padding-top:18px}
+.quote-block{background:var(--pink);border:1px solid var(--black);padding:34px}
+.quote-block p{font-size:clamp(30px,4.4vw,62px);line-height:1.05}
+.persona{border:1px solid var(--black);padding:0}
+.persona-header{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--black)}
+.persona-header div{padding:22px}
+.persona-header div + div{border-left:1px solid var(--black);background:var(--pink)}
+.persona-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.persona-body div{padding:24px}
+.persona-body div + div{border-left:1px solid var(--black)}
+.persona ul,.system-list ul{padding-left:18px}
+.insight{display:grid;grid-template-columns:160px 1fr;gap:28px;border-top:1px solid var(--black);padding:28px 0}
+.insight-num{font-family:'Space Mono',monospace;font-size:18px}
+.insight h3{font-size:clamp(28px,3.4vw,46px);line-height:1;margin-bottom:10px}
+.insight p{font-size:20px;max-width:760px}
+.system-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--black)}
+.system-list{padding:28px}
+.system-list + .system-list{border-left:1px solid var(--black)}
+.system-label{display:inline-block;background:var(--pink);padding:8px 10px;margin-bottom:18px}
+.system-list h3{font-size:34px;margin-bottom:16px}
+.system-list li{font-size:20px;margin:7px 0}
+.showcase{padding:70px 0;border-top:1px solid var(--black)}
+.showcase:first-of-type{padding-top:0;border-top:0}
+.showcase-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:20px}
+.showcase h3{font-size:clamp(28px,3.4vw,48px);line-height:1;text-transform:uppercase}
+.showcase p{font-size:18px;max-width:560px}
+.image-frame{border:1px solid var(--black);border-radius:22px;padding:14px;background:var(--white)}
+.image-frame img{width:100%;height:auto;border-radius:14px}
+.caption{margin-top:10px}
+.product-copy{font-size:clamp(24px,3vw,42px);line-height:1.12;margin-bottom:30px;max-width:980px}
+.proto-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
 footer{
-  display:flex;justify-content:space-between;gap:1rem;
-  padding:2.5rem;border-top:1px solid var(--line);
-  color:var(--faint);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;
+  border-top:1px solid var(--black);padding:28px clamp(18px,4vw,56px);display:flex;justify-content:space-between;gap:18px;
+  font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;
 }
-@media (max-width:860px){
-  nav{padding:1rem 1.2rem}
-  .nav-links{gap:1rem}
-  .case-inner{padding:7rem 1.2rem 4rem}
-  .case-head{grid-template-columns:1fr;gap:2rem}
-  .case-meta{grid-template-columns:1fr}
-  footer{flex-direction:column}
+@media (max-width:900px){
+  .section-head,.longform,.two-col,.system-grid,.persona-header,.persona-body{grid-template-columns:1fr}
+  .system-list + .system-list,.persona-header div + div,.persona-body div + div{border-left:0;border-top:1px solid var(--black)}
+  .overview-list,.proto-grid{grid-template-columns:1fr 1fr}
 }
-@media (max-width:520px){
-  nav{display:block}
-  .nav-links{margin-top:.5rem;justify-content:space-between}
-  .case-title{font-size:clamp(3rem,17vw,5rem)}
+@media (max-width:620px){
+  nav{justify-content:flex-start;gap:14px;flex-wrap:wrap}
+  main{padding-top:76px}
+  section{padding:70px 0}
+  .hero{min-height:auto;padding-top:54px}
+  .overview-list,.proto-grid{grid-template-columns:1fr}
+  .insight{grid-template-columns:1fr;gap:8px}
+  .showcase-head{display:block}.showcase p{margin-top:10px}
+  footer{display:block}footer span{display:block;margin-bottom:8px}
 }
 </style>
 </head>
 <body>
-<nav>
-  <a class="nav-site" href="index.html">Chenny(Yuchen)Xu</a>
-  <div class="nav-links">
-    <a href="index.html#work">Work</a>
-    <a href="index.html#resume">Resume</a>
-    <a href="index.html#about">About</a>
-  </div>
+<nav aria-label="Case navigation">
+  <a href="index.html#work">Work</a>
+  <a href="#content">Content</a>
 </nav>
 
-<main class="case-inner">
-  <p class="case-kicker">Case Study · Stuttering Training</p>
-  <div class="case-head">
-    <h1 class="case-title">Children's<br><em>Stuttering App</em></h1>
-    <p class="case-summary">A child-parent mobile app concept that supports stuttering practice at home. The project combines background research, user observation, interview insights, persona definition, training methods, and an information structure for progress tracking and product settings.</p>
-  </div>
+<main>
+  <header class="hero wrap">
+    <p class="kicker">Portfolio Case Study</p>
+    <h1>Children Stuttering Training Companion<span class="tm">TM</span></h1>
+    <div class="meta-row">
+      <span class="meta">Oct, 2025-Jan, 2026</span>
+    </div>
+    <div class="divider"></div>
+    <p class="hero-copy">A soft interactive companion and app system designed to help children who stutter practice speech training at home with <span class="highlight">lower anxiety</span>, more consistent routines, and gentle progress feedback.</p>
+  </header>
 
-  <div class="case-meta">
-    <div><span>Role</span><strong>UX Research · Product Strategy · Mobile Interface Design</strong></div>
-    <div><span>Focus</span><strong>Children's Speech Practice · Parent Support · Progress Feedback</strong></div>
-    <div><span>Output</span><strong>Research Board · Persona · Needs Map · App Structure</strong></div>
-  </div>
+  <section id="content">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Project<br>Overview</h2>
+        <p class="section-intro">The project explores how a physical companion and a parent-facing app can work together as a calmer, more approachable home-practice system.</p>
+      </div>
+      <div class="overview-list">
+        <div class="overview-item"><h3>Role</h3><p>UX Research / App Design / Product Design / Physical Prototyping</p></div>
+        <div class="overview-item"><h3>Tools</h3><p>Figma / Arduino / Physical Model / User Interview</p></div>
+        <div class="overview-item"><h3>Focus</h3><p>Stuttering Training / Child-Friendly CBT / Parent Support / Home Practice</p></div>
+      </div>
+      <div class="tags">
+        <span class="tag pink">UX Research</span>
+        <span class="tag">App Design</span>
+        <span class="tag">Product Design</span>
+        <span class="tag">Physical Prototyping</span>
+      </div>
+    </div>
+  </section>
 
-  <div class="case-gallery">
-    <figure class="case-panel" id="stuttering-01">
-      <figcaption class="case-panel-label"><span>01</span><h2>Background and Treatment Context</h2></figcaption>
-      <img class="case-shot" src="assets/stuttering-01.jpg" alt="Stuttering project background, case study, and treatment context board" loading="lazy">
-    </figure>
-    <figure class="case-panel" id="stuttering-02">
-      <figcaption class="case-panel-label"><span>02</span><h2>User Research and Persona</h2></figcaption>
-      <img class="case-shot" src="assets/stuttering-02.jpg" alt="Stuttering project user observation, interview, and persona board" loading="lazy">
-    </figure>
-    <figure class="case-panel" id="stuttering-03">
-      <figcaption class="case-panel-label"><span>03</span><h2>Training Methods and Needs Map</h2></figcaption>
-      <img class="case-shot" src="assets/stuttering-03.jpg" alt="Stuttering project training methods and needs offering map board" loading="lazy">
-    </figure>
-    <figure class="case-panel" id="stuttering-04">
-      <figcaption class="case-panel-label"><span>04</span><h2>App Information Structure and Touchpoints</h2></figcaption>
-      <img class="case-shot" src="assets/stuttering-04.jpg" alt="Stuttering app information structure, data, settings, and profile touchpoints board" loading="lazy">
-    </figure>
-    <figure class="case-panel" id="stuttering-05">
-      <figcaption class="case-panel-label"><span>05</span><h2>Physical Product Prototype and Development</h2></figcaption>
-      <img class="case-shot" src="assets/stuttering-05.jpg" alt="Stuttering training product prototype features, hardware, and development board" loading="lazy">
-    </figure>
-    <figure class="case-panel" id="stuttering-06">
-      <figcaption class="case-panel-label"><span>06</span><h2>Final Product and App Integration</h2></figcaption>
-      <img class="case-shot" src="assets/stuttering-06.jpg" alt="Final children stuttering training product and app integration photos" loading="lazy">
-    </figure>
-  </div>
+  <section>
+    <div class="wrap longform">
+      <h2>Background</h2>
+      <div class="longform-copy">
+        <p>Stuttering is not only a speech fluency issue. It can include repetition, prolongation, and <span class="pill">speech blocks</span> that interrupt speaking and make everyday communication feel unpredictable.</p>
+        <p>For children, the experience can also involve <span class="pill">avoidance</span>, embarrassment, body tension, and <span class="pill">anticipatory anxiety</span> before speaking situations.</p>
+        <p>Current treatment often depends on clinical sessions and repeated <span class="pill">home practice</span>. Families need tools that make practice feel consistent, emotionally safe, and easier for <span class="pill">parent support</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>User<br>Research</h2>
+        <p class="section-intro">Research showed that pressure changes the speaking experience. Public speaking, phone calls, meetings, and presentations can increase anxiety and avoidance.</p>
+      </div>
+      <div class="two-col">
+        <div class="editorial-block">
+          <h3>User Observation</h3>
+          <p>Children may show tension, lip trembling, hesitation, and difficulty starting sounds. The social environment often shapes how difficult a speaking moment feels.</p>
+        </div>
+        <div class="quote-block">
+          <p>"I want tools that reduce the anxiety of anticipating my stutter, not only correct my speech."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Persona</h2>
+        <p class="section-intro">Daniel represents a school-age child who needs private, low-pressure training and clearer feedback for parent-supported practice.</p>
+      </div>
+      <div class="persona">
+        <div class="persona-header">
+          <div><p class="label">Persona</p><h3>Daniel</h3></div>
+          <div><p class="label">Profile</p><h3>8 years old<br>Diagnosed since primary school</h3></div>
+        </div>
+        <div class="persona-body">
+          <div>
+            <h3>Symptoms</h3>
+            <ul>
+              <li>Anxiety before speaking</li>
+              <li>Lip trembling</li>
+              <li>Tension under pressure</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Needs</h3>
+            <ul>
+              <li>Guided practice</li>
+              <li>Private, low-pressure training</li>
+              <li>Affordable support</li>
+              <li>Progress feedback for parents</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Key<br>Insights</h2>
+        <p class="section-intro">The strongest design opportunity was connecting emotional comfort with practical training structure.</p>
+      </div>
+      <article class="insight"><div class="insight-num">Insight 01</div><div><h3>Stuttering support is emotional, not only technical.</h3><p>Children need tools that help them feel calmer before speaking, not just tools that measure fluency.</p></div></article>
+      <article class="insight"><div class="insight-num">Insight 02</div><div><h3>Parents need lightweight progress feedback.</h3><p>Parents want to understand whether training is working, but too much data can make the system feel clinical and stressful.</p></div></article>
+      <article class="insight"><div class="insight-num">Insight 03</div><div><h3>Practice needs to feel approachable.</h3><p>A soft physical companion can make repeated training feel less like therapy and more like a daily routine.</p></div></article>
+      <article class="insight"><div class="insight-num">Insight 04</div><div><h3>The system needs to connect child comfort with parent guidance.</h3><p>The physical product supports the child emotionally, while the app helps parents manage training routines and progress.</p></div></article>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Design<br>Direction</h2>
+        <p class="section-intro">The final direction became a two-part system: a parent-facing app and a child-facing physical companion.</p>
+      </div>
+      <div class="system-grid">
+        <div class="system-list">
+          <span class="system-label label">Parent-facing App</span>
+          <h3>Structure and guidance</h3>
+          <ul>
+            <li>Training data</li>
+            <li>Reminders</li>
+            <li>Goal settings</li>
+            <li>Privacy settings</li>
+          </ul>
+        </div>
+        <div class="system-list">
+          <span class="system-label label">Child-facing Physical Companion</span>
+          <h3>Comfort and feedback</h3>
+          <ul>
+            <li>Soft plush texture</li>
+            <li>Smile screen</li>
+            <li>Breathing light cue</li>
+            <li>Squeeze button</li>
+            <li>Gentle feedback</li>
+            <li>Daily training support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="app">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>App<br>Design</h2>
+        <p class="section-intro">Large app mockups are shown on a pure white background and kept exactly as provided.</p>
+      </div>
+      <div class="showcase">
+        <div class="showcase-head"><h3>Product Settings</h3><p>Connection status and training plan screens help parents prepare the practice routine.</p></div>
+        <figure class="image-frame"><img src="assets/stuttering-app-settings.png" alt="Product connection and training plan app screens"><figcaption class="caption">Product connection and customizable training plan screens</figcaption></figure>
+      </div>
+      <div class="showcase">
+        <div class="showcase-head"><h3>Data Summary</h3><p>Daily and monthly views help parents understand practice consistency and progress patterns.</p></div>
+        <figure class="image-frame"><img src="assets/stuttering-app-data.png" alt="Training data app screens"><figcaption class="caption">Training data, reminder, and progress views</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="development">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="single-line-title">Development</h2>
+        <p class="section-intro">The physical prototype combines screen feedback, Arduino-based sensing, a soft body, and a detachable base for daily home practice.</p>
+      </div>
+      <figure class="image-frame"><img src="assets/stuttering-development.png" alt="Prototype development with screen feedback, Arduino hardware, and physical companion build"><figcaption class="caption">Screen feedback, Arduino hardware, and physical companion development</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="product">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Product<br>Design</h2>
+        <p class="section-intro">The product photography is shown as a clean gallery without changing the robot, app screen, hand, cable, lighting, base, or background inside the photo.</p>
+      </div>
+      <p class="product-copy">The final prototype combines a soft plush companion with a parent-facing mobile app. The device gives children gentle emotional feedback through a smile screen, light cue, and tactile button, while the app supports training setup, progress tracking, appointment booking, and calming resources.</p>
+      <figure class="image-frame"><img src="assets/stuttering-product-final.png" alt="Final stuttering training companion prototype and app usage scenarios"><figcaption class="caption">Soft companion, pressure button interaction, and app-supported practice setup</figcaption></figure>
+    </div>
+  </section>
+
 </main>
 
 <footer>
   <span>Chenny(Yuchen)Xu</span>
-  <span>Children's Stuttering Training App</span>
+  <span>Children Stuttering Training Companion</span>
+  <span>2026</span>
 </footer>
 </body>
 </html>
