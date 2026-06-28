@@ -16,10 +16,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#070707;
+  --bg:#FFF5E8;
   --panel:rgba(255,232,238,.07);
-  --ink:#FFE8EE;
-  --ink-2:rgba(255,232,238,.72);
+  --ink:#FFC2CB;
+  --ink-2:#F2A0B5;
   --ink-3:rgba(255,232,238,.42);
   --line:rgba(255,232,238,.16);
   --line-strong:rgba(255,232,238,.36);
@@ -99,6 +99,7 @@ a{color:inherit;text-decoration:none}
 .hero-meta strong{display:block;color:var(--ink);font-family:'Jost',sans-serif;font-size:clamp(22px,2.4vw,32px);line-height:1.05;text-transform:none}
 .meta-role{grid-column:1 / span 3}
 .meta-copy{grid-column:7 / span 6;text-transform:none;line-height:1.5}
+.hero-meta .meta-copy{color:#F2A0B5}
 .hero-title{
   align-self:end;grid-column:1 / -1;padding-bottom:2px;
   font-size:clamp(54px,9.4vw,150px);font-weight:700;line-height:.88;text-transform:uppercase;
@@ -323,8 +324,26 @@ a{color:inherit;text-decoration:none}
 @media (prefers-reduced-motion: reduce){
   .split-text,.split-text .split-char{opacity:1;transform:none;animation:none}
 }
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
-.tag{border:1px solid var(--line);padding:7px 10px;font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--ink-2)}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.tag{
+  position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.46);
+  padding:9px 14px;border-radius:999px;
+  font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--ink-2);
+  background:linear-gradient(135deg,rgba(255,255,255,.42),rgba(255,194,203,.14));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 10px 26px rgba(242,160,181,.16);
+  backdrop-filter:blur(14px) saturate(1.25);
+  -webkit-backdrop-filter:blur(14px) saturate(1.25);
+  transition:transform .18s,border-color .18s,box-shadow .18s,background .18s;
+}
+.tag::before{
+  content:"";position:absolute;inset:1px auto auto 12px;width:42%;height:1px;
+  background:rgba(255,255,255,.78);opacity:.78;
+}
+.tag:hover{
+  transform:translateY(-2px);border-color:rgba(255,255,255,.72);
+  background:linear-gradient(135deg,rgba(255,255,255,.58),rgba(255,194,203,.2));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.82),0 14px 34px rgba(242,160,181,.22);
+}
 .contact{
   min-height:100svh;border-top:1px solid var(--line);display:flex;flex-direction:column;
   justify-content:center;padding:92px clamp(18px,4.4vw,56px) 0;
@@ -340,10 +359,8 @@ a{color:inherit;text-decoration:none}
 .ball-pit{
   position:relative;width:calc(100% + (clamp(18px,4.4vw,56px) * 2));
   height:320px;margin:72px calc(clamp(18px,4.4vw,56px) * -1) 0;
-  border-top:1px solid var(--line);overflow:hidden;
-  background:
-    radial-gradient(circle at 22% 20%,rgba(255,255,255,.28),transparent 0 28%),
-    linear-gradient(180deg,rgba(7,7,7,.025),rgba(255,143,180,.055));
+  overflow:hidden;
+  background:transparent;
 }
 #ball-canvas{display:block;width:100%;height:100%;touch-action:none}
 .footer{
