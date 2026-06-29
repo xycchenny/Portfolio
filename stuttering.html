@@ -81,6 +81,9 @@ h2{font-size:clamp(38px,6vw,92px);line-height:.9;text-transform:uppercase;letter
 .image-frame{border:1px solid var(--black);border-radius:22px;padding:14px;background:var(--white)}
 .image-frame img{width:100%;height:auto;border-radius:14px}
 .caption{margin-top:10px}
+.product-gallery{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.product-gallery img{width:100%;height:auto;object-fit:contain;border-radius:14px}
+.product-gallery img:first-child{grid-column:1 / -1}
 .product-copy{font-size:clamp(24px,3vw,42px);line-height:1.12;margin-bottom:30px;max-width:980px}
 .proto-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
 footer{
@@ -97,7 +100,8 @@ footer{
   main{padding-top:76px}
   section{padding:70px 0}
   .hero{min-height:auto;padding-top:54px}
-  .overview-list,.proto-grid{grid-template-columns:1fr}
+  .overview-list,.proto-grid,.product-gallery{grid-template-columns:1fr}
+  .product-gallery img:first-child{grid-column:auto}
   .insight{grid-template-columns:1fr;gap:8px}
   .showcase-head{display:block}.showcase p{margin-top:10px}
   footer{display:block}footer span{display:block;margin-bottom:8px}
@@ -284,7 +288,14 @@ footer{
         <p class="section-intro">The product photography is shown as a clean gallery without changing the robot, app screen, hand, cable, lighting, base, or background inside the photo.</p>
       </div>
       <p class="product-copy">The final prototype combines a soft plush companion with a parent-facing mobile app. The device gives children gentle emotional feedback through a smile screen, light cue, and tactile button, while the app supports training setup, progress tracking, appointment booking, and calming resources.</p>
-      <figure class="image-frame"><img src="assets/stuttering-product-final.png" alt="Final stuttering training companion prototype and app usage scenarios"><figcaption class="caption">Soft companion, pressure button interaction, and app-supported practice setup</figcaption></figure>
+      <figure class="image-frame">
+        <div class="product-gallery">
+          <img src="assets/stuttering-product-01.png" alt="Soft companion pressure button interaction">
+          <img src="assets/stuttering-product-02.png" alt="Training plan app used with the physical companion">
+          <img src="assets/stuttering-product-03.png" alt="Training data app used with the physical companion">
+        </div>
+        <figcaption class="caption">Soft companion, pressure button interaction, and app-supported practice setup</figcaption>
+      </figure>
     </div>
   </section>
 
